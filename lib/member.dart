@@ -16,6 +16,51 @@ class _MemberPageState extends State<MemberPage> {
     );
   }
 }
+class SecondPage extends StatefulWidget {
+  const SecondPage({Key? key}) : super(key: key);
+
+  @override
+  State<SecondPage> createState() => _SecondPageState();
+}
+
+class _SecondPageState extends State<SecondPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text('Second'),
+    );
+  }
+}
+class ThirdPage extends StatefulWidget {
+  const ThirdPage({Key? key}) : super(key: key);
+
+  @override
+  State<ThirdPage> createState() => _ThirdPageState();
+}
+
+class _ThirdPageState extends State<ThirdPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text('Third'),
+    );
+  }
+}
+class LastPage extends StatefulWidget {
+  const LastPage({Key? key}) : super(key: key);
+
+  @override
+  State<LastPage> createState() => _LastPageState();
+}
+
+class _LastPageState extends State<LastPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text('Last'),
+    );
+  }
+}
 
 
 
