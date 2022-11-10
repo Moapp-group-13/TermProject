@@ -1,7 +1,23 @@
-# termproject
+# 모바일 앱 개발 Term Project
 
-A new Flutter project.
+### :seedling: 앱이름 : 정해봅시다
+가족끼리 사용할 수 있는 가사 분담 가이드 앱
 
+---
+### :calendar: 개발 기간
+2022.11.10 ~ (미정)</br>
+
+
+---
+### :blush: 개발 참여 인원
+* [김소람](https://github.com/piriram)
+* [김주현](https://github.com/JooHyeonKim)
+* [양혜준](https://github.com/YangHyeJun)
+* [정훈석](https://github.com/HunSeokJeong)
+
+
+
+---
 ## Getting Started
 
 This project is a starting point for a Flutter application.
