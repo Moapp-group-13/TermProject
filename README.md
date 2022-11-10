@@ -11,7 +11,7 @@
 ---
 ### :blush: 개발 참여 인원
 * [김소람](https://github.com/soram1119)
-* 김주현
+* [김주현](https://github.com/JooHyeonKim)
 * [양혜준](https://github.com/YangHyeJun)
 * [정훈석](https://github.com/HunSeokJeong)
 
