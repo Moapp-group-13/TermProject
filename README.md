@@ -17,6 +17,10 @@
 
 
 ---
+### :fork_and_knife: 기술스택
+* Flutter
+
+---
 ### 📝 출처
 * [아이콘](https://ko.ac-illust.com/clip-art/22395622/%EA%B0%84%EB%8B%A8%ED%95%9C-%EC%82%AC%EB%9E%8C-%EC%95%84%EC%9D%B4%EC%BD%98-(%EC%BB%AC%EB%9F%AC-%EB%9D%BC%EC%9A%B4%EB%93%9C-ver))
 ---
