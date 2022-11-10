@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:termproject/member.dart';
 
 final List<Widget> pages = <Widget>[
-  MemberPage(),
+  const MemberPage(),
   SecondPage(),
   ThirdPage(),
   LastPage(),
@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           IconButton(
             onPressed: (){},
-            icon: Icon(Icons.account_circle),
+            icon: const Icon(Icons.account_circle),
           )
         ],
 
