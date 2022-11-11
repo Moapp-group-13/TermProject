@@ -45,7 +45,10 @@ class _MemberPageState extends State<MemberPage> {
             trailing: Text('3위'),
           ),ListTile(
             leading: Icon(Icons.adb_sharp),
-            title: Text('아들'),
+            title: Text('아들',
+              style: TextStyle(
+                  fontSize: 20
+              ),),
             subtitle: Text('집에 안들어가요',
             ),
             trailing: Text('4위'),
