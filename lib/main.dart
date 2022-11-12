@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:termproject/member.dart';
+import 'package:termproject/login.dart';
+import 'package:termproject/room.dart';
+
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
-  SecondPage(),
+  LoginPage(),
   ThirdPage(),
   LastPage(),
 ];
@@ -24,7 +27,6 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.lightBlue[100],
         //primaryColor: Color(0xe8eaf6),
 
-
       ),
       home: const MyHomePage(),
     );
@@ -36,7 +38,6 @@ class MyHomePage extends StatefulWidget {
 
 
   final String title='';
-
 
 
 
