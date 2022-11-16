@@ -90,21 +90,21 @@ class _ThirdPageState extends State<ThirdPage> {
     );
   }
 }
-class LastPage extends StatefulWidget {
-  const LastPage({Key? key}) : super(key: key);
-
-  @override
-  State<LastPage> createState() => _LastPageState();
-}
-
-class _LastPageState extends State<LastPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text('Last'),
-    );
-  }
-}
-
+// class LastPage extends StatefulWidget {
+//   const LastPage({Key? key}) : super(key: key);
+//
+//   @override
+//   State<LastPage> createState() => _LastPageState();
+// }
+//
+// class _LastPageState extends State<LastPage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: Text('Last'),
+//     );
+//   }
+// }
+//
 
 
