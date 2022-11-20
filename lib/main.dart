@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:termproject/member.dart';
 import 'package:termproject/login.dart';
 import 'package:termproject/room.dart';
+import 'register.dart';
+import 'camera_ex.dart';
 
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
   LoginPage(),
-  ThirdPage(),
-  LastPage(),
+  RegisterPage(),
+  CameraExample()
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
 void main() {
@@ -53,30 +55,14 @@ class _MyHomePageState extends State<MyHomePage> {
   void _changeIndex(int index) {
     setState(() {
       _selectedTabIndex = index;
-      //print('${_selectedTabIndex}');
     });
-
-
-
-
-
 
   }
   @override
   Widget build(BuildContext context) {
 
      return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(''),
-        actions: [
-          IconButton(
-            onPressed: (){},
-            icon: const Icon(Icons.account_circle),
-          )
-        ],
 
-      ),
       body: pages.elementAt(_selectedTabIndex),
 
 
