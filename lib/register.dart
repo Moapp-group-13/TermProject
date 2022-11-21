@@ -27,6 +27,10 @@ class _RegisterFormState extends State<RegisterForm> {
   String password='';
   String userName='';
   String message='';
+  String alias='';
+  final zone = ['거실','안방','주현이방','훈석이방'];
+  var selectedZone = '미정';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,30 +38,39 @@ class _RegisterFormState extends State<RegisterForm> {
         //toolbarHeight: 80,
         backgroundColor: Colors.white,
         title: Text('회원가입'),
-        actions: [
-          IconButton(
-            onPressed: (){
-              setState(() {
-                Navigator.push(context,MaterialPageRoute(
-                    builder: (context)=>SecondPage()));
-              });
-            },
-            icon: const Icon(Icons.account_circle),
-          )
-        ],
 
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
-
           key:_formKey,
           child: ListView(
             children: <Widget>[
+              Center(
+                child: Stack(
+                  children:[
+                    CircleAvatar(
+                      radius: 70,
+                      backgroundImage: AssetImage('default-image.png'),
+                    ),
+                   Positioned(
+                     bottom:5,
+                       right:5,
+                       child: InkWell(
+                         onTap:(){
 
-              SizedBox(
-                height: 10,
+                         },
+                         child:Icon(
+                         Icons.camera_alt,
+                             size:40,
+                           color: Colors.black12,
+                         ),
+
+                       ))
+                  ]
+                ),
               ),
+
               TextFormField(
                 //obscureText: true,
                 decoration: InputDecoration(
@@ -66,9 +79,16 @@ class _RegisterFormState extends State<RegisterForm> {
                 onChanged: (value){
                   userName=value;
                 },
-
               ),
-
+              TextFormField(
+                //obscureText: true,
+                decoration: InputDecoration(
+                    labelText: '닉네임'
+                ),
+                onChanged: (value){
+                  alias=value;
+                },
+              ),
               TextFormField(
                 decoration:InputDecoration(
                     labelText: '이메일'
@@ -76,9 +96,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 onChanged: (value){
                   email=value;
                 },
-
               ),
-
               TextFormField(
                 obscureText: true,
                 decoration: InputDecoration(
@@ -87,10 +105,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 onChanged: (value){
                   password=value;
                 },
-
               ),
-
-
               TextFormField(
                 //obscureText: true,
                 decoration: InputDecoration(
@@ -99,22 +114,26 @@ class _RegisterFormState extends State<RegisterForm> {
                 onChanged: (value){
                   message=value;
                 },
-
               ),
-
-              TextFormField(
-                //obscureText: true,
-                decoration: InputDecoration(
-                    labelText: '구역'
+              DropdownButtonFormField(
+                decoration:InputDecoration(
+                  border:UnderlineInputBorder(),
+                  labelText:'담당 구역을 정해주세요',
                 ),
-                onChanged: (value){
-                  //message=value;
-                  //드롭다운으로 바꾸기
-                },
+                  items: zone.map(
+                        (value){
+                      return DropdownMenuItem(
+                        value:value,
+                        child: Text(value),
+                      );
+                    },
+                  ).toList(),
+                  onChanged: (value) {
+                setState(() {
+                  selectedZone = value!;
+                });
+              }
 
-              ),
-              SizedBox(
-                height: 20,
               ),
 
               ElevatedButton(
@@ -122,22 +141,10 @@ class _RegisterFormState extends State<RegisterForm> {
                 child: const Text('Enter'),
 
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  /*
-                  Text('If you already registered your email, '),
-                  TextButton(
-                    child:Text('Login with your email.'),
-                    onPressed: (
-                        ){
-                      Navigator.pop(context);
-                    },
-                  )
-                  */
-
-                ],
+              ],
               )
             ],
           ),

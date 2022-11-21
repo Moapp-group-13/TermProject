@@ -10,7 +10,7 @@ final List<Widget> pages = <Widget>[
   const MemberPage(),
   LoginPage(),
   RegisterPage(),
-  CameraExample()
+  ModifyPage()
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
 void main() {
@@ -23,6 +23,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner : false,
+      //앱상단 디버그 띠를 없애기
       title: 'Cleaning Guide',
       theme: ThemeData(
         primarySwatch: Colors.grey,
@@ -30,6 +32,9 @@ class MyApp extends StatelessWidget {
         //primaryColor: Color(0xe8eaf6),
 
       ),
+      routes:{
+        '/modify':(context)=>const ModifyPage(),
+      },
       home: const MyHomePage(),
     );
   }

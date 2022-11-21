@@ -1,7 +1,8 @@
-import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 //https://velog.io/@oen/Flutter-%EC%98%88%EC%8B%9C-%EC%BD%94%EB%93%9C-3-%EC%95%B1%EB%B0%94%EC%97%90-%EB%A9%94%EB%89%B4-%EC%95%84%EC%9D%B4%EC%BD%98-%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0-leading%EA%B3%BC-actions-%EC%86%8D%EC%84%B1-%EB%B2%84%ED%8A%BC-onPressed-%EC%86%8D%EC%84%B1
 
 class CameraExample extends StatefulWidget {
@@ -28,8 +29,8 @@ class _CameraExampleState extends State<CameraExample> {
   Widget showImage() {
     return Container(
         color: Colors.white,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.width,
+        width: 100,
+        height: 100,
         child: Center(
             child: _image == null
                 ? Text('No image selected.')
@@ -47,26 +48,28 @@ class _CameraExampleState extends State<CameraExample> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 25.0),
+            SizedBox(height: 5.0),
             showImage(),
             SizedBox(
-              height: 50.0,
+              height: 10.0,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 // 카메라 촬영 버튼
                 FloatingActionButton(
-                  child: Icon(Icons.add_a_photo),
+                  child: Icon(Icons.add_a_photo,size:30),
                   tooltip: 'pick Iamge',
+
                   onPressed: () {
                     getImage(ImageSource.camera);
                   },
                 ),
+                SizedBox(width:10),
 
                 // 갤러리에서 이미지를 가져오는 버튼
                 FloatingActionButton(
-                  child: Icon(Icons.wallpaper),
+                  child: Icon(Icons.wallpaper,size:30),
                   tooltip: 'pick Iamge',
                   onPressed: () {
                     getImage(ImageSource.gallery);

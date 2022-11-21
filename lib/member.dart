@@ -24,15 +24,14 @@ class _MemberPageState extends State<MemberPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        //toolbarHeight: 80,
+
         backgroundColor: Colors.white,
         title: Text('Family Member'),
         actions: [
           IconButton(
             onPressed: (){
               setState(() {
-                Navigator.push(context,MaterialPageRoute(
-                    builder: (context)=>SecondPage()));
+                Navigator.pushNamed(context, '/modify');
               });
             },
             icon: const Icon(Icons.account_circle),
@@ -45,6 +44,7 @@ class _MemberPageState extends State<MemberPage> {
             SizedBox(
               height: 20,
             ),
+
             /*
             ListTile(
               shape: StadiumBorder(
@@ -67,7 +67,10 @@ class _MemberPageState extends State<MemberPage> {
 
        */
             ListTile(
-              leading: Icon(Icons.adb_sharp),
+              leading: CircleAvatar(
+                radius:40,
+                backgroundImage: AssetImage('loginimage.PNG'),
+              ),
               title: Text('아빠',
                 style: TextStyle(
                     fontSize: 20
@@ -78,7 +81,10 @@ class _MemberPageState extends State<MemberPage> {
               trailing: Text('2위'),
             ),
             ListTile(
-              leading: Icon(Icons.adb_sharp),
+              leading: CircleAvatar(
+                radius:40,
+                backgroundImage: AssetImage('loginimage.PNG'),
+              ),
               title: Text('엄마',
                 style: TextStyle(
                     fontSize: 20
@@ -89,7 +95,10 @@ class _MemberPageState extends State<MemberPage> {
               trailing: Text('1위'),
             ),
             ListTile(
-              leading: Icon(Icons.adb_sharp),
+              leading: CircleAvatar(
+                radius:40,
+                backgroundImage: AssetImage('loginimage.PNG'),
+              ),
               title: Text('딸',
                 style: TextStyle(
                     fontSize: 20
@@ -98,7 +107,10 @@ class _MemberPageState extends State<MemberPage> {
               ),
               trailing: Text('3위'),
             ),ListTile(
-              leading: Icon(Icons.adb_sharp),
+              leading: CircleAvatar(
+                radius:40,
+                backgroundImage: AssetImage('loginimage.PNG'),
+              ),
               title: Text('아들',
                 style: TextStyle(
                     fontSize: 20
@@ -116,32 +128,6 @@ class _MemberPageState extends State<MemberPage> {
     );
   }
 }
-class SecondPage extends StatefulWidget {
-  const SecondPage({Key? key}) : super(key: key);
-
-  @override
-  State<SecondPage> createState() => _SecondPageState();
-}
-
-class _SecondPageState extends State<SecondPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          //toolbarHeight: 80,
-          backgroundColor: Colors.white,
-          title: Text('회원정보 수정'),
-          actions: [
-            
-          ],
-
-        ),
-        body: Text('second'),
-    );
-
-  }
-}
-
 
 class ModifyPage extends StatefulWidget {
   const ModifyPage({Key? key}) : super(key: key);
@@ -151,10 +137,142 @@ class ModifyPage extends StatefulWidget {
 }
 
 class _ModifyPageState extends State<ModifyPage> {
+
+  final _formKey=GlobalKey<FormState>();
+  String email='dkqk@gmail.com';
+  String password='abcd1234';
+  String userName='김아빠';
+  String message='마음의 안식이 필요해';
+  String alias='아빠다';
+  final zone = ['거실','안방','주현이방','훈석이방'];
+  var selectedZone = '안방';
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        //toolbarHeight: 80,
+        backgroundColor: Colors.white,
+        title: Text('회원정보수정'),
+
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key:_formKey,
+          child: ListView(
+            children: <Widget>[
+              Center(
+                child: Stack(
+                    children:[
+                      CircleAvatar(
+                        radius: 70,
+                        backgroundImage: AssetImage('default-image.png'),
+                      ),
+                      Positioned(
+                          bottom:5,
+                          right:5,
+                          child: InkWell(
+                            onTap:(){
+
+                            },
+                            child:Icon(
+                              Icons.camera_alt,
+                              size:40,
+                              color: Colors.black12,
+                            ),
+
+                          ))
+                    ]
+                ),
+              ),
+
+              TextFormField(
+                //obscureText: true,
+                initialValue: userName,
+                decoration: InputDecoration(
+                    labelText: '이름'
+                ),
+                onChanged: (value){
+                  userName=value;
+                },
+              ),
+              TextFormField(
+                initialValue: alias,
+                decoration: InputDecoration(
+                    labelText: '닉네임'
+                ),
+                onChanged: (value){
+                  alias=value;
+                },
+              ),
+              TextFormField(
+                initialValue: email,
+                decoration:InputDecoration(
+                    labelText: '이메일'
+                ),
+                onChanged: (value){
+                  email=value;
+                },
+              ),
+              TextFormField(
+                initialValue: password,
+                obscureText: true,
+                decoration: InputDecoration(
+                    labelText: '비밀번호'
+                ),
+                onChanged: (value){
+                  password=value;
+                },
+              ),
+              TextFormField(
+                initialValue: message,
+                //obscureText: true,
+                decoration: InputDecoration(
+                    labelText: '상태 메시지'
+                ),
+                onChanged: (value){
+                  message=value;
+                },
+              ),
+              DropdownButtonFormField(
+
+                  decoration:InputDecoration(
+
+                    border:UnderlineInputBorder(),
+                    labelText:selectedZone,
+                  ),
+                  items: zone.map(
+                        (value){
+                      return DropdownMenuItem(
+                        value:value,
+                        child: Text(value),
+                      );
+                    },
+                  ).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedZone = value!;
+                    });
+                  }
+
+              ),
+              
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('Enter'),
+
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
-
 
