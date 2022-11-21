@@ -3,7 +3,6 @@
 
 ### :fork_and_knife: 기술스택
 * Flutter
-* Django
 
 ---
 ### :seedling: 앱이름 : 정해봅시다
