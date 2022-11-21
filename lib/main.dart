@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:termproject/history.dart';
 import 'package:termproject/member.dart';
 import 'package:termproject/login.dart';
 import 'package:termproject/room.dart';
@@ -26,7 +27,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         primaryColor: Colors.lightBlue[100],
         //primaryColor: Color(0xe8eaf6),
-
       ),
       home: const MyHomePage(),
     );
@@ -55,12 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
       _selectedTabIndex = index;
       //print('${_selectedTabIndex}');
     });
-
-
-
-
-
-
   }
   @override
   Widget build(BuildContext context) {

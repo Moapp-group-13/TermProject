@@ -6,7 +6,7 @@ void main() => runApp(const MyApp());
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  static const String _title = 'Log In';
+  static const String _title = 'Statistics';
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,9 @@ class _ChartPage extends State<ChartPage> {
                     dataSource: _charData,
                     xValueMapper: (CleaningChart data,_)=> data.name,
                     yValueMapper: (CleaningChart data,_)=> data.cleaning,
-                    //dataLabelSettings: const DataLabelSettings(isVisible: true)   //숫자 말고 이름으로
+                    dataLabelSettings: const DataLabelSettings(isVisible: true,)   //숫자 말고 이름으로
+                    // dataLabelMapper: (CleaningChart data, _) => data.name,
+
                 )
               ],),
           )),
