@@ -1,17 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:termproject/main.dart';
 import 'register.dart';
-/* 멤버페이지
-a.둥근모서리
-b.db연동 추가
-c.사진추가
-회원가입창
-회원정보수정창
-폰트추가
 
-
-
- */
 class MemberPage extends StatefulWidget {
   const MemberPage({Key? key}) : super(key: key);
 
@@ -45,27 +35,6 @@ class _MemberPageState extends State<MemberPage> {
               height: 20,
             ),
 
-            /*
-            ListTile(
-              shape: StadiumBorder(
-                side:BorderSide(color:Colors.black12,width:1),
-
-              ),
-
-              iconColor: Colors.blue,
-              leading: Icon(Icons.adb_sharp),
-              title: Text('아빠',
-                style: TextStyle(
-                    fontSize: 20
-                ),
-              ),
-              subtitle: Text('화장실 청소 해놨다',
-              ),
-              trailing: Text('2위'),
-
-            ),
-
-       */
             ListTile(
               leading: CircleAvatar(
                 radius:40,

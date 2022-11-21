@@ -4,13 +4,17 @@ import 'package:termproject/login.dart';
 import 'package:termproject/room.dart';
 import 'register.dart';
 import 'camera_ex.dart';
+import 'package:termproject/chart.dart';
+import 'apitest.dart';
+
 
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
   LoginPage(),
-  RegisterPage(),
-  ModifyPage()
+  HistoryPage(),
+  ChartPage(),
+
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
 void main() {
