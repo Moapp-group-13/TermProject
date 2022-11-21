@@ -6,8 +6,8 @@ import 'package:termproject/room.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
+  RoomPage(),
   LoginPage(),
-  ThirdPage(),
   LastPage(),
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
@@ -56,27 +56,22 @@ class _MyHomePageState extends State<MyHomePage> {
       //print('${_selectedTabIndex}');
     });
 
-
-
-
-
-
   }
   @override
   Widget build(BuildContext context) {
 
      return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(''),
-        actions: [
-          IconButton(
-            onPressed: (){},
-            icon: const Icon(Icons.account_circle),
-          )
-        ],
-
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   title: Text(''),
+      //   actions: [
+      //     IconButton(
+      //       onPressed: (){},
+      //       icon: const Icon(Icons.account_circle),
+      //     )
+      //   ],
+      //
+      // ),
       body: pages.elementAt(_selectedTabIndex),
 
 
