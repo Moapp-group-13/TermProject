@@ -7,12 +7,12 @@ import 'camera_ex.dart';
 import 'package:termproject/chart.dart';
 import 'apitest.dart';
 import 'group.dart';
-
+import 'testpage.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
-  CameraExample(),
-  GroupMakePage(),
+  HistoryPage(),
+  TestMemberPage(),
   ChartPage(),
 
 ];
