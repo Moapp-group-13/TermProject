@@ -8,7 +8,6 @@ class MemberPage extends StatefulWidget {
   @override
   State<MemberPage> createState() => _MemberPageState();
 }
-
 class _MemberPageState extends State<MemberPage> {
   @override
   Widget build(BuildContext context) {
