@@ -11,10 +11,10 @@ import 'testpage.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
+  RoomListPage(),
+  RegisterPage(),
+  GroupMakePage(),
 
-  HistoryPage(),
-  TestMemberPage(),
-  ChartPage(),
 
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */

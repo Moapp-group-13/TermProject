@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:termproject/main.dart';
 import 'register.dart';
+//https://muhly.tistory.com/112
 
 class MemberPage extends StatefulWidget {
   const MemberPage({Key? key}) : super(key: key);
@@ -30,15 +31,34 @@ class _MemberPageState extends State<MemberPage> {
       ),
       body: ListView(
           children: [
+            const Text(
+              '   우리들의 순위',
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             SizedBox(
               height: 20,
             ),
 
+
             ListTile(
+
+              shape: RoundedRectangleBorder(
+                borderRadius:BorderRadius.circular(50) ,
+                  //side: BorderSide(color: Colors.black),
+
+                //테두리
+
+            ),
+
               leading: CircleAvatar(
                 radius:40,
                 backgroundImage: AssetImage('loginimage.PNG'),
               ),
+
               title: Text('아빠',
                 style: TextStyle(
                     fontSize: 20

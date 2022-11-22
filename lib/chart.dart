@@ -13,7 +13,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: _title,
       home: Scaffold(
-        appBar: AppBar(title: const Text(_title)),
+        appBar: AppBar(
+            title: const Text(_title),
+          actions: [
+            IconButton(
+              onPressed: (){
+
+                  Navigator.pushNamed(context, '/modify');
+
+              },
+              icon: const Icon(Icons.account_circle),
+            )
+          ],
+        ),
+
         body: const ChartPage(),
       ),
     );
@@ -38,6 +51,22 @@ class _ChartPage extends State<ChartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const Text('통계'),
+        actions: [
+          IconButton(
+            onPressed: (){
+
+              setState(() {
+                Navigator.pushNamed(context, '/modify');
+              });
+
+            },
+            icon: const Icon(Icons.account_circle),
+          )
+        ],
+      ),
       body: SafeArea(
           child: Scaffold(
             body: SfCircularChart(

@@ -50,7 +50,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 child: Stack(
                   children:[
                     CircleAvatar(
-                      radius: 70,
+                      radius: 50,
                       backgroundImage: AssetImage('default-image.png'),
                     ),
                    Positioned(
