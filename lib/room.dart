@@ -17,7 +17,6 @@ class RoomPage extends StatelessWidget {
           ),
 
         ),
-
       ),
       body: const RoomListPage(),
     );
