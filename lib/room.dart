@@ -23,8 +23,6 @@ class RoomPage extends StatelessWidget {
     );
   }
 }
-
-
 //청소해야 할 구역을 지정
 class RoomListPage extends StatelessWidget {
   const RoomListPage({Key? key}) : super(key: key);
