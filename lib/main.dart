@@ -6,13 +6,13 @@ import 'register.dart';
 import 'camera_ex.dart';
 import 'package:termproject/chart.dart';
 import 'apitest.dart';
-
+import 'group.dart';
 
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
-  LoginPage(),
-  HistoryPage(),
+  CameraExample(),
+  GroupMakePage(),
   ChartPage(),
 
 ];
@@ -38,6 +38,8 @@ class MyApp extends StatelessWidget {
       ),
       routes:{
         '/modify':(context)=>const ModifyPage(),
+        '/gc':(context)=>const GroupChoicePage(),//약자 사용
+        '/gm':(context)=>const GroupMakePage(),
       },
       home: const MyHomePage(),
     );
