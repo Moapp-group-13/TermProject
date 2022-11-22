@@ -64,22 +64,22 @@ class _HistoryPageState extends State<HistoryPage> {
             }, child: Text("inviterequest")),
             ElevatedButton(onPressed: (){
               setState((){
-                ServerApi.checkinviterequest(6);
+                ServerApi.checkinviterequest();
               });
             }, child: Text("checkrequest")),
             ElevatedButton(onPressed: (){
               setState((){
-                    ServerApi.addmember(5,9);
+                    ServerApi.addmember(2);
               });
             }, child: Text("addmember")),
             ElevatedButton(onPressed: (){
               setState((){
-                ServerApi.getmember(6);
+                ServerApi.getmember();
               });
             }, child: Text("getmember")),
             ElevatedButton(onPressed: (){
               setState((){
-                ServerApi.addroom(6,9,"엄마방",2,4);
+                ServerApi.addroom(9,"엄마방",2,3);
               });
 
             }, child: Text("addroom")),
@@ -95,7 +95,7 @@ class _HistoryPageState extends State<HistoryPage> {
             }, child: Text("getStatics")),
             ElevatedButton(onPressed: (){
               setState((){
-                ServerApi.updatestatics(6);
+                ServerApi.updatestatics();
               });
             }, child: Text("updateStatics")),
             ElevatedButton(onPressed: (){
@@ -106,7 +106,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   source: ImageSource.gallery, //위치는 갤러리
                   maxHeight: 75,
                   maxWidth: 75,
-                  imageQuality: 30, // 이미지 크기 압축을 위해 퀄리티를 30으로 낮춤.
+                  imageQuality: 200, // 이미지 크기 압축을 위해 퀄리티를 30으로 낮춤.
                 );
                 if (selectImage != null) {
                   dynamic sendData = selectImage.path;
@@ -119,6 +119,12 @@ class _HistoryPageState extends State<HistoryPage> {
                 ServerApi.gethistory(4);
               });
             }, child: Text("gethistory")),
+
+            ElevatedButton(onPressed: (){
+              setState((){
+                ServerApi.setGroup(6);
+              });
+            }, child: Text("setGroup")),
 
     ],
         ),

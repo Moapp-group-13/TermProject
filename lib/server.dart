@@ -13,29 +13,37 @@ import 'package:image_picker/image_picker.dart';
 * changeprofile(닉네임,아이콘 번호,상태메세지): 자기 프로필 변경
 * getprofile(유저pk): 해당 유저 프로필 보기
 * getStatics(룸pk,유저pk): 룸pk작성 유저 null ==> 룸에 따른 유저 기여내역 가져옴. 룸null ,유저pk => 유저별 방에 따른 기여내역
-* createGroup(그룹id,그룹명): 그룹 생성
+* createGroup(그룹코드,그룹명): 그룹 생성
 * getGroup(): 현재 자신이 속한 그룹들 정보 가져옴.
 * inviterequest(그룹코드): 해당 그룹 코드를 지닌 그룹에게 초대 요청 보내기
-* checkinviterequest(그룹id): 해당 그룹의 초대요청목록 확인하기
-* addmember(그룹id,유저pk): 해당그룹에 유저 추가 시킴 (그룹장만 권한가지고 있음)
-* getmember(그룹id): 해당그룹에 해당하는 유저 정보를 가져옴.
-* addRoom(그룹id,담당유저id,방이름,크기(청소량),청소주기): 방 생성함 (그룹장만 권한 가지고 있음)
-* getRoom(그룹pk): 해당 그룹 방 목록 + 방별 가장 최근 청소내역 가져옴.
-* updatestatics(그룹id): 해당그룹 통계 업데이트
+* checkinviterequest(): 해당 그룹의 초대요청목록 확인하기
+* addmember(유저pk): 해당그룹에 유저 추가 시킴 (그룹장만 권한가지고 있음)
+* getmember(): 해당그룹에 해당하는 유저 정보를 가져옴. Future<InviteCheck>
+* addRoom(담당유저id,방이름,크기(청소량),청소주기): 방 생성함 (그룹장만 권한 가지고 있음)
+* getRoom(): 해당 그룹 방 목록 + 방별 가장 최근 청소내역 가져옴.
+* updatestatics(): 해당그룹 통계 업데이트
 * posthistory(룸id,이벤트(0청소,1불만,2논의),사진경로,텍스트): history 업로드
 * gethistory(룸id) 해당 룸id의 히스토리 배열 가져옴
 *
+*
+* setGroup(groupid): 현재그룹 설정
+* nowGroup():현재그룹 가져오기
 * */
 
 class ServerApi {
 
   static final storage = FlutterSecureStorage();
 
+  static void setGroup(num groupid) async{
+    await storage.write(key: "groupid", value: groupid.toString());
+  }
+  static Future<String?> nowGroup() async{
+    return await storage.read(key: "groupid");
+  }
   static void storeToken(userpk,String Token) async{
     await storage.write(key:"user",value: userpk);
     await storage.write(key: "token", value: Token);
   }
-
   static Future<String?> getToken()async{
     return await storage.read(key: "token");
   }
@@ -221,13 +229,14 @@ class ServerApi {
   }
 
 
-  static Future<InviteCheck> checkinviterequest(groupid) async{
+  static Future<InviteCheck> checkinviterequest() async{
     Response response;
     try {
       var dio = Dio();
       String? token = await getToken();
+      String? group = await nowGroup();
       dio.options.headers["authorization"] = "Token " + token!;
-      response = await dio.get('http://13.124.31.77/showmeminvite/',queryParameters: {"group":groupid});
+      response = await dio.get('http://13.124.31.77/showmeminvite/',queryParameters: {"group":group});
       var invitecheck = InviteCheck.fromJson(response.data);
       for (int i = 0; i < invitecheck.memberList!.length; i++) {
         print("${invitecheck.memberList![i].nickname}");
@@ -239,14 +248,15 @@ class ServerApi {
   }
 
 
-  static void addmember(groupid, memberid) async{
+  static void addmember(memberid) async{
     Response response;
     try {
       var dio = Dio();
       String? token = await getToken();
+      String? groupid = await nowGroup();
       dio.options.headers["authorization"] = "Token " + token!;
       var formData = FormData.fromMap({
-        'group': groupid,
+        'group': int.parse(groupid!),
         'newmember': memberid,
       });
       response =
@@ -256,13 +266,14 @@ class ServerApi {
       print(e.response?.data.toString());
     }
   }
-  static Future<InviteCheck> getmember(groupid) async {
+  static Future<InviteCheck> getmember() async {
     try {
       Response response;
       var dio = Dio();
       String? token = await getToken();
+      String? groupid = await nowGroup();
       dio.options.headers["authorization"] = "Token " + token!;
-      response = await dio.get('http://13.124.31.77/showmem/',queryParameters: {"group":groupid});
+      response = await dio.get('http://13.124.31.77/showmem/',queryParameters: {"group":int.parse(groupid!)});
       var getMember = InviteCheck.fromJson(response.data);
       for (int i = 0; i < getMember.memberList!.length; i++) {
         print("${getMember.memberList![i].nickname}");
@@ -276,14 +287,15 @@ class ServerApi {
   }
 
 
-  static void addroom(group, manager, title, size, period) async {
+  static void addroom(manager, title, size, period) async {
     Response response;
     try {
       var dio = Dio();
       String? token = await getToken();
+      String? group = await nowGroup();
       dio.options.headers["authorization"] = "Token " + token!;
       var formData = FormData.fromMap({
-        'group': group,
+        'group': group!,
         'manager': manager,
         'title': title,
         'size': size,
@@ -297,11 +309,12 @@ class ServerApi {
       print(e.response?.data.toString());
     }
   }
-  static void updatestatics(groupid) async {
+  static void updatestatics() async {
     Response response;
     try {
       var dio = Dio();
       String? token = await getToken();
+      String? groupid = await nowGroup();
       dio.options.headers["authorization"] = "Token " + token!;
       var formData = FormData.fromMap({
         'group': groupid,
