@@ -11,6 +11,7 @@ import 'testpage.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
+
   HistoryPage(),
   TestMemberPage(),
   ChartPage(),
