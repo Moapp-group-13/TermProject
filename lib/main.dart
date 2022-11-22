@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:termproject/member.dart';
+import 'package:termproject/login.dart';
+import 'package:termproject/room.dart';
+
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
-  SecondPage(),
-  ThirdPage(),
+  RoomPage(),
+  LoginPage(),
   LastPage(),
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
@@ -24,7 +27,6 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.lightBlue[100],
         //primaryColor: Color(0xe8eaf6),
 
-
       ),
       home: const MyHomePage(),
     );
@@ -36,7 +38,6 @@ class MyHomePage extends StatefulWidget {
 
 
   final String title='';
-
 
 
 
@@ -55,27 +56,22 @@ class _MyHomePageState extends State<MyHomePage> {
       //print('${_selectedTabIndex}');
     });
 
-
-
-
-
-
   }
   @override
   Widget build(BuildContext context) {
 
      return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(''),
-        actions: [
-          IconButton(
-            onPressed: (){},
-            icon: const Icon(Icons.account_circle),
-          )
-        ],
-
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   title: Text(''),
+      //   actions: [
+      //     IconButton(
+      //       onPressed: (){},
+      //       icon: const Icon(Icons.account_circle),
+      //     )
+      //   ],
+      //
+      // ),
       body: pages.elementAt(_selectedTabIndex),
 
 
