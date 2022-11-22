@@ -37,6 +37,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  syncfusion_flutter_charts: ^20.3.57
+  http: ^0.13.5
+  dio: ^4.0.6
+  flutter_secure_storage: ^6.0.0
+  image_picker: ^0.8.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,12 +69,18 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - loginimage.PNG
+
      - daughter.PNG
      - father.PNG
      - grandfather.PNG
      - grandma.PNG
      - mom.PNG
      - son.PNG
+
+     - rabitIcon.PNG
+     - DefaultAvatar.jpg
+     - default-image.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

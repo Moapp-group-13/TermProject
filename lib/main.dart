@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:termproject/member.dart';
 import 'package:termproject/login.dart';
 import 'package:termproject/room.dart';
-
+import 'register.dart';
+import 'camera_ex.dart';
+import 'package:termproject/chart.dart';
+import 'apitest.dart';
+import 'group.dart';
+import 'testpage.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
-  RoomPage(),
-  LoginPage(),
-  LastPage(),
+
+  HistoryPage(),
+  TestMemberPage(),
+  ChartPage(),
+
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
 void main() {
@@ -21,6 +28,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner : false,
+      //앱상단 디버그 띠를 없애기
       title: 'Cleaning Guide',
       theme: ThemeData(
         primarySwatch: Colors.grey,
@@ -28,6 +37,11 @@ class MyApp extends StatelessWidget {
         //primaryColor: Color(0xe8eaf6),
 
       ),
+      routes:{
+        '/modify':(context)=>const ModifyPage(),
+        '/gc':(context)=>const GroupChoicePage(),//약자 사용
+        '/gm':(context)=>const GroupMakePage(),
+      },
       home: const MyHomePage(),
     );
   }
@@ -53,7 +67,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void _changeIndex(int index) {
     setState(() {
       _selectedTabIndex = index;
-      //print('${_selectedTabIndex}');
     });
 
   }
@@ -61,17 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
      return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   title: Text(''),
-      //   actions: [
-      //     IconButton(
-      //       onPressed: (){},
-      //       icon: const Icon(Icons.account_circle),
-      //     )
-      //   ],
-      //
-      // ),
+
       body: pages.elementAt(_selectedTabIndex),
 
 

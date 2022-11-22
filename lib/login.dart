@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'register.dart';
 
 void main() => runApp(const MyApp());
 
@@ -108,6 +109,11 @@ class _LoginPage extends State<LoginPage> {
                     style: TextStyle(fontSize: 15),
                   ),
                   onPressed: () {
+                    setState(() {
+                      Navigator.push(context,MaterialPageRoute(
+                          builder: (context)=>RegisterPage()));
+                    });
+
                     //signup screen
                   },
                 )
