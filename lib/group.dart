@@ -36,7 +36,7 @@ class _GroupMakePageState extends State<GroupMakePage> {
               ),
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: '그룹이름->그루비룸',
+                  labelText: '그룹이름',
                 ),
                 onChanged: (value){
                   setState(() {
