@@ -7,7 +7,6 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   static const String _title = 'Log In';
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
