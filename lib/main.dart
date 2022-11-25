@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:termproject/history.dart';
 import 'package:termproject/member.dart';
 import 'package:termproject/login.dart';
 import 'package:termproject/room.dart';
@@ -13,9 +14,7 @@ final List<Widget> pages = <Widget>[
   const MemberPage(),
   RoomListPage(),
   RegisterPage(),
-  GroupMakePage(),
-
-
+  HistoryPage()
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
 void main() {

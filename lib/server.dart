@@ -34,13 +34,13 @@ class ServerApi {
 
   static final storage = FlutterSecureStorage();
 
-  static void setGroup(num groupid) async{
+  static Future<void> setGroup(num groupid) async{
     await storage.write(key: "groupid", value: groupid.toString());
   }
   static Future<String?> nowGroup() async{
     return await storage.read(key: "groupid");
   }
-  static void storeToken(userpk,String Token) async{
+  static Future<void> storeToken(userpk,String Token) async{
     await storage.write(key:"user",value: userpk);
     await storage.write(key: "token", value: Token);
   }
@@ -75,7 +75,7 @@ class ServerApi {
     }
   }
 
-  static void register(username, password) async {
+  static Future<void> register(username, password) async {
     Response response;
     try {
       var dio = Dio();
@@ -88,8 +88,11 @@ class ServerApi {
       await dio.post('http://13.124.31.77/users/register/', data: formData);
       print(response.data);
       print(response.data.toString());
+      return;
     } on DioError catch (e) {
+      print("wrong");
       print(e.response?.data.toString());
+      return;
     }
   }
 
@@ -104,10 +107,8 @@ class ServerApi {
 
       response =
       await dio.post('http://13.124.31.77/users/login/', data: formData);
-      var usertoken = UserToken.fromJson(response.data);
-      print("pk: ${usertoken.pk},token: ${usertoken.token}");
-
-      storeToken(usertoken.pk.toString(),usertoken.token!);
+      var usertoken = await UserToken.fromJson(response.data);
+      await storeToken(usertoken.pk.toString(),usertoken.token!);
 
       return usertoken;
       // Map<String,dynamic> userMap = jsonDecode(response.data);
@@ -121,11 +122,13 @@ class ServerApi {
     storage.delete(key: "userpk");
     print(storage.read(key: "token").runtimeType);
   }
-  static void changeprofile(nickname, icon, state_message) async {
+  static Future<void> changeprofile(nickname, icon, state_message) async {
     try {
       Response response;
       var dio = Dio();
       String? token = await getToken();
+
+      print("usertoken$token");
       dio.options.headers["authorization"] = "Token " + token!;
       var formData = FormData.fromMap({
         'nickname': nickname,
@@ -136,9 +139,11 @@ class ServerApi {
       response = await dio.put(
           'http://13.124.31.77/users/profile/${userpk!}/', data: formData);
       print(response.data.toString());
+      return;
     }
     catch (e) {
       print(e);
+      return;
     }
   }
 
@@ -176,7 +181,7 @@ class ServerApi {
       return e.response!.data;
     }
   }
-  static void createGroup(groupcode, title) async{
+  static Future<void> createGroup(groupcode, title) async{
     Response response;
     try {
       var dio = Dio();
@@ -210,7 +215,7 @@ class ServerApi {
     }
 }
 
-  static void inviterequest(groupcode) async{
+  static Future<void> inviterequest(groupcode) async{
     Response response;
     try {
       var dio = Dio();
@@ -248,7 +253,7 @@ class ServerApi {
   }
 
 
-  static void addmember(memberid) async{
+  static Future<void> addmember(memberid) async{
     Response response;
     try {
       var dio = Dio();
@@ -287,7 +292,8 @@ class ServerApi {
   }
 
 
-  static void addroom(manager, title, size, period) async {
+  static Future<void>
+  addroom(manager, title, size, period) async {
     Response response;
     try {
       var dio = Dio();
@@ -309,7 +315,7 @@ class ServerApi {
       print(e.response?.data.toString());
     }
   }
-  static void updatestatics() async {
+  static Future<void> updatestatics() async {
     Response response;
     try {
       var dio = Dio();
@@ -328,7 +334,7 @@ class ServerApi {
     }
   }
 
-  static void posthistory(roomid,event,dynamic image,text) async {
+  static Future<void> posthistory(roomid,event,dynamic image,text) async {
     Response response;
     try {
 
