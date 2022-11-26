@@ -121,13 +121,14 @@ class _HistoryPageState extends State<HistoryPage> {
               });
             }, child: Text("gethistory")),
 
+
             ElevatedButton(onPressed: (){
               setState((){
-                ServerApi.setGroup(6);
+                ServerApi.joingroup('mama');
               });
-            }, child: Text("setGroup")),
+            }, child: Text("joinGroup")),
 
-    ],
+          ],
         ),
       )
     );

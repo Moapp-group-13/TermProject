@@ -15,6 +15,9 @@ import 'package:image_picker/image_picker.dart';
 * getStatics(룸pk,유저pk): 룸pk작성 유저 null ==> 룸에 따른 유저 기여내역 가져옴. 룸null ,유저pk => 유저별 방에 따른 기여내역
 * createGroup(그룹코드,그룹명): 그룹 생성
 * getGroup(): 현재 자신이 속한 그룹들 정보 가져옴.
+*
+* joingroup(그룹코드): 해당 그룹 코드를 지닌 그룹에게 들어가기
+*
 * inviterequest(그룹코드): 해당 그룹 코드를 지닌 그룹에게 초대 요청 보내기
 * checkinviterequest(): 해당 그룹의 초대요청목록 확인하기
 * addmember(유저pk): 해당그룹에 유저 추가 시킴 (그룹장만 권한가지고 있음)
@@ -40,6 +43,7 @@ class ServerApi {
   static Future<String?> nowGroup() async{
     return await storage.read(key: "groupid");
   }
+
   static Future<void> storeToken(userpk,String Token) async{
     await storage.write(key:"user",value: userpk);
     await storage.write(key: "token", value: Token);
@@ -109,7 +113,7 @@ class ServerApi {
       await dio.post('http://13.124.31.77/users/login/', data: formData);
       var usertoken = await UserToken.fromJson(response.data);
       await storeToken(usertoken.pk.toString(),usertoken.token!);
-
+      print(response.data);
       return usertoken;
       // Map<String,dynamic> userMap = jsonDecode(response.data);
     } on DioError catch (e) {
@@ -214,6 +218,31 @@ class ServerApi {
       return e.response!.data;
     }
 }
+
+
+  static Future<void> joingroup(groupcode) async{
+    Response response;
+    try {
+      var dio = Dio();
+      String? token = await getToken();
+      dio.options.headers["authorization"] = "Token " + token!;
+      var formData = FormData.fromMap({
+        'groupcode': groupcode,
+      });
+
+      response =
+      await dio.post('http://13.124.31.77/getintogroup/', data: formData);
+
+      print(response.data);
+      var group= GroupList.fromJson(response.data);
+      print(group.id!);
+      setGroup(group.id!);
+    } on DioError catch (e) {
+      print("wrong");
+      print(e.response?.data.toString());
+    }
+  }
+
 
   static Future<void> inviterequest(groupcode) async{
     Response response;

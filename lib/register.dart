@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:termproject/server.dart';
 import 'member.dart';
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -137,7 +138,12 @@ class _RegisterFormState extends State<RegisterForm> {
               ),
 
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async{
+                  await ServerApi.register(userName, password);
+                  await ServerApi.login(userName, password);
+                  await ServerApi.changeprofile(alias,1,message);
+                  ServerApi.logout();
+                },
                 child: const Text('Enter'),
 
               ),
