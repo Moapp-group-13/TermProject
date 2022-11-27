@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:termproject/server.dart';
-import 'member.dart';
 import 'model/model.dart';
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -144,21 +143,24 @@ class ModifyPage extends StatefulWidget {
 class _ModifyPageState extends State<ModifyPage> {
 
   final _formKey=GlobalKey<FormState>();
-  Future<Profile>? getprofile;
-
+  Future<Profile>? profile;
+  late String alias;
   //late final String? userpk;
 
   //List<AssetImage> IconList=[AssetImage('rabitIcon.PNG'),AssetImage('rabitIcon.PNG'),AssetImage("loginimage.PNG")];
 
+
   @override
-  void initState() async{
+  void initState(){
     super.initState();
-    UserToken usertoken = await ServerApi.login('id01','pswd1234');
-    String? userpk = await ServerApi.getUser();
-    getprofile = ServerApi.getprofile(userpk);
+    //UserToken usertoken = await ServerApi.login('id01','pswd1234');
+    //ㅑㅇServerApi.login('id10', 'pswd1234');
+    //String? userpk = await ServerApi.getUser();
+    Future<Profile>? profile = ServerApi.getprofile();
+    profile.then((profile)=>print("${profile.nickname}${profile.icon}${profile.user!.username}${profile.stateMessage}"));
+    profile.then((profile)=>alias=profile.nickname!);
 
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,14 +171,17 @@ class _ModifyPageState extends State<ModifyPage> {
 
       ),
       body: FutureBuilder<Profile>(
-        future: getprofile,
+        future: profile,
         builder: (context,snapshot){
-          String email='dkqk@gmail.com';
-          String password='abcd1234';
+          //var id=snapshot?.data?.user?.id;
+          String id = '아이디';
+          String? password='********';
           //String userName=snapshot.data!.user! as String;
-          String userName='name';
-          String message='마음의 안식이 필요해';
-          String alias=snapshot.data!.nickname!;
+          String? userName=snapshot?.data?.user?.username;
+          String? message=snapshot?.data?.stateMessage;
+          String? alias = snapshot?.data?.nickname;
+          //var icon = snapshot?.data?.icon;
+          //String alias = 'apfjd';
           return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Form(
@@ -228,17 +233,17 @@ class _ModifyPageState extends State<ModifyPage> {
                       },
                     ),
                     TextFormField(
-                      initialValue: email,
+                      initialValue: id,
                       decoration:InputDecoration(
-                          labelText: '이메일'
+                          labelText: '아이디'
                       ),
                       onChanged: (value){
-                        email=value;
+                        id=value;
                       },
                     ),
                     TextFormField(
                       initialValue: password,
-                      obscureText: true,
+                      //obscureText: true,
                       decoration: InputDecoration(
                           labelText: '비밀번호'
                       ),
