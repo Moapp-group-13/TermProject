@@ -35,7 +35,6 @@ class _HistoryPageState extends State<HistoryPage> {
                 if(usertoken.pk==null){
                   print("pk null");
                 }
-
               });
             }, child: Text("login")),
             ElevatedButton(onPressed: (){
