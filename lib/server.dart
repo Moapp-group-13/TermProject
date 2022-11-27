@@ -40,6 +40,9 @@ class ServerApi {
   static Future<void> setGroup(num groupid) async{
     await storage.write(key: "groupid", value: groupid.toString());
   }
+  static Future<void> outGroup() async{
+    await storage.delete(key: "groupid");
+  }
   static Future<String?> nowGroup() async{
     return await storage.read(key: "groupid");
   }
@@ -75,7 +78,8 @@ class ServerApi {
       }
       return list;
     } on DioError catch (e) {
-      return e.response!.data;
+      print(e.response?.data.toString());
+      return GETROOMLIST();
     }
   }
 
@@ -151,13 +155,14 @@ class ServerApi {
     }
   }
 
-  static Future<Profile> getprofile(userpk) async {
+  static Future<Profile> getprofile() async {
     try {
       Response response;
       var dio = Dio();
       String? token = await getToken();
+      String? user = await getUser();
       dio.options.headers["authorization"] = "Token " + token!;
-      response = await dio.get('http://13.124.31.77/users/profile/${userpk}/');
+      response = await dio.get('http://13.124.31.77/users/profile/${user!}/');
       var profile = Profile.fromJson(response.data);
       return profile;
       // Map<String,dynamic> userMap = jsonDecode(response.data);
@@ -182,7 +187,8 @@ class ServerApi {
       }
       return statics;
     } on DioError catch (e) {
-      return e.response!.data;
+      print(e.response?.data.toString());
+      return Statics();
     }
   }
   static Future<void> createGroup(groupcode, title) async{
@@ -215,7 +221,8 @@ class ServerApi {
       }
       return myGroup;
     }on DioError catch(e){
-      return e.response!.data;
+      print(e.response!.data.toString());
+      return MyGroup();
     }
 }
 
@@ -277,7 +284,8 @@ class ServerApi {
       }
       return invitecheck;
     }on DioError catch(e){
-      return e.response!.data;
+      print(e.response?.data.toString());
+      return InviteCheck();
     }
   }
 
@@ -316,7 +324,8 @@ class ServerApi {
       // Map<String,dynamic> userMap = jsonDecode(response.data);
 
     } on DioError catch (e) {
-      return e.response!.data;
+      print(e.response?.data.toString());
+      return InviteCheck();
     }
   }
 
@@ -401,7 +410,8 @@ class ServerApi {
       return histroylist;
 
     } on DioError catch (e) {
-      return e.response!.data;
+      print(e.response?.data.toString());
+      return Historylist();
     }
   }
 
