@@ -23,7 +23,7 @@ class _HistoryPageState extends State<HistoryPage> {
           children: [
             ElevatedButton(onPressed: (){
               setState(() {
-                ServerApi.register("user9","pswd1234");
+                ServerApi.register("user9@gmail.com","pswd1234");
               });
             }, child: Text("register")),
             ElevatedButton(onPressed: (){
@@ -32,8 +32,9 @@ class _HistoryPageState extends State<HistoryPage> {
               });
             }, child: Text("login")),
             ElevatedButton(onPressed: (){
-              setState(() {
-                ServerApi.changeprofile("바보똥꾸",2,"오늘 힘들다");
+              setState(() async{
+                print(await ServerApi.getUser());
+                ServerApi.changeprofile("바보똥꾸",2,"오늘 1234");
               });
             }, child: Text("changeProfile")),
             ElevatedButton(onPressed: (){
@@ -120,13 +121,14 @@ class _HistoryPageState extends State<HistoryPage> {
               });
             }, child: Text("gethistory")),
 
+
             ElevatedButton(onPressed: (){
               setState((){
-                ServerApi.setGroup(6);
+                ServerApi.joingroup('mama');
               });
-            }, child: Text("setGroup")),
+            }, child: Text("joinGroup")),
 
-    ],
+          ],
         ),
       )
     );
