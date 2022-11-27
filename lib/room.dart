@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
-class RoomPage extends StatelessWidget {
+class RoomPage extends StatefulWidget {
   const RoomPage({Key? key}) : super(key: key);
 
+  @override
+  State<RoomPage> createState() => _RoomPageState();
+}
+
+class _RoomPageState extends State<RoomPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,18 +21,22 @@ class RoomPage extends StatelessWidget {
           ),
 
         ),
-
-
-
       ),
       body: const RoomListPage(),
     );
   }
 }
+
+
 //청소해야 할 구역을 지정
-class RoomListPage extends StatelessWidget {
+class RoomListPage extends StatefulWidget {
   const RoomListPage({Key? key}) : super(key: key);
 
+  @override
+  State<RoomListPage> createState() => _RoomListPageState();
+}
+
+class _RoomListPageState extends State<RoomListPage> {
   @override
   Widget build(BuildContext context) {
     return

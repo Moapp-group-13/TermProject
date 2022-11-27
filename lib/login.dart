@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'register.dart';
+import 'server.dart';
+import 'package:termproject/model/model.dart';
 
 void main() => runApp(const MyApp());
 
@@ -91,6 +93,9 @@ class _LoginPage extends State<LoginPage> {
                 child: ElevatedButton(
                   child: const Text('LOGIN', style: TextStyle(fontSize:18)),
                   onPressed: () {
+                    setState(() {
+                      Future<UserToken> usertoken = ServerApi.login(idController.text,passwordController.text);
+                    });
                     print(idController.text);
                     print(passwordController.text);
                   },
