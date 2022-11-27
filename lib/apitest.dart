@@ -26,14 +26,22 @@ class _HistoryPageState extends State<HistoryPage> {
                 ServerApi.register("user9@gmail.com","pswd1234");
               });
             }, child: Text("register")),
-            ElevatedButton(onPressed: (){
-              setState(() {
-                Future<UserToken> usertoken = ServerApi.login("user9","pswd1234");
+            ElevatedButton(onPressed: () {
+              setState(() async{
+                UserToken usertoken = await ServerApi.login("user2","pswd1234");
+                if(usertoken.token==null){
+                  print("token null");
+                }
+                if(usertoken.pk==null){
+                  print("pk null");
+                }
+
               });
             }, child: Text("login")),
             ElevatedButton(onPressed: (){
               setState(() async{
                 print(await ServerApi.getUser());
+
                 ServerApi.changeprofile("바보똥꾸",2,"오늘 1234");
               });
             }, child: Text("changeProfile")),

@@ -118,7 +118,7 @@ class ServerApi {
       // Map<String,dynamic> userMap = jsonDecode(response.data);
     } on DioError catch (e) {
       print(e);
-      return e.response!.data;
+      return UserToken();
     }
   }
   static void logout(){
