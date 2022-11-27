@@ -153,9 +153,10 @@ class _ModifyPageState extends State<ModifyPage> {
   @override
   void initState() async{
     super.initState();
+    UserToken usertoken = await ServerApi.login('id01','pswd1234');
     String? userpk = await ServerApi.getUser();
-    //userpk = await ServerApi.getUser();
-    getprofile = ServerApi.getprofile();
+    getprofile = ServerApi.getprofile(userpk);
+
   }
 
   @override
