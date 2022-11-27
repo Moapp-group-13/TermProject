@@ -46,7 +46,7 @@ class _HistoryPageState extends State<HistoryPage> {
             }, child: Text("changeProfile")),
             ElevatedButton(onPressed: (){
               setState((){
-                Future<Profile> profile = ServerApi.getprofile(9);
+                Future<Profile> profile = ServerApi.getprofile();
                 profile.then((profile)=>print("${profile.nickname}${profile.icon}${profile.user!.username}${profile.stateMessage}"));
               });
             }, child: Text("getProfile")),
@@ -61,8 +61,8 @@ class _HistoryPageState extends State<HistoryPage> {
               });
             }, child: Text("creategroup")),
             ElevatedButton(onPressed: (){
-              setState((){
-                ServerApi.getGroup();
+              setState(()async{
+                await ServerApi.getGroup();
               });
             }, child: Text("getgroup")),
             ElevatedButton(onPressed: (){
@@ -81,7 +81,8 @@ class _HistoryPageState extends State<HistoryPage> {
               });
             }, child: Text("addmember")),
             ElevatedButton(onPressed: (){
-              setState((){
+              setState(()async {
+
                 ServerApi.getmember();
               });
             }, child: Text("getmember")),
