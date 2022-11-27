@@ -155,7 +155,7 @@ class _ModifyPageState extends State<ModifyPage> {
     super.initState();
     String? userpk = await ServerApi.getUser();
     //userpk = await ServerApi.getUser();
-    getprofile = ServerApi.getprofile(userpk);
+    getprofile = ServerApi.getprofile();
   }
 
   @override
