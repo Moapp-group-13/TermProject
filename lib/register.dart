@@ -115,6 +115,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   await ServerApi.register(id, password);
                   await ServerApi.login(id, password);
                   await ServerApi.changeprofile(alias, '2', message);
+
                   ServerApi.logout();
                 },
                 child: const Text('Enter'),
