@@ -361,6 +361,28 @@ class UserToken {
     return data;
   }
 }
+/*
+List<Member>? memberList;
+
+  InviteCheck({this.memberList});
+
+  InviteCheck.fromJson(Map<String, dynamic> json) {
+    if (json['member_list'] != null) {
+      memberList = <Member>[];
+      json['member_list'].forEach((v) {
+        memberList!.add(new Member.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.memberList != null) {
+      data['member_list'] = this.memberList!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+ */
 
 class Profile {
   String? nickname;
@@ -376,6 +398,7 @@ class Profile {
     stateMessage = json['state_message'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
   }
+
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
