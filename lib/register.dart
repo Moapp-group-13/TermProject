@@ -153,9 +153,6 @@ class _ModifyPageState extends State<ModifyPage> {
   @override
   void initState(){
     super.initState();
-    //UserToken usertoken = await ServerApi.login('id01','pswd1234');
-    //ㅑㅇServerApi.login('id10', 'pswd1234');
-    //String? userpk = await ServerApi.getUser();
     profile = ServerApi.getprofile();
 
   }
@@ -172,17 +169,11 @@ class _ModifyPageState extends State<ModifyPage> {
           future: profile,
           builder: (context,snapshot){
             if(snapshot.hasData) {
-              //var id=snapshot?.data?.user?.id;
-              String id = '아이디';
+              String? id = snapshot?.data?.user?.username;
               String? password = '********';
-              //String userName=snapshot.data!.user! as String;
-              String? userName = snapshot?.data?.user?.username;
               String? message = snapshot?.data?.stateMessage;
               String? alias = snapshot?.data?.nickname;
-              print(userName);
-              print(userName);
-              //var icon = snapshot?.data?.icon;
-              //String alias = 'apfjd';
+              print(id);
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Form(
@@ -215,25 +206,8 @@ class _ModifyPageState extends State<ModifyPage> {
                         ),
                       ),
 
-                      TextFormField(
-                        //obscureText: true,
-                        initialValue: userName,
-                        decoration: InputDecoration(
-                            labelText: '이름'
-                        ),
-                        onChanged: (value) {
-                          userName = value;
-                        },
-                      ),
-                      TextFormField(
-                        initialValue: alias,
-                        decoration: InputDecoration(
-                            labelText: '닉네임'
-                        ),
-                        onChanged: (value) {
-                          alias = value;
-                        },
-                      ),
+
+
                       TextFormField(
                         initialValue: id,
                         decoration: InputDecoration(
@@ -254,6 +228,15 @@ class _ModifyPageState extends State<ModifyPage> {
                         },
                       ),
                       TextFormField(
+                        initialValue: alias,
+                        decoration: InputDecoration(
+                            labelText: '닉네임'
+                        ),
+                        onChanged: (value) {
+                          alias = value;
+                        },
+                      ),
+                      TextFormField(
                         initialValue: message,
                         //obscureText: true,
                         decoration: InputDecoration(
@@ -266,7 +249,10 @@ class _ModifyPageState extends State<ModifyPage> {
 
 
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async{
+                          await ServerApi.changeprofile(alias, '2', message);
+
+                          },
                         child: const Text('Enter'),
 
                       ),
