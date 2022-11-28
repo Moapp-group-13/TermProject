@@ -116,15 +116,13 @@ class _RegisterFormState extends State<RegisterForm> {
                   await ServerApi.changeprofile(alias, '2', message);
 
                   ServerApi.logout();
+                  Navigator.pop(context);
+
                 },
                 child: const Text('Enter'),
 
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                ],
-              )
+
             ],
           ),
         ),
@@ -144,6 +142,7 @@ class _ModifyPageState extends State<ModifyPage> {
 
   final _formKey=GlobalKey<FormState>();
   Future<Profile>? profile;
+  Future<MyGroup>? group;
   late String alias;
   //late final String? userpk;
 
@@ -174,6 +173,7 @@ class _ModifyPageState extends State<ModifyPage> {
               String? message = snapshot?.data?.stateMessage;
               String? alias = snapshot?.data?.nickname;
               print(id);
+              group = ServerApi.getGroup();
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Form(
@@ -246,6 +246,16 @@ class _ModifyPageState extends State<ModifyPage> {
                           message = value;
                         },
                       ),
+                      TextFormField(
+                        initialValue: '그룹 코드를 넣어주세요',
+                        //obscureText: true,
+                        decoration: InputDecoration(
+                            labelText: '그룹 코드'
+                        ),
+                        onChanged: (value) {
+                          //message = value;
+                        },
+                      ),
 
 
                       ElevatedButton(
@@ -256,11 +266,18 @@ class _ModifyPageState extends State<ModifyPage> {
                         child: const Text('Enter'),
 
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                        ],
-                      )
+                      ElevatedButton(
+                        onPressed: () async{
+                          ServerApi.logout();
+                          //Navigator.pushNamed(context, '/h');
+                          Navigator.pop(context);
+                          Navigator.pushNamed(context, '/login');
+
+                        },
+                        child: const Text('로그아웃'),
+
+                      ),
+
                     ],
                   ),
                 ),

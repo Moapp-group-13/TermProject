@@ -55,8 +55,8 @@ class _MemberPageState extends State<MemberPage> {
             ),
 
               leading: CircleAvatar(
-                radius:40,
-                backgroundImage: AssetImage('loginimage.PNG'),
+                radius:30,
+                backgroundImage: AssetImage('1.PNG'),
               ),
 
               title: Text('아빠',
@@ -70,8 +70,8 @@ class _MemberPageState extends State<MemberPage> {
             ),
             ListTile(
               leading: CircleAvatar(
-                radius:40,
-                backgroundImage: AssetImage('loginimage.PNG'),
+                radius:30,
+                backgroundImage: AssetImage('2.PNG'),
               ),
               title: Text('엄마',
                 style: TextStyle(
@@ -84,8 +84,8 @@ class _MemberPageState extends State<MemberPage> {
             ),
             ListTile(
               leading: CircleAvatar(
-                radius:40,
-                backgroundImage: AssetImage('loginimage.PNG'),
+                radius:30,
+                backgroundImage: AssetImage('4.PNG'),
               ),
               title: Text('딸',
                 style: TextStyle(
@@ -96,8 +96,8 @@ class _MemberPageState extends State<MemberPage> {
               trailing: Text('3위'),
             ),ListTile(
               leading: CircleAvatar(
-                radius:40,
-                backgroundImage: AssetImage('loginimage.PNG'),
+                radius:30,
+                backgroundImage: AssetImage('3.PNG'),
               ),
               title: Text('아들',
                 style: TextStyle(

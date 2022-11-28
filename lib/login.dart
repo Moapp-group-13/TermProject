@@ -95,6 +95,9 @@ class _LoginPage extends State<LoginPage> {
                   onPressed: () {
                     setState(() {
                       Future<UserToken> usertoken = ServerApi.login(idController.text,passwordController.text);
+                      //FutureBuilder<MyGroup> getgroup=ServerApi.getGroup() as FutureBuilder<MyGroup>;
+                      //
+                      Navigator.pushNamed(context, '/gc');
                     });
                     print(idController.text);
                     print(passwordController.text);

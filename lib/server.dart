@@ -204,6 +204,7 @@ class ServerApi {
       response =
           await dio.post('http://13.124.31.77/group/', data: formData);
       print(response.data);
+      print("그룹 등록 성공");
     } on DioError catch (e) {
       print(e.response?.data.toString());
     }
