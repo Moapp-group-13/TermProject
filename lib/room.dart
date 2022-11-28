@@ -62,8 +62,8 @@ class _RoomListPageState extends State<RoomListPage> {
             const Card(
               child: ListTile(
                 leading: CircleAvatar(
-                  radius:50,
-                  backgroundImage: AssetImage('father.PNG'),
+                  radius:30,
+                  backgroundImage: AssetImage('1.PNG',),
                 ),
                 title: Text('거실',
                 style: TextStyle(
@@ -80,8 +80,8 @@ class _RoomListPageState extends State<RoomListPage> {
             const Card(
               child: ListTile(
                 leading: CircleAvatar(
-                  radius:50,
-                  backgroundImage: AssetImage('mom.PNG'),
+                  radius:30,
+                  backgroundImage: AssetImage('2.PNG'),
                 ),
                 title: Text('안방',
                     style: TextStyle(
@@ -98,8 +98,8 @@ class _RoomListPageState extends State<RoomListPage> {
             const Card(
               child: ListTile(
                 leading: CircleAvatar(
-                  radius:50,
-                  backgroundImage: AssetImage('son.PNG'),
+                  radius:30,
+                  backgroundImage: AssetImage('3.PNG'),
                 ),
                 title: Text('부엌',
                     style: TextStyle(
@@ -116,8 +116,8 @@ class _RoomListPageState extends State<RoomListPage> {
             const Card(
               child: ListTile(
                 leading:  CircleAvatar(
-                  radius:50,
-                  backgroundImage: AssetImage('daughter.PNG'),
+                  radius:30,
+                  backgroundImage: AssetImage('4.PNG'),
                 ),
                 title: Text('베란다',
                     style: TextStyle(

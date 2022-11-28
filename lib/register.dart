@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:termproject/server.dart';
-import 'member.dart';
 import 'model/model.dart';
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -48,26 +47,26 @@ class _RegisterFormState extends State<RegisterForm> {
             children: <Widget>[
               Center(
                 child: Stack(
-                  children:[
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundImage: AssetImage('default-image.png'),
-                    ),
-                   Positioned(
-                     bottom:5,
-                       right:5,
-                       child: InkWell(
-                         onTap:(){
+                    children:[
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundImage: AssetImage('default-image.png'),
+                      ),
+                      Positioned(
+                          bottom:5,
+                          right:5,
+                          child: InkWell(
+                            onTap:(){
 
-                         },
-                         child:Icon(
-                         Icons.camera_alt,
-                             size:40,
-                           color: Colors.black12,
-                         ),
+                            },
+                            child:Icon(
+                              Icons.camera_alt,
+                              size:40,
+                              color: Colors.black12,
+                            ),
 
-                       ))
-                  ]
+                          ))
+                    ]
                 ),
               ),
 
@@ -117,15 +116,13 @@ class _RegisterFormState extends State<RegisterForm> {
                   await ServerApi.changeprofile(alias, '2', message);
 
                   ServerApi.logout();
+                  Navigator.pop(context);
+
                 },
                 child: const Text('Enter'),
 
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-              ],
-              )
+
             ],
           ),
         ),
@@ -144,138 +141,152 @@ class ModifyPage extends StatefulWidget {
 class _ModifyPageState extends State<ModifyPage> {
 
   final _formKey=GlobalKey<FormState>();
-  Future<Profile>? getprofile;
-
+  Future<Profile>? profile;
+  Future<MyGroup>? group;
+  late String alias;
   //late final String? userpk;
 
   //List<AssetImage> IconList=[AssetImage('rabitIcon.PNG'),AssetImage('rabitIcon.PNG'),AssetImage("loginimage.PNG")];
 
-  @override
-  void initState() async{
-    super.initState();
-    String? userpk = await ServerApi.getUser();
-    //userpk = await ServerApi.getUser();
-    getprofile = ServerApi.getprofile();
-  }
 
+  @override
+  void initState(){
+    super.initState();
+    profile = ServerApi.getprofile();
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        //toolbarHeight: 80,
-        backgroundColor: Colors.white,
-        title: Text('회원정보수정'),
+        appBar: AppBar(
+          //toolbarHeight: 80,
+          backgroundColor: Colors.white,
+          title: Text('회원정보수정'),
 
-      ),
-      body: FutureBuilder<Profile>(
-        future: getprofile,
-        builder: (context,snapshot){
-          String email='dkqk@gmail.com';
-          String password='abcd1234';
-          //String userName=snapshot.data!.user! as String;
-          String userName='name';
-          String message='마음의 안식이 필요해';
-          String alias=snapshot.data!.nickname!;
-          return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key:_formKey,
-                child: ListView(
-                  children: <Widget>[
-                    Center(
-                      child: Stack(
-                          children:[
-                            CircleAvatar(
-                              radius: 70,
-                              backgroundImage: AssetImage('default-image.png'),
-                            ),
-                            Positioned(
-                                bottom:5,
-                                right:5,
-                                child: InkWell(
-                                  onTap:(){
+        ),
+        body: FutureBuilder<Profile>(
+          future: profile,
+          builder: (context,snapshot){
+            if(snapshot.hasData) {
+              String? id = snapshot?.data?.user?.username;
+              String? password = '********';
+              String? message = snapshot?.data?.stateMessage;
+              String? alias = snapshot?.data?.nickname;
+              print(id);
+              group = ServerApi.getGroup();
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: _formKey,
+                  child: ListView(
+                    children: <Widget>[
+                      Center(
+                        child: Stack(
+                            children: [
+                              CircleAvatar(
+                                radius: 70,
+                                backgroundImage: AssetImage(
+                                    'default-image.png'),
+                              ),
+                              Positioned(
+                                  bottom: 5,
+                                  right: 5,
+                                  child: InkWell(
+                                    onTap: () {
 
-                                  },
-                                  child:Icon(
-                                    Icons.camera_alt,
-                                    size:40,
-                                    color: Colors.black12,
-                                  ),
+                                    },
+                                    child: Icon(
+                                      Icons.camera_alt,
+                                      size: 40,
+                                      color: Colors.black12,
+                                    ),
 
-                                ))
-                          ]
+                                  ))
+                            ]
+                        ),
                       ),
-                    ),
-
-                    TextFormField(
-                      //obscureText: true,
-                      initialValue: userName,
-                      decoration: InputDecoration(
-                          labelText: '이름'
-                      ),
-                      onChanged: (value){
-                        userName=value;
-                      },
-                    ),
-                    TextFormField(
-                      initialValue: alias,
-                      decoration: InputDecoration(
-                          labelText: '닉네임'
-                      ),
-                      onChanged: (value){
-                        alias=value;
-                      },
-                    ),
-                    TextFormField(
-                      initialValue: email,
-                      decoration:InputDecoration(
-                          labelText: '이메일'
-                      ),
-                      onChanged: (value){
-                        email=value;
-                      },
-                    ),
-                    TextFormField(
-                      initialValue: password,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          labelText: '비밀번호'
-                      ),
-                      onChanged: (value){
-                        password=value;
-                      },
-                    ),
-                    TextFormField(
-                      initialValue: message,
-                      //obscureText: true,
-                      decoration: InputDecoration(
-                          labelText: '상태 메시지'
-                      ),
-                      onChanged: (value){
-                        message=value;
-                      },
-                    ),
 
 
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Enter'),
 
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                      ],
-                    )
-                  ],
+                      TextFormField(
+                        initialValue: id,
+                        decoration: InputDecoration(
+                            labelText: '아이디'
+                        ),
+                        onChanged: (value) {
+                          id = value;
+                        },
+                      ),
+                      TextFormField(
+                        initialValue: password,
+                        //obscureText: true,
+                        decoration: InputDecoration(
+                            labelText: '비밀번호'
+                        ),
+                        onChanged: (value) {
+                          password = value;
+                        },
+                      ),
+                      TextFormField(
+                        initialValue: alias,
+                        decoration: InputDecoration(
+                            labelText: '닉네임'
+                        ),
+                        onChanged: (value) {
+                          alias = value;
+                        },
+                      ),
+                      TextFormField(
+                        initialValue: message,
+                        //obscureText: true,
+                        decoration: InputDecoration(
+                            labelText: '상태 메시지'
+                        ),
+                        onChanged: (value) {
+                          message = value;
+                        },
+                      ),
+                      TextFormField(
+                        initialValue: '그룹 코드를 넣어주세요',
+                        //obscureText: true,
+                        decoration: InputDecoration(
+                            labelText: '그룹 코드'
+                        ),
+                        onChanged: (value) {
+                          //message = value;
+                        },
+                      ),
+
+
+                      ElevatedButton(
+                        onPressed: () async{
+                          await ServerApi.changeprofile(alias, '2', message);
+
+                          },
+                        child: const Text('Enter'),
+
+                      ),
+                      ElevatedButton(
+                        onPressed: () async{
+                          ServerApi.logout();
+                          //Navigator.pushNamed(context, '/h');
+                          Navigator.pop(context);
+                          Navigator.pushNamed(context, '/login');
+
+                        },
+                        child: const Text('로그아웃'),
+
+                      ),
+
+                    ],
+                  ),
                 ),
-              ),
-            );
-            return Text('');
+              );
+            }
+            return CircularProgressIndicator();
+          },
 
-        },
-      )
+        )
     );
   }
 }
-

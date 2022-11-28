@@ -9,12 +9,14 @@ import 'package:termproject/chart.dart';
 import 'apitest.dart';
 import 'group.dart';
 import 'testpage.dart';
+import 'login.dart';
+import 'apitest.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
   RoomListPage(),
   LoginPage(),
-  HistoryPage()
+  ChartPage()
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
 void main() {
@@ -36,10 +38,16 @@ class MyApp extends StatelessWidget {
         //primaryColor: Color(0xe8eaf6),
 
       ),
+      initialRoute: '/home',
       routes:{
+        '/login':(context)=>const LoginPage(),
         '/modify':(context)=>const ModifyPage(),
+        '/home':(context)=>const MyHomePage(),
         '/gc':(context)=>const GroupChoicePage(),//약자 사용
         '/gm':(context)=>const GroupMakePage(),
+        '/member':(context)=>const MemberPage(),
+        '/api':(context)=>const HistoryPage(),
+
       },
       home: const MyHomePage(),
     );

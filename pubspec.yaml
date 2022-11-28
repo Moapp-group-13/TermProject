@@ -71,12 +71,12 @@ flutter:
   assets:
      - loginimage.PNG
 
-     - daughter.PNG
-     - father.PNG
+     - 4.PNG
+     - 1.PNG
      - grandfather.PNG
      - grandma.PNG
-     - mom.PNG
-     - son.PNG
+     - 2.PNG
+     - 3.PNG
 
      - rabitIcon.PNG
      - DefaultAvatar.jpg

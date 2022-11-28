@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'main.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  static const String _title = 'Log In';
+  static const String _title = 'Log Isn';
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
             IconButton(
               onPressed: (){
 
-                  Navigator.pushNamed(context, '/modify');
+                  Navigator.pushNamed(context, '/api');
 
               },
               icon: const Icon(Icons.account_circle),
@@ -59,7 +59,7 @@ class _ChartPage extends State<ChartPage> {
             onPressed: (){
 
               setState(() {
-                Navigator.pushNamed(context, '/modify');
+                Navigator.pushNamed(context, '/api');
               });
 
             },
