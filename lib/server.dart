@@ -11,7 +11,7 @@ import 'package:image_picker/image_picker.dart';
 * login(아이디,비밀번호): 로그인 token값 storage에 자동저장
 * logout(): storage의 토큰과 userpk 삭제
 * changeprofile(닉네임,아이콘 번호,상태메세지): 자기 프로필 변경
-* getprofile(유저pk): 해당 유저 프로필 보기
+* getprofile(): 해당 유저 프로필 보기
 * getStatics(룸pk,유저pk): 룸pk작성 유저 null ==> 룸에 따른 유저 기여내역 가져옴. 룸null ,유저pk => 유저별 방에 따른 기여내역
 * createGroup(그룹코드,그룹명): 그룹 생성
 * getGroup(): 현재 자신이 속한 그룹들 정보 가져옴.
@@ -204,6 +204,7 @@ class ServerApi {
       response =
           await dio.post('http://13.124.31.77/group/', data: formData);
       print(response.data);
+      print("그룹 등록 성공");
     } on DioError catch (e) {
       print(e.response?.data.toString());
     }

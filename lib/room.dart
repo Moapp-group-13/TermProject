@@ -16,8 +16,9 @@ class _RoomPageState extends State<RoomPage> {
         title: const Text(
           'room',
           style: TextStyle(
-            fontSize:30.0,
+            fontSize:20.0,
             fontWeight: FontWeight.bold,
+
           ),
 
         ),
@@ -40,115 +41,156 @@ class _RoomListPageState extends State<RoomListPage> {
   @override
   Widget build(BuildContext context) {
     return
-      Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(
-          height:20,
+      Scaffold(
+        appBar: AppBar(
+          title: Text('Room',
+            style: TextStyle(
+              //fontFamily: "title2",
+              //fontSize: 20,
+              //fontWeight: FontWeight.bold,
+            ),),
+          backgroundColor: Colors.white,
+            actions: [
+            IconButton(
+            onPressed: (){
+              setState(() {
+              Navigator.pushNamed(context, '/modify');
+              });
+              },
+        icon: const Icon(Icons.account_circle),
+      )
+        ],
         ),
-        const Text(
-            '     청소해야할 구역을 지정해주세요',
-          style: TextStyle(
-            fontSize: 16.0,
-            color: Colors.grey,
-            fontWeight: FontWeight.bold,
+        body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height:15,
           ),
-        ),
-        const SizedBox(
-          height:20,
-        ),
-        Expanded(child: ListView(
-          children: [
-            const Card(
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius:50,
-                  backgroundImage: AssetImage('father.PNG'),
-                ),
-                title: Text('거실',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                )),
-                subtitle: Text(
-                    '\n마지막으로 치운 사람: Daddy'
-                ),
-                trailing: Icon(Icons.more_vert),
-                isThreeLine: true,
-              ),
+          const Text(
+              '     청소해야할 구역을 지정해주세요',
+            style: TextStyle(
+              fontSize: 16.0,
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
             ),
-            const Card(
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius:50,
-                  backgroundImage: AssetImage('mom.PNG'),
+          ),
+          const SizedBox(
+            height:15,
+          ),
+          Expanded(child: ListView(
+            children: [
+              const Card(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius:30,
+                      backgroundImage: AssetImage('1.PNG',),
+                    ),
+                    title: Text('거실',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        )),
+                    subtitle: Text(
+                        '마지막으로 치운 사람: Daddy',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        )
+
+                    ),
+                    trailing: Icon(Icons.more_vert),
+                    isThreeLine: true,
+                  ),
                 ),
-                title: Text('안방',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                    )),
-                subtitle: Text(
-                    '\n마지막으로 치운 사람: Mom'
-                ),
-                trailing: Icon(Icons.more_vert),
-                isThreeLine: true,
               ),
-            ),
-            const Card(
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius:50,
-                  backgroundImage: AssetImage('son.PNG'),
+              const Card(
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius:30,
+                    backgroundImage: AssetImage('2.PNG'),
+                  ),
+                  title: Text('안방',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  subtitle: Text(
+                      '마지막으로 치운 사람: Mom',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      )
+                  ),
+                  trailing: Icon(Icons.more_vert),
+                  isThreeLine: true,
                 ),
-                title: Text('부엌',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                    )),
-                subtitle: Text(
-                    '\n마지막으로 치운 사람: Hyejun'
-                ),
-                trailing: Icon(Icons.more_vert),
-                isThreeLine: true,
               ),
-            ),
-            const Card(
-              child: ListTile(
-                leading:  CircleAvatar(
-                  radius:50,
-                  backgroundImage: AssetImage('daughter.PNG'),
+              const Card(
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius:30,
+                    backgroundImage: AssetImage('3.PNG'),
+                  ),
+                  title: Text('부엌',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  subtitle: Text(
+                      '마지막으로 치운 사람: Hyejun',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      )
+                  ),
+                  trailing: Icon(Icons.more_vert),
+                  isThreeLine: true,
                 ),
-                title: Text('베란다',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                    )),
-                subtitle: Text(
-                    '\n마지막으로 치운 사람: Joohyun'
+              ),
+              const Card(
+                child: ListTile(
+                  leading:  CircleAvatar(
+                    radius:30,
+                    backgroundImage: AssetImage('4.PNG'),
+                  ),
+                  title: Text('베란다',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  subtitle: Text(
+                      '마지막으로 치운 사람: Joohyun',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      )
+                  ),
+                  trailing: Icon(Icons.more_vert),
+                  isThreeLine: true,
                 ),
-                trailing: Icon(Icons.more_vert),
-                isThreeLine: true,
               ),
-            ),
-            Card(
-              child: ListTile(
-                subtitle: IconButton(
-                    splashRadius: 30,
-                    iconSize: 50,
-                    onPressed: (){},
-                    icon: const Icon(
-                      Icons.add,
-                    )),
-                isThreeLine: true,
+              Card(
+                child: ListTile(
+                  subtitle: IconButton(
+                      splashRadius: 30,
+                      iconSize: 50,
+                      onPressed: (){},
+                      icon: const Icon(
+                        Icons.add,
+                      )),
+                  isThreeLine: true,
+                ),
               ),
-            ),
             ],
 
-        )
-        ),
+          )
+          ),
 
-      ],
-    );
+        ],
+    ),
+      );
   }
 }

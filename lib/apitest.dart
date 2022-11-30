@@ -137,7 +137,7 @@ class _HistoryPageState extends State<HistoryPage> {
 
             ElevatedButton(onPressed: (){
               setState((){
-                ServerApi.joingroup('mama');
+                //ServerApi.joingroup('gc02');
               });
             }, child: Text("joinGroup")),
 

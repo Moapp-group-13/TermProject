@@ -35,57 +35,58 @@ class _LoginPage extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(10),
-        child: ListView(
-          children: <Widget>[
-            Image.asset(
-              'loginimage.PNG',
-              width:200,
-              height:300,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Container(
-                alignment: Alignment.center,
+    return Scaffold(
+      body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: ListView(
+            children: <Widget>[
+              Image.asset(
+                'loginimage.PNG',
+                width:200,
+                height:300,
+              ),
+              const SizedBox(
+                height: 1,
+              ),
+              Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(10),
+                  child: const Text(
+                    'LOGIN',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 30),
+                  )),
+
+              const SizedBox(
+                height: 30,
+              ),
+
+              Container(
                 padding: const EdgeInsets.all(10),
-                child: const Text(
-                  'LOGIN',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 30),
-                )),
-
-            const SizedBox(
-              height: 30,
-            ),
-
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: idController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'ID',
+                child: TextField(
+                  controller: idController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'ID',
+                  ),
                 ),
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: TextField(
-                obscureText: true,
-                controller: passwordController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'PASSWORD',
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: TextField(
+                  obscureText: true,
+                  controller: passwordController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'PASSWORD',
+                  ),
                 ),
               ),
-            ),
 
-            const SizedBox(
-              height: 30,
-            ),
+              const SizedBox(
+                height: 30,
+              ),
 
             Container(
                 height: 50,
@@ -146,28 +147,34 @@ class _LoginPage extends State<LoginPage> {
             const SizedBox(
               height: 30,
             ),
+             
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                TextButton(
-                  child: const Text(
-                    '회원가입',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      Navigator.push(context,MaterialPageRoute(
-                          builder: (context)=>RegisterPage()));
-                    });
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  TextButton(
+                    child: const Text(
+                      '회원가입',
+                      style: TextStyle(fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() async{
+                        //Future<MyGroup> mg = ServerApi.getGroup();
 
-                    //signup screen
-                  },
-                )
-              ],
-            ),
-          ],
-        ));
+                        Navigator.push(context,MaterialPageRoute(
+                            builder: (context)=>RegisterPage()));
+                      });
+
+                      //signup screen
+                    },
+                  )
+                ],
+              ),
+            ],
+          )),
+    );
   }
 }
 
