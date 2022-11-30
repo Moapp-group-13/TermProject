@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:termproject/main.dart';
+import 'package:termproject/model/model.dart';
+import 'package:termproject/server.dart';
 import 'register.dart';
 //https://muhly.tistory.com/112
 
@@ -10,6 +12,14 @@ class MemberPage extends StatefulWidget {
   State<MemberPage> createState() => _MemberPageState();
 }
 class _MemberPageState extends State<MemberPage> {
+  Future<InviteCheck>? getmember;
+
+  @override
+  void initState() {
+    super.initState();
+    getmember = ServerApi.getmember();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,9 +27,9 @@ class _MemberPageState extends State<MemberPage> {
 
         backgroundColor: Colors.white,
         title: Text('가족 구성원',
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: "content7",
-          fontSize: 30,
+          fontSize: 25,
           fontWeight: FontWeight.bold,
         ),),
         actions: [
@@ -54,56 +64,68 @@ class _MemberPageState extends State<MemberPage> {
           SizedBox(
             height: 20,
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 4,
-                itemBuilder: (context,index){
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  //side: BorderSide(width: 1.0)
-                  ),
-                  elevation: 4.0,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 30,
-                        backgroundImage: AssetImage('1.PNG',),
-                      ),
-                      title: Text('아빠',
-                        style: TextStyle(
-                            fontSize: 25,
-                          fontFamily: 'content7',
-                          fontWeight: FontWeight.bold,
+          FutureBuilder<InviteCheck>(
+            future: getmember,
+            builder: (context, snapshot) {
+              if(snapshot.hasData){
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: snapshot?.data!.memberList!.length,
+                    itemBuilder: (context,index){
+                      return Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          //side: BorderSide(width: 1.0)
                         ),
-                      ),
-                      subtitle: Text('화장실 청소 해놨다',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontFamily: 'content7',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      trailing: CircleAvatar(
-                        radius: 20,
-                        //backgroundColor: Colors.grey,
-                        child: Text('2위',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontFamily: 'content7',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.pink,
+                        elevation: 4.0,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              radius: 30,
+                              backgroundImage: AssetImage('1.PNG',),
+                            ),
+                            title: Text(snapshot.data!.memberList![index].nickname!,
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'content7',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            subtitle: Text(snapshot.data!.memberList![index].stateMessage!,
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontFamily: 'content7',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            trailing: CircleAvatar(
+                              radius: 20,
+                              //backgroundColor: Colors.grey,
+                              child: Text('2위',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontFamily: 'content7',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.pink,
+                                ),
+                              ),
+                            ),
+
                           ),
                         ),
-                      ),
+                      );
+                    },
 
-                    ),
                   ),
                 );
-                },
+              }
+              else if(snapshot.hasError){
+                return Text("error");
+              }
+              return CircularProgressIndicator();
 
-            ),
+            }
           ),
         ],
       ),

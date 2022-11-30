@@ -11,6 +11,7 @@ import 'group.dart';
 import 'testpage.dart';
 import 'login.dart';
 import 'apitest.dart';
+import 'roomadd1.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
@@ -40,6 +41,12 @@ class MyApp extends StatelessWidget {
         //primaryColor: Color(0xe8eaf6),
 
       ),
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.5),
+          child: child!,
+        );
+      },
       initialRoute: '/home',
       routes:{
         '/login':(context)=>const LoginPage(),
@@ -51,6 +58,7 @@ class MyApp extends StatelessWidget {
         '/api':(context)=>const HistoryPage(),
 
       },
+
       home: const MyHomePage(),
     );
   }

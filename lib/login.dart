@@ -91,7 +91,11 @@ class _LoginPage extends State<LoginPage> {
                 height: 50,
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: ElevatedButton(
-                  child: const Text('LOGIN', style: TextStyle(fontSize:18)),
+                  child: const Text('로그인',
+                    style: TextStyle(fontSize:18,
+                      //fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   onPressed: () {
                     setState(() {
                       Future<UserToken> usertoken = ServerApi.login(idController.text,passwordController.text);
@@ -114,7 +118,9 @@ class _LoginPage extends State<LoginPage> {
                 TextButton(
                   child: const Text(
                     '회원가입',
-                    style: TextStyle(fontSize: 15),
+                    style: TextStyle(fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   onPressed: () {
                     setState(() {
