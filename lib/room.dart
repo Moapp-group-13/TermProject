@@ -45,8 +45,8 @@ class _RoomListPageState extends State<RoomListPage> {
         appBar: AppBar(
           title: Text('Room',
             style: TextStyle(
-              fontFamily: "title2",
-              fontSize: 20,
+              //fontFamily: "title2",
+              //fontSize: 20,
               //fontWeight: FontWeight.bold,
             ),),
           backgroundColor: Colors.white,
