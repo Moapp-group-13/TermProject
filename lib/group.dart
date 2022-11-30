@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:termproject/server.dart';
+import 'main.dart';
 
 import 'model/model.dart';
 
@@ -21,6 +22,7 @@ class _GroupChoicePageState extends State<GroupChoicePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('그룹 선택'),
+        backgroundColor: Colors.white,
       ),
       body:Padding(
         padding: EdgeInsets.all(10),
@@ -33,20 +35,32 @@ class _GroupChoicePageState extends State<GroupChoicePage> {
                 decoration: InputDecoration(
                   labelText: '그룹코드',
                 ),
+                onChanged: (value){
+                  setState(() {
+                    groupCode=value;
+                  });
+                },
               ),
               //해당 그룹이 있으면 ㅇㅇㅇ 그룹이 맞나요? -> yes 가입을 축하합니다
               //다시 그룹코드 입력하기 or
               //없는 그룹입니다. 그룹 생성 또는 다시 입력해주세요
               ElevatedButton (
+
                 onPressed: () async{
-                  ServerApi.joingroup(groupCode);
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, '/home');
-                  //Navigator.pop(context);
+                  setState(() async {
+                    //print('${groupCode}');
+                    await ServerApi.joingroup(groupCode);
+                    //Navigator.pop(context);
+                    Navigator.pushNamed(context, '/home');
+                    //Navigator.pop(context);
 
 
+                  });
                 },
-                child: const Text('Enter'),
+                child: const Text('Enter',
+                style: TextStyle(
+                 // color: Colors.white
+                ),),
 
               ),
               Row(
@@ -125,10 +139,12 @@ class _GroupMakePageState extends State<GroupMakePage> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  ServerApi.createGroup(groupCode, groupName);
-                  //Navigator.popUntil(context, (route) => route.);
-                  Navigator.pushNamed(context, '/gc');
-                  //Navigator.pop(context);
+                  setState(() {
+                    ServerApi.createGroup(groupCode, groupName);
+                    //Navigator.popUntil(context, (route) => route.);
+                    Navigator.pushNamed(context, '/gc');
+                    //Navigator.pop(context);
+                  });
 
                 },
                 child: const Text('Enter'),

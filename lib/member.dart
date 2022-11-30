@@ -4,6 +4,10 @@ import 'package:termproject/model/model.dart';
 import 'package:termproject/server.dart';
 import 'register.dart';
 //https://muhly.tistory.com/112
+//폰트 상수 관련 https://darrengwon.tistory.com/388
+//라우트 관련 애니메이션
+// https://velog.io/@enoch1118/%ED%94%8C%EB%9F%AC%ED%84%B0%EB%A5%BC-%ED%94%8C%EB%9F%AC%ED%84%B0%EC%8A%A4%EB%9F%BD%EC%A7%80%EC%95%8A%EA%B2%8C%EB%9D%BC%EC%9A%B0%ED%8A%B8
+
 
 class MemberPage extends StatefulWidget {
   const MemberPage({Key? key}) : super(key: key);
@@ -13,6 +17,7 @@ class MemberPage extends StatefulWidget {
 }
 class _MemberPageState extends State<MemberPage> {
   Future<InviteCheck>? getmember;
+
 
   @override
   void initState() {
@@ -28,8 +33,8 @@ class _MemberPageState extends State<MemberPage> {
         backgroundColor: Colors.white,
         title: Text('가족 구성원',
         style: const TextStyle(
-          fontFamily: "content7",
-          fontSize: 25,
+          //fontFamily: "content7",
+          //fontSize: 25,
           fontWeight: FontWeight.bold,
         ),),
         actions: [
@@ -46,6 +51,9 @@ class _MemberPageState extends State<MemberPage> {
       ),
       body: Column(
         children: [
+          const SizedBox(
+            height:15,
+          ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -62,7 +70,7 @@ class _MemberPageState extends State<MemberPage> {
             ],
           ),
           SizedBox(
-            height: 20,
+            height: 5,
           ),
           FutureBuilder<InviteCheck>(
             future: getmember,
@@ -83,7 +91,7 @@ class _MemberPageState extends State<MemberPage> {
                           child: ListTile(
                             leading: CircleAvatar(
                               radius: 30,
-                              backgroundImage: AssetImage('1.PNG',),
+                              backgroundImage: AssetImage('${snapshot.data!.memberList![index].icon!}.PNG',),
                             ),
                             title: Text(snapshot.data!.memberList![index].nickname!,
                               style: TextStyle(

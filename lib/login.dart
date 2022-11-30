@@ -35,105 +35,108 @@ class _LoginPage extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(10),
-        child: ListView(
-          children: <Widget>[
-            Image.asset(
-              'loginimage.PNG',
-              width:200,
-              height:300,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                child: const Text(
-                  'LOGIN',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 30),
-                )),
-
-            const SizedBox(
-              height: 30,
-            ),
-
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: idController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'ID',
-                ),
+    return Scaffold(
+      body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: ListView(
+            children: <Widget>[
+              Image.asset(
+                'loginimage.PNG',
+                width:200,
+                height:300,
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: TextField(
-                obscureText: true,
-                controller: passwordController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'PASSWORD',
-                ),
+              const SizedBox(
+                height: 1,
               ),
-            ),
-
-            const SizedBox(
-              height: 30,
-            ),
-
-            Container(
-                height: 50,
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: ElevatedButton(
-                  child: const Text('로그인',
-                    style: TextStyle(fontSize:18,
-                      //fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      Future<UserToken> usertoken = ServerApi.login(idController.text,passwordController.text);
-                      //FutureBuilder<MyGroup> getgroup=ServerApi.getGroup() as FutureBuilder<MyGroup>;
-                      //
-                      Navigator.pushNamed(context, '/gc');
-                    });
-                    print(idController.text);
-                    print(passwordController.text);
-                  },
-                )
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                TextButton(
+              Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(10),
                   child: const Text(
-                    '회원가입',
-                    style: TextStyle(fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      Navigator.push(context,MaterialPageRoute(
-                          builder: (context)=>RegisterPage()));
-                    });
+                    'LOGIN',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 30),
+                  )),
 
-                    //signup screen
-                  },
-                )
-              ],
-            ),
-          ],
-        ));
+              const SizedBox(
+                height: 30,
+              ),
+
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: TextField(
+                  controller: idController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'ID',
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: TextField(
+                  obscureText: true,
+                  controller: passwordController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'PASSWORD',
+                  ),
+                ),
+              ),
+
+              const SizedBox(
+                height: 30,
+              ),
+
+              Container(
+                  height: 50,
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: ElevatedButton(
+                    child: const Text('로그인',
+                      style: TextStyle(fontSize:18,
+                        //fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        Future<UserToken> usertoken = ServerApi.login(idController.text,passwordController.text);
+                        //FutureBuilder<MyGroup> getgroup=ServerApi.getGroup() as FutureBuilder<MyGroup>;
+                        Navigator.pushNamed(context, '/gc');
+                      });
+                      print(idController.text);
+                      print(passwordController.text);
+                    },
+                  )
+              ),
+              const SizedBox(
+                height: 3,
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  TextButton(
+                    child: const Text(
+                      '회원가입',
+                      style: TextStyle(fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() async{
+                        //Future<MyGroup> mg = ServerApi.getGroup();
+
+                        Navigator.push(context,MaterialPageRoute(
+                            builder: (context)=>RegisterPage()));
+                      });
+
+                      //signup screen
+                    },
+                  )
+                ],
+              ),
+            ],
+          )),
+    );
   }
 }

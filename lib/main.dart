@@ -4,7 +4,6 @@ import 'package:termproject/member.dart';
 import 'package:termproject/login.dart';
 import 'package:termproject/room.dart';
 import 'register.dart';
-import 'camera_ex.dart';
 import 'package:termproject/chart.dart';
 import 'apitest.dart';
 import 'group.dart';
@@ -12,7 +11,6 @@ import 'testpage.dart';
 import 'login.dart';
 import 'apitest.dart';
 import 'roomadd1.dart';
-
 final List<Widget> pages = <Widget>[
   const MemberPage(),
   RoomListPage(),
@@ -43,19 +41,27 @@ class MyApp extends StatelessWidget {
       ),
       builder: (context, child) {
         return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.5),
+          data: MediaQuery.of(context).copyWith(
+              textScaleFactor: 1.5,//전체 폰트 사이즈
+            boldText: true,
+          ),
           child: child!,
         );
       },
-      initialRoute: '/home',
+      initialRoute: '/login',
+
       routes:{
         '/login':(context)=>const LoginPage(),
         '/modify':(context)=>const ModifyPage(),
         '/home':(context)=>const MyHomePage(),
-        '/gc':(context)=>const GroupChoicePage(),//약자 사용
+        '/gc':(context)=>const GroupChoicePage(),
         '/gm':(context)=>const GroupMakePage(),
         '/member':(context)=>const MemberPage(),
         '/api':(context)=>const HistoryPage(),
+        '/icm':(context)=>const IconChoiceModify(),
+        '/icr':(context)=>const IconChoiceRegister(),
+        '/m':(context)=>const ModifyPage(),
+        '/r':(context)=>const RegisterPage(),
 
       },
 
@@ -101,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
         currentIndex: _selectedTabIndex,
           onTap: _changeIndex,
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home',),
             BottomNavigationBarItem(icon: Icon(Icons.location_on_outlined), label: 'room'),
             BottomNavigationBarItem(icon: Icon(Icons.access_time_outlined), label: 'history'),
             BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'statistics'),
