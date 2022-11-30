@@ -16,7 +16,7 @@ class _RoomPageState extends State<RoomPage> {
         title: const Text(
           'room',
           style: TextStyle(
-            fontSize:30.0,
+            fontSize:20.0,
             fontWeight: FontWeight.bold,
 
           ),
@@ -46,7 +46,7 @@ class _RoomListPageState extends State<RoomListPage> {
           title: Text('Room',
             style: TextStyle(
               fontFamily: "title2",
-              fontSize: 30,
+              fontSize: 20,
               //fontWeight: FontWeight.bold,
             ),),
           backgroundColor: Colors.white,
@@ -65,7 +65,7 @@ class _RoomListPageState extends State<RoomListPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
-            height:18,
+            height:15,
           ),
           const Text(
               '     청소해야할 구역을 지정해주세요',
@@ -76,7 +76,7 @@ class _RoomListPageState extends State<RoomListPage> {
             ),
           ),
           const SizedBox(
-            height:18,
+            height:15,
           ),
           Expanded(child: ListView(
             children: [
@@ -90,13 +90,13 @@ class _RoomListPageState extends State<RoomListPage> {
                     ),
                     title: Text('거실',
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         )),
                     subtitle: Text(
                         '마지막으로 치운 사람: Daddy',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
                         )
 
@@ -114,13 +114,13 @@ class _RoomListPageState extends State<RoomListPage> {
                   ),
                   title: Text('안방',
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       )),
                   subtitle: Text(
                       '마지막으로 치운 사람: Mom',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                       )
                   ),
@@ -136,13 +136,13 @@ class _RoomListPageState extends State<RoomListPage> {
                   ),
                   title: Text('부엌',
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       )),
                   subtitle: Text(
                       '마지막으로 치운 사람: Hyejun',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                       )
                   ),
@@ -158,13 +158,13 @@ class _RoomListPageState extends State<RoomListPage> {
                   ),
                   title: Text('베란다',
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       )),
                   subtitle: Text(
                       '마지막으로 치운 사람: Joohyun',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                       )
                   ),
