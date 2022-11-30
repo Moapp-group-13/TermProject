@@ -1,200 +1,301 @@
 import 'package:flutter/material.dart';
-import 'package:comment_tree/data/comment.dart';
-import 'package:comment_tree/widgets/comment_tree_widget.dart';
-import 'package:comment_tree/widgets/tree_theme_data.dart';
-import 'package:http/http.dart' as http;
+import 'package:termproject/main.dart';
+import 'register.dart';
+import 'server.dart';
+import 'model/model.dart';
+import 'package:bubble/bubble.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:buttons_tabbar/buttons_tabbar.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chat_bubbles/chat_bubbles.dart';
+import 'package:image_picker/image_picker.dart';
 
-void main() {
-  runApp(const ThirdPage());
-}
-
-class ThirdPage extends StatefulWidget {
-  const ThirdPage({super.key});
-  static const String _title = 'History';
+class HistoryPage extends StatefulWidget {
+  HistoryPage({Key? key}) : super(key: key);
 
   @override
-  State<ThirdPage> createState() => _ThirdPageState();
+  State<HistoryPage> createState() => _HistoryPageState();
+
 }
 
-class _ThirdPageState extends State<ThirdPage> {
+class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin {
+
+  Future<GETROOMLIST>? roomlist;
+  List<AssetImage> IconList=[AssetImage('rabitIcon.PNG'),AssetImage('rabitIcon.PNG'),AssetImage("loginimage.PNG")];
+  int roomid=0;
+  late TabController _tabController;
+  XFile? selectImage;
+  List<Widget>? _pagelist;
+  @override
+  void initState(){
+    roomlist = ServerApi.getRoom();
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: ThirdPage._title,
-      home: Scaffold(
-        body: MyHomePage(),
-      ),
+    return
+    FutureBuilder(future: roomlist,builder: (context,snapshot) {
+      if (snapshot.hasData) {
+      _pagelist =List<Widget>.generate(snapshot.data!
+          .roomlist!.length, (i) =>
+          RoomHistory(snapshot.data!.roomlist![i].id!));
+        _tabController = new TabController(vsync: this, length: snapshot.data!.roomlist!.length,);
+        return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              title: Text('History',style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold
+              ),),
+              bottom: ButtonsTabBar(
+                controller: _tabController,
+                  backgroundColor: Colors.green[600],
+                  unselectedBackgroundColor: Colors.white,
+                  labelStyle:
+                  TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  unselectedLabelStyle: TextStyle(
+                      color: Colors.green[600],
+                      fontWeight: FontWeight.bold),
+                  borderWidth: 3,
+                  unselectedBorderColor: Colors.green[600]!,
+                  radius: 100,
+                  tabs: List<Tab>.generate(
+                      snapshot.data!.roomlist!.length, (i) =>
+                      Tab(text: snapshot.data!.roomlist![i].title!))
+              ),
+
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      Navigator.pushNamed(context, '/modify');
+                    });
+                  },
+                  icon: const Icon(Icons.account_circle),
+                )
+              ],
+            ),
+            body: TabBarView(
+              controller: _tabController,
+              children: _pagelist!,
+            ),
+
+            floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              showModalBottomSheet<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  final ImagePicker _picker = ImagePicker();
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: MediaQuery
+                        .of(context)
+                        .viewInsets
+                        .bottom),
+                    child: Container(
+                      height: 70,
+                      child: Column(
+                        children: <Widget>[
+                          Expanded(
+                            child: MessageBar(
+                              replying: false,
+                              onSend: (text) async{
+                                if (selectImage != null) {
+                                  dynamic sendData = selectImage!.path;
+                                  await ServerApi.posthistory(snapshot.data!.roomlist![_tabController.index].id,0,sendData,text);
+                                  selectImage=null;
+                                }
+                                else await ServerApi.posthistory(snapshot.data!.roomlist![_tabController.index].id, 0, null, text);
+                              },
+                              actions: [
+                                InkWell(
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Colors.black,
+                                    size: 24,
+                                  ),
+                                  onTap: () async{
+                                      selectImage = await _picker.pickImage(
+                                      //이미지를 선택
+                                      source: ImageSource.gallery, //위치는 갤러리
+                                      maxHeight: 480,
+                                      maxWidth: 640,
+                                      imageQuality: 100, // 이미지 크기 압축을 위해 퀄리티를 30으로 낮춤.
+                                    );
+                                  },
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 8, right: 8),
+                                  child: InkWell(
+                                    child: Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.green,
+                                      size: 24,
+                                    ),
+                                    onTap: () {
+                                      print('index${_tabController.index}');
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ).then((value) {
+                setState(() {});
+              });
+            },
+            backgroundColor: Colors.green,
+            child: const Icon(Icons.mail),
+          ),
+          );
+      }
+      else if (snapshot.hasError) {
+        return Text("error");
+      }
+      return CircularProgressIndicator();
+    }
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
 
 
-  // final String title;
+class RoomHistory extends StatefulWidget {
+  int id=4;
+  RoomHistory(this.id,{Key? key}) : super(key: key);
   @override
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<RoomHistory> createState() => _RoomHistoryState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _RoomHistoryState extends State<RoomHistory> {
+  Future<Historylist>? history;
+  List<AssetImage> IconList=[AssetImage('rabitIcon.PNG'),AssetImage('rabitIcon.PNG'),AssetImage("loginimage.PNG")];
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            child: CommentTreeWidget<Comment, Comment>(
-              Comment(
-                  avatar: 'null',
-                  userName: 'null',
-                  content: 'felangel made felangel/cubit_and_beyond public '),
-              [
-                Comment(
-                    avatar: 'null',
-                    userName: 'null',
-                    content: 'A Dart template generator which helps teams'),
-                Comment(
-                    avatar: 'null',
-                    userName: 'null',
-                    content:
-                    'A Dart template generator which helps teams generator which helps teams generator which helps teams'),
-                Comment(
-                    avatar: 'null',
-                    userName: 'null',
-                    content: 'A Dart template generator which helps teams'),
-                Comment(
-                    avatar: 'null',
-                    userName: 'null',
-                    content:
-                    'A Dart template generator which helps teams generator which helps teams '),
-              ],
-              treeThemeData:
-              TreeThemeData(lineColor: Colors.green[500]!, lineWidth: 3),
-              avatarRoot: (context, data) => const PreferredSize(
-                preferredSize: Size.fromRadius(18),
-                child: CircleAvatar(
-                  radius: 18,
-                  backgroundColor: Colors.grey,
-                  backgroundImage: AssetImage('assets/avatar_2.png'),
-                ),
-              ),
-              avatarChild: (context, data) => const PreferredSize(
-                preferredSize: Size.fromRadius(12),
-                child: CircleAvatar(
-                  radius: 12,
-                  backgroundColor: Colors.grey,
-                  backgroundImage: AssetImage('assets/avatar_1.png'),
-                ),
-              ),
-              contentChild: (context, data) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                      decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'dangngocduc',
-                            style: Theme.of(context).textTheme.caption?.copyWith(
-                                fontWeight: FontWeight.w600, color: Colors.black),
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            '${data.content}',
-                            style: Theme.of(context).textTheme.caption?.copyWith(
-                                fontWeight: FontWeight.w300, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                    DefaultTextStyle(
-                      style: Theme.of(context).textTheme.caption!.copyWith(
-                          color: Colors.grey[700], fontWeight: FontWeight.bold),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: Row(
-                          children: const [
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text('Like'),
-                            SizedBox(
-                              width: 24,
-                            ),
-                            Text('Reply'),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                );
-              },
-              contentRoot: (context, data) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                      decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'dangngocduc',
-                            style: Theme.of(context).textTheme.caption!.copyWith(
-                                fontWeight: FontWeight.w600, color: Colors.black),
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            '${data.content}',
-                            style: Theme.of(context).textTheme.caption!.copyWith(
-                                fontWeight: FontWeight.w300, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                    DefaultTextStyle(
-                      style: Theme.of(context).textTheme.caption!.copyWith(
-                          color: Colors.grey[700], fontWeight: FontWeight.bold),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: Row(
-                          children: const [
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text('Like'),
-                            SizedBox(
-                              width: 24,
-                            ),
-                            Text('Reply'),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+    history = ServerApi.gethistory(widget.id);
+    return
+      FutureBuilder<Historylist>(
+        future: history,
+        builder: (context,snapshot){
+          if(snapshot.hasData){
+            return
+              Column(
+                children: [
+                  Expanded(
+                      child:ListView.builder(
+                          itemCount: snapshot.data!.listhistory!.length,
+
+                          itemBuilder: (context,index){
+                            return Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CircleAvatar(
+                                  radius:30,
+                                  backgroundImage: IconList[snapshot.data!.listhistory![index].author!.icon!],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10.0),
+                                      child: Text(snapshot.data!.listhistory![index].author!.nickname!,
+                                        style: TextStyle(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                    ),
+
+                                    Bubble(
+                                        margin: BubbleEdges.only(top: 10),
+                                        color: Color.fromRGBO(246, 249, 254, 1.0),
+                                        nip: BubbleNip.leftBottom,
+                                        child: Column(
+                                          children: [
+                                            Visibility(
+
+                                              child: snapshot.data!.listhistory![index].image!=null?
+                                              GestureDetector(
+
+                                                  child: 
+                                                  ClipRRect (borderRadius: BorderRadius.circular(20),child: Image.network(snapshot.data!.listhistory![index].image!,fit: BoxFit.fitHeight,width: 250,)
+                                                  ),
+                                                  onTap: (){
+
+                                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailPage(snapshot.data!.listhistory![index].image!)));}
+                                              ): Text("no image"),
+                                              visible: snapshot.data!.listhistory![index].image!=null?true:false,
+                                            ),
+
+                                            Text(snapshot.data!.listhistory![index].text!,
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold
+                                              ),textAlign: TextAlign.center,),
+                                          ],
+                                        )
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10.0,top: 10.0),
+                                      child: Text(snapshot.data!.listhistory![index].modifyDate!.substring(5,10),
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: CupertinoColors.inactiveGray,
+                                        ),textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    SizedBox(height: 20,),
+                                    // FloatingActionButton(onPressed: (){
+                                    //   setState(() {
+                                    //     super.initState();
+                                    //   });
+                                    // })
+                                  ],
+                                ),
+                              ],
+                            );
+                          }
+                      )
+                  ),
+                ],
+              );
+          }else if (snapshot.hasError){
+            return Text("error");
+          }
+          return CircularProgressIndicator();
+        }
+    );
+  }
+}
+class DetailPage extends StatefulWidget {
+  String url="";
+  DetailPage(this.url,{Key? key}) : super(key: key);
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: PhotoView(
+        imageProvider: CachedNetworkImageProvider(widget.url),
+        )
     );
   }
 }

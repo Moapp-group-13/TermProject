@@ -57,11 +57,12 @@ class ServerApi {
   static Future<String?> getUser()async{
     return await storage.read(key: "user");
   }
-  static Future<GETROOMLIST> getRoom(group) async {
+  static Future<GETROOMLIST> getRoom() async {
     try {
       Response response;
       var dio = Dio();
       String? token = await getToken();
+      String? group = await nowGroup();
       dio.options.headers["authorization"] = "Token " + token!;
       response = await dio.get(
           'http://13.124.31.77/room/', queryParameters: {"group": group});
@@ -383,17 +384,22 @@ class ServerApi {
       dio.options.contentType = 'multipart/form-data';
       dio.options.maxRedirects.isFinite;
       dio.options.headers["authorization"] = "Token " + token!;
+      dynamic file;
+      if(image!= null) {
+        file = await MultipartFile.fromFile(image);
+      }
+      else file = null;
       var formData = FormData.fromMap({
-        'room': roomid,
-        'event':event,
-        'image':await MultipartFile.fromFile(image),
-        'text':text
-      });
+          'room': roomid,
+          'event':event,
+          'image':file,
+          'text':text
+        });
 
-      response =
-      await dio.post('http://13.124.31.77/history/', data: formData);
-      print(response.data);
-    } on DioError catch (e) {
+        response =
+        await dio.post('http://13.124.31.77/history/', data: formData);
+        print(response.data);
+      } on DioError catch (e) {
       print(e.response?.data.toString());
     }
   }

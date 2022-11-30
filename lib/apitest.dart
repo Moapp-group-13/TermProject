@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'server.dart';
 import 'model/model.dart';
 import 'package:image_picker/image_picker.dart';
-class HistoryPage extends StatefulWidget {
-  const HistoryPage({Key? key}) : super(key: key);
+import 'history.dart';
+class APItestPage extends StatefulWidget {
+  const APItestPage({Key? key}) : super(key: key);
 
   @override
-  State<HistoryPage> createState() => _HistoryPageState();
+  State<APItestPage> createState() => _APItestPageState();
 }
 
-class _HistoryPageState extends State<HistoryPage> {
+class _APItestPageState extends State<APItestPage> {
 
   // Future<Post> post;
 
@@ -95,7 +96,7 @@ class _HistoryPageState extends State<HistoryPage> {
             }, child: Text("addroom")),
             ElevatedButton(onPressed: (){
               setState(() {
-                Future<GETROOMLIST> getroomlist= ServerApi.getRoom(6);
+                Future<GETROOMLIST> getroomlist= ServerApi.getRoom();
               });
             }, child: Text("getroom")),
             ElevatedButton(onPressed: (){
@@ -114,9 +115,9 @@ class _HistoryPageState extends State<HistoryPage> {
                 XFile? selectImage = await _picker.pickImage(
                   //이미지를 선택
                   source: ImageSource.gallery, //위치는 갤러리
-                  maxHeight: 75,
-                  maxWidth: 75,
-                  imageQuality: 200, // 이미지 크기 압축을 위해 퀄리티를 30으로 낮춤.
+                  maxHeight: 480,
+                  maxWidth: 640,
+                  imageQuality: 100, // 이미지 크기 압축을 위해 퀄리티를 30으로 낮춤.
                 );
                 if (selectImage != null) {
                   dynamic sendData = selectImage.path;
@@ -136,6 +137,12 @@ class _HistoryPageState extends State<HistoryPage> {
                 ServerApi.joingroup('mama');
               });
             }, child: Text("joinGroup")),
+            
+            ElevatedButton(onPressed: (){
+              setState((){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryPage()));
+              });
+            }, child: Text("gotoHistory")),
 
           ],
         ),

@@ -12,12 +12,14 @@ import 'testpage.dart';
 import 'login.dart';
 import 'apitest.dart';
 import 'roomadd1.dart';
+import 'apitest.dart';
+import 'history.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
   RoomListPage(),
-  LoginPage(),
-  ChartPage()
+  MemberPage(),
+  APItestPage()
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
 void main() {
@@ -55,7 +57,7 @@ class MyApp extends StatelessWidget {
         '/gc':(context)=>const GroupChoicePage(),//약자 사용
         '/gm':(context)=>const GroupMakePage(),
         '/member':(context)=>const MemberPage(),
-        '/api':(context)=>const HistoryPage(),
+        '/api':(context)=> HistoryPage(),
 
       },
 
