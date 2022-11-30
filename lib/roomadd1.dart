@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providerclass.dart';
 
-class ListPage extends StatelessWidget {
+class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
 
+  @override
+  State<ListPage> createState() => _ListPageState();
+}
+
+class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<Cleaning>(context!, listen: false);
@@ -17,6 +22,7 @@ class ListPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, '/roomadd');
+
           // showModalBottomSheet(
           //   // groundColor: Colors.grey,
           //     context: context,
@@ -66,10 +72,12 @@ class _AddRoomPageState extends State<AddRoomPage> {
               ),
               ElevatedButton(
                   onPressed: (){
-                    context.read<Cleaning>().Room.add(roomController.text);
-                    context.read<Cleaning>().LastPerson.add('Unknown');
-                    roomController.clear();
-                    Navigator.pop(context);
+                    setState(() {
+                      context.read<Cleaning>().Room.add(roomController.text);
+                      context.read<Cleaning>().LastPerson.add('Unknown');
+                      roomController.clear();
+                      Navigator.pop(context);
+                    });
                   },
                   child: const Text('Enter')),
             ],
@@ -119,10 +127,13 @@ class _ConfirmModalState extends State<ConfirmModal> {
           ),
           ElevatedButton(
               onPressed: (){
-                context.read<Cleaning>().Room.add(nameController.text);
-                context.read<Cleaning>().LastPerson.add('Unknown');
-                nameController.clear();
-                Navigator.pop(context);
+                setState(() {
+                  context.read<Cleaning>().Room.add(nameController.text);
+                  context.read<Cleaning>().LastPerson.add('Unknown');
+                  nameController.clear();
+                  Navigator.pushNamed(context, '/rlist');
+                  Navigator.pop(context);
+                });
               },
               child: const Text('Enter')),
           const SizedBox(

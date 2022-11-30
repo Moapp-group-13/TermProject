@@ -88,29 +88,66 @@ class _LoginPage extends State<LoginPage> {
                 height: 30,
               ),
 
-              Container(
-                  height: 50,
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: ElevatedButton(
-                    child: const Text('로그인',
-                      style: TextStyle(fontSize:18,
-                        //fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        Future<UserToken> usertoken = ServerApi.login(idController.text,passwordController.text);
-                        //FutureBuilder<MyGroup> getgroup=ServerApi.getGroup() as FutureBuilder<MyGroup>;
-                        Navigator.pushNamed(context, '/gc');
-                      });
-                      print(idController.text);
-                      print(passwordController.text);
-                    },
-                  )
-              ),
-              const SizedBox(
-                height: 3,
-              ),
+            Container(
+                height: 50,
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: ElevatedButton(
+                  child: const Text('LOGIN', style: TextStyle(fontSize:18)),
+                  onPressed: () {
+                    setState(() async{
+                      UserToken usertoken = await ServerApi.login(idController.text,passwordController.text);
+
+                      //아이디, 비번 틀렸을 때
+                      if(usertoken.token==null){
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: 200,
+                              color: Colors.white70,
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    const Text('Invalid id or password! Try Again', style: TextStyle(fontSize: 20),),
+                                    SizedBox(height: 20,),
+                                    ElevatedButton(
+                                      child: const Text('Retry', style: TextStyle(fontSize: 16)),
+                                      onPressed: () => Navigator.pop(context),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                        print("Invalid id or pwd");
+                      }
+                      else{ //아이디, 비밀번호 맞게 쳤을 때
+                        String? InGroup = await ServerApi.storage.read(key: "groupid");
+                        //사용자가 그룹등록을 아직 안한 상태라면
+                        if(InGroup==null){
+                          Navigator.pushNamed(context, '/gm');
+                        }
+                        else{
+                          Navigator.pushNamed(context, '/gc');
+                        }
+
+                      }
+                      // if(usertoken.pk==null){
+                      //   print("pk null");
+                      // }
+                      idController.clear();
+                      passwordController.clear();
+                    });
+                  },
+                )
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+             
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -140,3 +177,4 @@ class _LoginPage extends State<LoginPage> {
     );
   }
 }
+

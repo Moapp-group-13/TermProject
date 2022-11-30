@@ -119,6 +119,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 onPressed: () async{
                   await ServerApi.register(id, password);
                   await ServerApi.login(id, password);
+
                   if(icon!=0){
                     await ServerApi.changeprofile(alias, icon, message);
                   }

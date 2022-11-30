@@ -8,12 +8,14 @@ import 'package:termproject/chart.dart';
 import 'apitest.dart';
 import 'group.dart';
 import 'testpage.dart';
+import 'roomadd1.dart';
+import 'package:provider/provider.dart';
+import 'providerclass.dart';
 import 'login.dart';
 import 'apitest.dart';
-import 'roomadd1.dart';
 final List<Widget> pages = <Widget>[
   const MemberPage(),
-  RoomListPage(),
+  ListPage(),
   LoginPage(),
   ChartPage()
 ];
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner : false,
       //앱상단 디버그 띠를 없애기
@@ -62,6 +65,9 @@ class MyApp extends StatelessWidget {
         '/icr':(context)=>const IconChoiceRegister(),
         '/m':(context)=>const ModifyPage(),
         '/r':(context)=>const RegisterPage(),
+        '/roomadd':(context)=>const AddRoomPage(),
+        '/rlist': (context)=>const MyListPage(),
+       
 
       },
 

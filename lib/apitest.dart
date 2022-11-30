@@ -35,7 +35,6 @@ class _HistoryPageState extends State<HistoryPage> {
                 if(usertoken.pk==null){
                   print("pk null");
                 }
-
               });
             }, child: Text("login")),
             ElevatedButton(onPressed: (){
@@ -61,11 +60,16 @@ class _HistoryPageState extends State<HistoryPage> {
                 ServerApi.createGroup("gnstjr12", "멋진 우리집");
               });
             }, child: Text("creategroup")),
+
             ElevatedButton(onPressed: (){
+              setState(() {
+                ServerApi.getGroup();
+              });
               setState(()async{
                 await ServerApi.getGroup();
               });
             }, child: Text("getgroup")),
+
             ElevatedButton(onPressed: (){
               setState((){
                 ServerApi.inviterequest("gnstjr12");
