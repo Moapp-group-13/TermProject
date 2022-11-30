@@ -9,10 +9,13 @@ import 'package:termproject/chart.dart';
 import 'apitest.dart';
 import 'group.dart';
 import 'testpage.dart';
+import 'roomadd1.dart';
+import 'package:provider/provider.dart';
+import 'providerclass.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
-  RoomListPage(),
+  ListPage(),
   LoginPage(),
   HistoryPage()
 ];
@@ -26,22 +29,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner : false,
-      //앱상단 디버그 띠를 없애기
-      title: 'Cleaning Guide',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-        primaryColor: Colors.lightBlue[100],
-        //primaryColor: Color(0xe8eaf6),
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => Cleaning(),
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner : false,
+        //앱상단 디버그 띠를 없애기
+        title: 'Cleaning Guide',
+        theme: ThemeData(
+          primarySwatch: Colors.grey,
+          primaryColor: Colors.lightBlue[100],
+          //primaryColor: Color(0xe8eaf6),
 
+        ),
+        routes:{
+          '/modify':(context)=>const ModifyPage(),
+          '/gc':(context)=>const GroupChoicePage(),//약자 사용
+          '/gm':(context)=>const GroupMakePage(),
+          '/roomadd':(context)=>const AddRoomPage(),
+          '/rlist': (context)=>const MyListPage(),
+        },
+        home: const MyHomePage(),
       ),
-      routes:{
-        '/modify':(context)=>const ModifyPage(),
-        '/gc':(context)=>const GroupChoicePage(),//약자 사용
-        '/gm':(context)=>const GroupMakePage(),
-      },
-      home: const MyHomePage(),
     );
   }
 }

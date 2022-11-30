@@ -124,8 +124,15 @@ class _LoginPage extends State<LoginPage> {
                         print("Invalid id or pwd");
                       }
                       else{ //아이디, 비밀번호 맞게 쳤을 때
-                        Navigator.pushNamed(context, '/gm');
-                        //Navigator.pushNamed(context, '/gc');
+                        String? InGroup = await ServerApi.storage.read(key: "groupid");
+                        //사용자가 그룹등록을 아직 안한 상태라면
+                        if(InGroup==null){
+                          Navigator.pushNamed(context, '/gm');
+                        }
+                        else{
+                          Navigator.pushNamed(context, '/gc');
+                        }
+
                       }
                       // if(usertoken.pk==null){
                       //   print("pk null");
@@ -164,39 +171,3 @@ class _LoginPage extends State<LoginPage> {
   }
 }
 
-class MyStatelessWidget extends StatelessWidget {
-  const MyStatelessWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        child: const Text('showModalBottomSheet'),
-        onPressed: () {
-          showModalBottomSheet<void>(
-            context: context,
-            builder: (BuildContext context) {
-              return Container(
-                height: 200,
-                color: Colors.amber,
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      const Text('Modal BottomSheet'),
-                      ElevatedButton(
-                        child: const Text('Close BottomSheet'),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
-        },
-      ),
-    );
-  }
-}

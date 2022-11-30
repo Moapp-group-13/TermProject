@@ -22,6 +22,7 @@ class _ListPageState extends State<ListPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, '/roomadd');
+
           // showModalBottomSheet(
           //   // groundColor: Colors.grey,
           //     context: context,
@@ -71,10 +72,12 @@ class _AddRoomPageState extends State<AddRoomPage> {
               ),
               ElevatedButton(
                   onPressed: (){
-                    context.read<Cleaning>().Room.add(roomController.text);
-                    context.read<Cleaning>().LastPerson.add('Unknown');
-                    roomController.clear();
-                    Navigator.pop(context);
+                    setState(() {
+                      context.read<Cleaning>().Room.add(roomController.text);
+                      context.read<Cleaning>().LastPerson.add('Unknown');
+                      roomController.clear();
+                      Navigator.pop(context);
+                    });
                   },
                   child: const Text('Enter')),
             ],
@@ -124,10 +127,13 @@ class _ConfirmModalState extends State<ConfirmModal> {
           ),
           ElevatedButton(
               onPressed: (){
-                context.read<Cleaning>().Room.add(nameController.text);
-                context.read<Cleaning>().LastPerson.add('Unknown');
-                nameController.clear();
-                Navigator.pop(context);
+                setState(() {
+                  context.read<Cleaning>().Room.add(nameController.text);
+                  context.read<Cleaning>().LastPerson.add('Unknown');
+                  nameController.clear();
+                  Navigator.pushNamed(context, '/rlist');
+                  Navigator.pop(context);
+                });
               },
               child: const Text('Enter')),
           const SizedBox(
