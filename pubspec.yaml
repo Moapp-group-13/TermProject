@@ -74,16 +74,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - loginimage.PNG
-
      - 4.PNG
      - 1.PNG
      - 5.PNG
      - 6.PNG
      - 2.PNG
      - 3.PNG
-
-     - rabitIcon.PNG
-     - default-image.png
+     - 0.PNG
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

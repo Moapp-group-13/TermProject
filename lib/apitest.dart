@@ -36,7 +36,6 @@ class _APItestPageState extends State<APItestPage> {
                 if(usertoken.pk==null){
                   print("pk null");
                 }
-
               });
             }, child: Text("login")),
             ElevatedButton(onPressed: (){
@@ -62,11 +61,16 @@ class _APItestPageState extends State<APItestPage> {
                 ServerApi.createGroup("gnstjr12", "멋진 우리집");
               });
             }, child: Text("creategroup")),
+
             ElevatedButton(onPressed: (){
+              setState(() {
+                ServerApi.getGroup();
+              });
               setState(()async{
                 await ServerApi.getGroup();
               });
             }, child: Text("getgroup")),
+
             ElevatedButton(onPressed: (){
               setState((){
                 ServerApi.inviterequest("gnstjr12");
@@ -134,7 +138,7 @@ class _APItestPageState extends State<APItestPage> {
 
             ElevatedButton(onPressed: (){
               setState((){
-                ServerApi.joingroup('mama');
+                //ServerApi.joingroup('gc02');
               });
             }, child: Text("joinGroup")),
             

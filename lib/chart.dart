@@ -59,7 +59,7 @@ class _ChartPage extends State<ChartPage> {
             onPressed: (){
 
               setState(() {
-                Navigator.pushNamed(context, '/api');
+                Navigator.pushNamed(context, '/modify');
               });
 
             },

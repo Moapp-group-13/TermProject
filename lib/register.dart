@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:termproject/server.dart';
 import 'model/model.dart';
+//https://g-y-e-o-m.tistory.com/164 popuntil하면서 내용전달하기
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
@@ -29,9 +30,13 @@ class _RegisterFormState extends State<RegisterForm> {
   String userName='';
   String message='';
   String alias='';
+  int icon=0;
 
   @override
   Widget build(BuildContext context) {
+    int? args = ModalRoute.of(context)?.settings.arguments as int?;
+    print('${args}');
+    if(args!=null) icon=args;
     return Scaffold(
       appBar: AppBar(
         //toolbarHeight: 80,
@@ -47,21 +52,24 @@ class _RegisterFormState extends State<RegisterForm> {
             children: <Widget>[
               Center(
                 child: Stack(
-                    children:[
+                    children: [
                       CircleAvatar(
-                        radius: 50,
-                        backgroundImage: AssetImage('default-image.png'),
+                        radius: 70,
+                        backgroundImage: AssetImage(
+                            '${icon}.PNG'),
                       ),
                       Positioned(
-                          bottom:5,
-                          right:5,
+                          bottom: 5,
+                          right: 5,
                           child: InkWell(
-                            onTap:(){
+
+                            onTap: () {
+                              Navigator.pushNamed(context, '/icr',arguments: icon);
 
                             },
-                            child:Icon(
+                            child: Icon(
                               Icons.camera_alt,
-                              size:40,
+                              size: 40,
                               color: Colors.black12,
                             ),
 
@@ -69,7 +77,6 @@ class _RegisterFormState extends State<RegisterForm> {
                     ]
                 ),
               ),
-
 
 
               TextFormField(
@@ -81,7 +88,6 @@ class _RegisterFormState extends State<RegisterForm> {
                 },
               ),
               TextFormField(
-                obscureText: true,
                 decoration: InputDecoration(
                     labelText: '비밀번호'
                 ),
@@ -113,16 +119,16 @@ class _RegisterFormState extends State<RegisterForm> {
                 onPressed: () async{
                   await ServerApi.register(id, password);
                   await ServerApi.login(id, password);
-                  await ServerApi.changeprofile(alias, '2', message);
 
+                  if(icon!=0){
+                    await ServerApi.changeprofile(alias, icon, message);
+                  }
                   ServerApi.logout();
-                  Navigator.pop(context);
-
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.pushNamed(context, '/login');
                 },
                 child: const Text('Enter'),
-
               ),
-
             ],
           ),
         ),
@@ -142,12 +148,7 @@ class _ModifyPageState extends State<ModifyPage> {
 
   final _formKey=GlobalKey<FormState>();
   Future<Profile>? profile;
-  Future<MyGroup>? group;
   late String alias;
-  //late final String? userpk;
-
-  //List<AssetImage> IconList=[AssetImage('rabitIcon.PNG'),AssetImage('rabitIcon.PNG'),AssetImage("loginimage.PNG")];
-
 
   @override
   void initState(){
@@ -168,12 +169,17 @@ class _ModifyPageState extends State<ModifyPage> {
           future: profile,
           builder: (context,snapshot){
             if(snapshot.hasData) {
+              var args = ModalRoute.of(context)?.settings.arguments;
+
               String? id = snapshot?.data?.user?.username;
               String? password = '********';
               String? message = snapshot?.data?.stateMessage;
               String? alias = snapshot?.data?.nickname;
+              int? icon = snapshot?.data?.icon;
+              if(args!=null) icon=args as int?;
+              Future<InviteCheck> mg=ServerApi.getmember();
+
               print(id);
-              group = ServerApi.getGroup();
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Form(
@@ -186,13 +192,15 @@ class _ModifyPageState extends State<ModifyPage> {
                               CircleAvatar(
                                 radius: 70,
                                 backgroundImage: AssetImage(
-                                    'default-image.png'),
+                                    '${icon}.PNG'),
                               ),
                               Positioned(
                                   bottom: 5,
                                   right: 5,
                                   child: InkWell(
+
                                     onTap: () {
+                                      Navigator.pushNamed(context, '/icm',arguments: icon);
 
                                     },
                                     child: Icon(
@@ -246,21 +254,30 @@ class _ModifyPageState extends State<ModifyPage> {
                           message = value;
                         },
                       ),
+                      /*
                       TextFormField(
-                        initialValue: '그룹 코드를 넣어주세요',
+                        initialValue: '그룹코드 입력',
                         //obscureText: true,
                         decoration: InputDecoration(
                             labelText: '그룹 코드'
                         ),
                         onChanged: (value) {
                           //message = value;
+
+
                         },
                       ),
+
+                       */
 
 
                       ElevatedButton(
                         onPressed: () async{
-                          await ServerApi.changeprofile(alias, '2', message);
+                          setState(() async {
+                            await ServerApi.changeprofile(alias, icon, message);
+                            Navigator.popAndPushNamed(context, '/home');
+
+                          });
 
                           },
                         child: const Text('Enter'),
@@ -287,6 +304,99 @@ class _ModifyPageState extends State<ModifyPage> {
           },
 
         )
+    );
+  }
+}
+class IconChoiceRegister extends StatefulWidget {
+  const IconChoiceRegister({Key? key}) : super(key: key);
+
+  @override
+  State<IconChoiceRegister> createState() => _IconChoiceRegisterState();
+}
+
+class _IconChoiceRegisterState extends State<IconChoiceRegister> {
+
+  @override
+  Widget build(BuildContext context) {
+    var args = ModalRoute.of(context)?.settings.arguments;
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('아이콘 선택'),
+          backgroundColor: Colors.white,
+        ),
+        body:GridView.count(
+          crossAxisCount: 3,
+          children: List.generate(6, (i) =>
+              IconButton(
+                //selectedIcon: Icon(Icons.favorite),
+
+
+                //splashRadius: 30,
+                padding: EdgeInsets.all(10),
+                iconSize: 50,
+                onPressed: () {
+                  setState(() {
+                    args=i+1;
+                    Navigator.pushNamed(context, '/r', arguments: args);
+                  });
+
+
+                },
+                icon: CircleAvatar(
+                  backgroundImage: AssetImage('${i+1}.PNG'),
+                  radius: 50,
+                ),
+
+              )
+          ).toList(),
+        )
+    );
+  }
+}
+
+class IconChoiceModify extends StatefulWidget {
+  const IconChoiceModify({Key? key}) : super(key: key);
+
+  @override
+  State<IconChoiceModify> createState() => _IconChoiceModifyState();
+}
+
+class _IconChoiceModifyState extends State<IconChoiceModify> {
+
+  @override
+  Widget build(BuildContext context) {
+    var args = ModalRoute.of(context)?.settings.arguments;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('아이콘 선택'),
+        backgroundColor: Colors.white,
+      ),
+      body:GridView.count(
+          crossAxisCount: 3,
+        children: List.generate(6, (i) =>
+            IconButton(
+              //selectedIcon: Icon(Icons.favorite),
+
+
+              //splashRadius: 30,
+              padding: EdgeInsets.all(10),
+              iconSize: 50,
+              onPressed: () {
+                setState(() {
+                  args=i+1;
+                  Navigator.pushNamed(context, '/m', arguments: args);
+                });
+
+
+              },
+              icon: CircleAvatar(
+                backgroundImage: AssetImage('${i+1}.PNG'),
+                radius: 50,
+              ),
+
+            )
+        ).toList(),
+      )
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:termproject/main.dart';
 import 'register.dart';
@@ -23,7 +25,6 @@ class _MemberPageState extends State<TestMemberPage> {
     super.initState();
     getmember = ServerApi.getmember();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
