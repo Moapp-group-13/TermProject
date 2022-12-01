@@ -130,6 +130,7 @@ class ServerApi {
     storage.delete(key: "userpk");
     print(storage.read(key: "token").runtimeType);
   }
+
   static Future<void> changeprofile(nickname, icon, state_message) async {
     try {
       Response response;
