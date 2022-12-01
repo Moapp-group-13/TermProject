@@ -37,20 +37,18 @@ class _LoginPage extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           child: ListView(
             children: <Widget>[
               Image.asset(
                 'loginimage.PNG',
-                width:200,
+                width:190,
                 height:300,
               ),
-              const SizedBox(
-                height: 1,
-              ),
+
               Container(
                   alignment: Alignment.center,
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(0),
                   child: const Text(
                     'LOGIN',
                     style: TextStyle(
@@ -59,11 +57,11 @@ class _LoginPage extends State<LoginPage> {
                   )),
 
               const SizedBox(
-                height: 30,
+                height: 15,
               ),
 
               Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(6),
                 child: TextField(
                   controller: idController,
                   decoration: const InputDecoration(
@@ -73,7 +71,7 @@ class _LoginPage extends State<LoginPage> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                padding: const EdgeInsets.all(6),
                 child: TextField(
                   obscureText: true,
                   controller: passwordController,
@@ -85,7 +83,7 @@ class _LoginPage extends State<LoginPage> {
               ),
 
               const SizedBox(
-                height: 30,
+                height: 15,
               ),
 
             Container(
@@ -125,19 +123,18 @@ class _LoginPage extends State<LoginPage> {
                         print("Invalid id or pwd");
                       }
                       else{ //아이디, 비밀번호 맞게 쳤을 때
+
                         String? InGroup = await ServerApi.storage.read(key: "groupid");
                         //사용자가 그룹등록을 아직 안한 상태라면
-                        if(InGroup==null){
-                          Navigator.pushNamed(context, '/gm');
-                        }
-                        else{
-                          Navigator.pushNamed(context, '/gc');
-                        }
+                        Navigator.pushNamed(context, '/home');
+                        // if(InGroup==null){
+                        //   Navigator.pushNamed(context, '/gm');
+                        // }
+                        // else{
+                        //   Navigator.pushNamed(context, '/home');
+                        // }
 
                       }
-                      // if(usertoken.pk==null){
-                      //   print("pk null");
-                      // }
                       idController.clear();
                       passwordController.clear();
                     });
@@ -145,7 +142,7 @@ class _LoginPage extends State<LoginPage> {
                 )
             ),
             const SizedBox(
-              height: 30,
+              height: 15,
             ),
              
 
