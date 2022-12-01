@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:termproject/selectgroup.dart';
 import 'server.dart';
 import 'model/model.dart';
 import 'package:image_picker/image_picker.dart';
@@ -147,6 +148,11 @@ class _APItestPageState extends State<APItestPage> {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryPage()));
               });
             }, child: Text("gotoHistory")),
+            ElevatedButton(onPressed: (){
+              setState((){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>GroupSelectPage()));
+              });
+            }, child: Text("groupselect")),
 
           ],
         ),

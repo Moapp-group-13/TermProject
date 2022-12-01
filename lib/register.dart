@@ -148,7 +148,11 @@ class _ModifyPageState extends State<ModifyPage> {
 
   final _formKey=GlobalKey<FormState>();
   Future<Profile>? profile;
-  late String alias;
+  String? alias;
+  String? id;
+  String? password;
+  String? message;
+  int? icon;
 
   @override
   void initState(){
@@ -171,11 +175,11 @@ class _ModifyPageState extends State<ModifyPage> {
             if(snapshot.hasData) {
               var args = ModalRoute.of(context)?.settings.arguments;
 
-              String? id = snapshot?.data?.user?.username;
-              String? password = '********';
-              String? message = snapshot?.data?.stateMessage;
-              String? alias = snapshot?.data?.nickname;
-              int? icon = snapshot?.data?.icon;
+              id = snapshot?.data?.user?.username;
+              password = '********';
+              message = snapshot?.data?.stateMessage;
+              alias = snapshot?.data?.nickname;
+              icon = snapshot?.data?.icon;
               if(args!=null) icon=args as int?;
               Future<InviteCheck> mg=ServerApi.getmember();
 

@@ -15,12 +15,14 @@ import 'login.dart';
 import 'apitest.dart';
 import 'roomadd1.dart';
 import 'history.dart';
+import 'room_example.dart';
+import 'server.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
   ListPage(),
-  LoginPage(),
-  ChartPage()
+  RoomTestPage(),
+  APItestPage()
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
 void main() {
@@ -30,8 +32,9 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
 
     return ChangeNotifierProvider(
       create: (BuildContext context) => Cleaning(),
@@ -56,6 +59,7 @@ class MyApp extends StatelessWidget {
             child: child!,
           );
         },
+
         initialRoute: '/login',
 
         routes:{
@@ -65,14 +69,14 @@ class MyApp extends StatelessWidget {
           '/gc':(context)=>const GroupChoicePage(),
           '/gm':(context)=>const GroupMakePage(),
           '/member':(context)=>const MemberPage(),
-          '/api':(context)=> HistoryPage(),
+          '/history':(context)=> HistoryPage(),
           '/icm':(context)=>const IconChoiceModify(),
           '/icr':(context)=>const IconChoiceRegister(),
           '/m':(context)=>const ModifyPage(),
           '/r':(context)=>const RegisterPage(),
           '/roomadd':(context)=>const AddRoomPage(),
           '/rlist': (context)=>const MyListPage(),
-         
+
 
         },
 
