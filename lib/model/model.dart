@@ -430,8 +430,7 @@ class User {
     data['username'] = this.username;
     return data;
   }
-}
-class Statics {
+}class Statics {
   List<Liststatics>? liststatics;
 
   Statics({this.liststatics});
@@ -455,7 +454,7 @@ class Statics {
 }
 
 class Liststatics {
-  int? user;
+  Profile? user;
   int? room;
   String? date;
   int? score;
@@ -463,7 +462,7 @@ class Liststatics {
   Liststatics({this.user, this.room, this.date, this.score});
 
   Liststatics.fromJson(Map<String, dynamic> json) {
-    user = json['user'];
+    user = json['user'] != null ? new Profile.fromJson(json['user']) : null;
     room = json['room'];
     date = json['date'];
     score = json['score'];
@@ -471,7 +470,9 @@ class Liststatics {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user'] = this.user;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
     data['room'] = this.room;
     data['date'] = this.date;
     data['score'] = this.score;
