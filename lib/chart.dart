@@ -1,57 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:termproject/model/model.dart';
-import 'package:termproject/server.dart';
-import 'history.dart';
-
-
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  static const String _title = 'Statistics';
+import 'main.dart';
+import 'server.dart';
+import 'package:buttons_tabbar/buttons_tabbar.dart';
+import 'model/model.dart';
+class ChartListPage extends StatefulWidget {
+  ChartListPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: _title,
-      home: Scaffold(
-        body: ChartPage(),
-      ),
-    );
-  }
+  State<ChartListPage> createState() => _ChartListPageState();
+
 }
 
-
-class ChartPage extends StatefulWidget {
-  const ChartPage({Key? key}) : super(key: key);
-
-  @override
-  _ChartPage createState() => _ChartPage();
-}
-
-class _ChartPage extends State<ChartPage> with TickerProviderStateMixin {
-  // late final List<PlutoMenuItem> whiteHoverMenus;
+class _ChartListPageState extends State<ChartListPage> with TickerProviderStateMixin {
   Future<GETROOMLIST>? roomlist;
   int roomid=0;
   late TabController _tabController;
   List<Widget>? _pagelist;
+  int _init_index=0;
   @override
   void initState(){
     roomlist = ServerApi.getRoom();
     super.initState();
 
-  }
-  void message(context, String text) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
-    final snackBar = SnackBar(
-      content: Text(text),
-    );
-
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -59,11 +31,12 @@ class _ChartPage extends State<ChartPage> with TickerProviderStateMixin {
     return
       FutureBuilder(future: roomlist,builder: (context,snapshot) {
         if (snapshot.hasData) {
-          _tabController = TabController(vsync: this, length: snapshot.data!.roomlist!.length,);
+          _pagelist=List<Widget>.generate(snapshot.data!.roomlist!.length!, (index) => StaticsPage(snapshot!.data!.roomlist![index].id!));
+          _tabController = new TabController(vsync: this, length: snapshot.data!.roomlist!.length,initialIndex: _init_index);
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.white,
-              title: Text('Statistics',style: TextStyle(
+              title: Text('Statics',style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold
               ),),
@@ -98,46 +71,77 @@ class _ChartPage extends State<ChartPage> with TickerProviderStateMixin {
             ),
             body: TabBarView(
               controller: _tabController,
-              children: List<SfCircularChart>.generate(snapshot.data!.roomlist!.length,
-                      (i) => SfCircularChart(
-                    title: ChartTitle(text: 'Statistics of'),
-                    legend: (Legend(isVisible: true, overflowMode: LegendItemOverflowMode.wrap)),
-                    series: <CircularSeries>[
-                      PieSeries<InviteCheck , String>(
-                        // dataSource: _charData,
-                        // xValueMapper: (CleaningChart data,_)=> data.name,
-                        // yValueMapper: (CleaningChart data,_)=> data.cleaning,
-                        //dataLabelSettings: const DataLabelSettings(isVisible: true)   //숫자 말고 이름으로
-                      )
-                    ],
-                  )
-              ),
+              children: _pagelist!,
             ),
 
+            floatingActionButton: FloatingActionButton(
+              onPressed: () async{
+                await ServerApi.updatestatics();
+                _init_index=_tabController.index;
+              },
+              backgroundColor: Colors.green,
+              child: const Icon(Icons.replay),
+            ),
           );
         }
         else if (snapshot.hasError) {
           return Text("error");
         }
         return CircularProgressIndicator();
-      });
+      }
+      );
   }
 
-//
-  List<CleaningChart> getChartData(){
-    final List<CleaningChart> chartData = [
-      CleaningChart('Mom', 8),
-      CleaningChart('Father', 3),
-      CleaningChart('Sister', 4),
-    ];
-    return chartData;
-  }
 }
+
 
 class CleaningChart{
   CleaningChart(this.name, this. cleaning);
   final String name;
   final int cleaning;
 }
+class StaticsPage extends StatefulWidget {
+  int id=4;
+  StaticsPage(this.id,{Key? key}) : super(key: key);
+
+  @override
+  State<StaticsPage> createState() => _StaticsPageState();
+}
+
+class _StaticsPageState extends State<StaticsPage> {
+
+  Future<Statics>? _statics;
+
+  @override
+  void initState(){
+    super.initState();
+
+  }
+  @override
+  Widget build(BuildContext context) {
+
+    _statics=ServerApi.getStatics(widget.id, null);
+    return FutureBuilder(future: _statics,builder: (context,snapshot){
+      if(snapshot.hasData){
+        return SfCircularChart(
+          title: ChartTitle(text: 'Statistics'),
+          legend: (Legend(isVisible: true, overflowMode: LegendItemOverflowMode.wrap)),
+          series: <CircularSeries>[
+            PieSeries<CleaningChart , String>(
+              dataSource: List<CleaningChart>.generate(snapshot.data!.liststatics!.length!,
+                      (index) => CleaningChart(snapshot.data!.liststatics![index].user!.nickname!, snapshot.data!.liststatics![index].score!)),
+              xValueMapper: (CleaningChart data,_)=> data.name,
+              yValueMapper: (CleaningChart data,_)=> data.cleaning,
+              //dataLabelSettings: const DataLabelSettings(isVisible: true)   //숫자 말고 이름으로
+            )
+          ],);
+      }else if(snapshot.hasError){
+        return Text("No Data");
+      }
+      return CircularProgressIndicator();
+    });
+  }
+}
+
 
 

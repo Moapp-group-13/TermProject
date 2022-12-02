@@ -30,6 +30,7 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
   XFile? selectImage;
   List<Widget>? _pagelist;
 
+  int _init_index=0;
   @override
   void initState(){
     roomlist = ServerApi.getRoom();
@@ -49,7 +50,7 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
       _pagelist =List<Widget>.generate(snapshot.data!
           .roomlist!.length, (i) =>
           RoomHistory(snapshot.data!.roomlist![i].id!));
-        _tabController = new TabController(vsync: this, length: snapshot.data!.roomlist!.length,);
+        _tabController = new TabController(vsync: this, length: snapshot.data!.roomlist!.length,initialIndex: _init_index);
         return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.white,
@@ -116,6 +117,7 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
                                   selectImage=null;
                                 }
                                 else await ServerApi.posthistory(snapshot.data!.roomlist![_tabController.index].id, 0, null, text);
+                                _init_index=_tabController.index;
                               },
                               actions: [
                                 InkWell(

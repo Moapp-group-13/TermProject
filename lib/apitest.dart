@@ -4,6 +4,7 @@ import 'server.dart';
 import 'model/model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'history.dart';
+import 'chart.dart';
 class APItestPage extends StatefulWidget {
   const APItestPage({Key? key}) : super(key: key);
 
@@ -153,6 +154,11 @@ class _APItestPageState extends State<APItestPage> {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>GroupSelectPage()));
               });
             }, child: Text("groupselect")),
+            ElevatedButton(onPressed: (){
+              setState((){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ChartListPage()));
+              });
+            }, child: Text("chartlistpage")),
 
           ],
         ),
