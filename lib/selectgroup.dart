@@ -4,10 +4,6 @@ import 'package:termproject/model/model.dart';
 import 'package:termproject/server.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'register.dart';
-//https://muhly.tistory.com/112
-//폰트 상수 관련 https://darrengwon.tistory.com/388
-//라우트 관련 애니메이션
-// https://velog.io/@enoch1118/%ED%94%8C%EB%9F%AC%ED%84%B0%EB%A5%BC-%ED%94%8C%EB%9F%AC%ED%84%B0%EC%8A%A4%EB%9F%BD%EC%A7%80%EC%95%8A%EA%B2%8C%EB%9D%BC%EC%9A%B0%ED%8A%B8
 
 
 class GroupSelectPage extends StatefulWidget {
@@ -44,52 +40,79 @@ class _GroupSelectPageState extends State<GroupSelectPage> {
           const SizedBox(
             height:15,
           ),
-
           FutureBuilder<MyGroup>(
             future: _mygroup,
             builder: (context, snapshot) {
+              int? length = snapshot?.data!.groupList!.length;
               if(snapshot.hasData){
                 return Expanded(
                   child: ListView.builder(
-                    itemCount: snapshot?.data!.groupList!.length,
+                    itemCount: length! + 1,
                     itemBuilder: (context,index){
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          //side: BorderSide(width: 1.0)
-                        ),
-                        elevation: 4.0,
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: ListTile(
-                            title: Text(snapshot.data!.groupList![index].title!,
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontFamily: 'content7',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            subtitle: Row(
-                              children:List<Text>.generate(snapshot.data!.groupList![index].member!.length!,(i)=>Text(snapshot.data!.groupList![index].member![i].nickname!,
-                                style: const TextStyle(
-                                fontFamily: "content7",
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                              ),)
-                            ).sublist(0,5<snapshot.data!.groupList![index].member!.length!?4:snapshot.data!.groupList![index].member!.length!),
-                            ),
-                            onTap: ()async{
-                              await ServerApi.setGroup(snapshot!.data!.groupList![index].id!);
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: const Duration(milliseconds: 500),
-                                content: Text("현재그룹 ${snapshot.data!.groupList![index].title!}"),
-                              ));
-                              // Navigator.pop(context);
-                            },
-
-
+                      if(index<length){
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            //side: BorderSide(width: 1.0)
                           ),
-                        ),
-                      );
+                          elevation: 4.0,
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            child: ListTile(
+                              title: Text(snapshot.data!.groupList![index].title!,
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontFamily: 'content7',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Row(
+                                children:List<Text>.generate(snapshot.data!.groupList![index].member!.length!,(i)=>Text(snapshot.data!.groupList![index].member![i].nickname!,
+                                  style: const TextStyle(
+                                    fontFamily: "content7",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),)
+                                ).sublist(0,5<snapshot.data!.groupList![index].member!.length!?4:snapshot.data!.groupList![index].member!.length!),
+                              ),
+                              onTap: ()async{
+                                await ServerApi.setGroup(snapshot!.data!.groupList![index].id!);
+                                // ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: const Duration(milliseconds: 500),
+                                //   content: Text("현재그룹 ${snapshot.data!.groupList![index].title!}"),
+                                // ));
+                                Navigator.pop(context);
+                                Navigator.pushNamed(context, '/home');
+                                // Navigator.pop(context);
+                              },
+                            ),
+                          ),
+                        );
+                      }
+                      else {
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            //side: BorderSide(width: 1.0)
+                          ),
+                          elevation: 4.0,
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            child: ListTile(
+
+                              subtitle: IconButton(
+                                  splashRadius: 30,
+                                  iconSize: 50,
+                                  onPressed: (){
+                                    Navigator.pushNamed(context, '/gc');
+                                  },
+                                  icon: const Icon(
+                                    Icons.add,
+                                  )),
+                              isThreeLine: true,
+                            ),
+                          ),
+                        );
+                      }
                     },
 
                   ),
@@ -102,7 +125,11 @@ class _GroupSelectPageState extends State<GroupSelectPage> {
 
             }
           ),
+
+
         ],
+
+
       ),
     );
   }

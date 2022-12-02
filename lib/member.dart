@@ -107,18 +107,18 @@ class _MemberPageState extends State<MemberPage> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            trailing: CircleAvatar(
-                              radius: 20,
-                              //backgroundColor: Colors.grey,
-                              child: Text('2위',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontFamily: 'content7',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.pink,
-                                ),
-                              ),
-                            ),
+                            // trailing: CircleAvatar(
+                            //   radius: 20,
+                            //   //backgroundColor: Colors.grey,
+                            //   child: Text('2위',
+                            //     style: TextStyle(
+                            //       fontSize: 22,
+                            //       fontFamily: 'content7',
+                            //       fontWeight: FontWeight.bold,
+                            //       color: Colors.pink,
+                            //     ),
+                            //   ),
+                            // ),
 
                           ),
                         ),

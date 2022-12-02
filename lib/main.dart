@@ -3,6 +3,7 @@ import 'package:termproject/history.dart';
 import 'package:termproject/member.dart';
 import 'package:termproject/login.dart';
 import 'package:termproject/room.dart';
+import 'package:termproject/selectgroup.dart';
 import 'register.dart';
 import 'package:termproject/chart.dart';
 import 'apitest.dart';
@@ -22,7 +23,7 @@ final List<Widget> pages = <Widget>[
   const MemberPage(),
   ListPage(),
   HistoryPage(),
-  ChartPage()
+  ChartListPage()
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
 void main() {
@@ -76,6 +77,7 @@ class MyApp extends StatelessWidget {
           '/r':(context)=>const RegisterPage(),
           '/roomadd':(context)=>const AddRoomPage(),
           '/rlist': (context)=>const MyListPage(),
+          '/gs':(context)=>const GroupSelectPage(),
 
 
         },

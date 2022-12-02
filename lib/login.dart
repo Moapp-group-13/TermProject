@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:termproject/group.dart';
 import 'main.dart';
 import 'register.dart';
 import 'server.dart';
 import 'package:termproject/model/model.dart';
+import 'selectgroup.dart';
 
 void main() => runApp(const MyApp());
 
@@ -126,15 +128,19 @@ class _LoginPage extends State<LoginPage> {
 
                         String? InGroup = await ServerApi.storage.read(key: "groupid");
                         //사용자가 그룹등록을 아직 안한 상태라면
-                        Navigator.pushNamed(context, '/home');
-                        // if(InGroup==null){
-                        //   Navigator.pushNamed(context, '/gm');
-                        // }
-                        // else{
-                        //   Navigator.pushNamed(context, '/home');
-                        // }
+                        //Navigator.pushNamed(context, '/home');
+                        if(InGroup==null){
+                          //Navigator.pushNamed(context, '/gc');
+                          Navigator.push(context,MaterialPageRoute(
+                          builder: (context)=>GroupChoicePage()));
+
+                        }
+                        else{
+                           Navigator.pushNamed(context, '/gs');
+                         }
 
                       }
+                      //Navigator.pushNamed(context, '/gs');
                       idController.clear();
                       passwordController.clear();
                     });

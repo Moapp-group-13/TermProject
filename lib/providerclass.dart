@@ -9,6 +9,6 @@ class Cleaning with ChangeNotifier{
 class Iconing with ChangeNotifier{
   int icon=0;
   void changeIcon(int key){
-    icon=key;
+    this.icon=key;
   }
 }

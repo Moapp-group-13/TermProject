@@ -289,10 +289,21 @@ class _ModifyPageState extends State<ModifyPage> {
                       ),
                       ElevatedButton(
                         onPressed: () async{
+                          setState(() async {
+                            Navigator.popAndPushNamed(context, '/gc');
+
+                          });
+
+                        },
+                        child: const Text('그룹 재선택'),
+
+                      ),
+                      ElevatedButton(
+                        onPressed: () async{
                           ServerApi.logout();
                           //Navigator.pushNamed(context, '/h');
                           Navigator.pop(context);
-                          Navigator.pushNamed(context, '/login');
+                          Navigator.pushNamed(context, '/gs');
 
                         },
                         child: const Text('로그아웃'),
@@ -301,13 +312,16 @@ class _ModifyPageState extends State<ModifyPage> {
 
                     ],
                   ),
+
                 ),
+
               );
             }
             return CircularProgressIndicator();
           },
 
-        )
+        ),
+
     );
   }
 }
