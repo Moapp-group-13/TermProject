@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:termproject/server.dart';
 import 'main.dart';
-
 import 'model/model.dart';
 
 
@@ -21,7 +20,7 @@ class _GroupChoicePageState extends State<GroupChoicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('그룹 선택'),
+        title: Text('그룹 가입'),
         backgroundColor: Colors.white,
       ),
       body:Padding(
@@ -34,6 +33,7 @@ class _GroupChoicePageState extends State<GroupChoicePage> {
                 initialValue: groupCode,
                 decoration: InputDecoration(
                   labelText: '그룹코드',
+
                 ),
                 onChanged: (value){
                   setState(() {
@@ -48,11 +48,8 @@ class _GroupChoicePageState extends State<GroupChoicePage> {
 
                 onPressed: () async{
                   setState(() async {
-                    //print('${groupCode}');
                     await ServerApi.joingroup(groupCode);
-                    //Navigator.pop(context);
-                    Navigator.pushNamed(context, '/home');
-                    //Navigator.pop(context);
+                    Navigator.pushNamed(context, '/gs');
 
 
                   });
@@ -141,9 +138,7 @@ class _GroupMakePageState extends State<GroupMakePage> {
                 onPressed: () {
                   setState(() {
                     ServerApi.createGroup(groupCode, groupName);
-                    //Navigator.popUntil(context, (route) => route.);
                     Navigator.pushNamed(context, '/gc');
-                    //Navigator.pop(context);
                   });
 
                 },
