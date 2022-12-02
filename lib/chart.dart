@@ -18,6 +18,7 @@ class _ChartListPageState extends State<ChartListPage> with TickerProviderStateM
   int roomid=0;
   late TabController _tabController;
   List<Widget>? _pagelist;
+  int _init_index=0;
   @override
   void initState(){
     roomlist = ServerApi.getRoom();
@@ -31,7 +32,7 @@ class _ChartListPageState extends State<ChartListPage> with TickerProviderStateM
       FutureBuilder(future: roomlist,builder: (context,snapshot) {
         if (snapshot.hasData) {
           _pagelist=List<Widget>.generate(snapshot.data!.roomlist!.length!, (index) => StaticsPage(snapshot!.data!.roomlist![index].id!));
-          _tabController = new TabController(vsync: this, length: snapshot.data!.roomlist!.length,);
+          _tabController = new TabController(vsync: this, length: snapshot.data!.roomlist!.length,initialIndex: _init_index);
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.white,
@@ -76,9 +77,7 @@ class _ChartListPageState extends State<ChartListPage> with TickerProviderStateM
             floatingActionButton: FloatingActionButton(
               onPressed: () async{
                 await ServerApi.updatestatics();
-                setState(() {
-
-                });
+                _init_index=_tabController.index;
               },
               backgroundColor: Colors.green,
               child: const Icon(Icons.replay),
