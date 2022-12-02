@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'main.dart';
 import 'server.dart';
@@ -13,7 +14,6 @@ class ChartListPage extends StatefulWidget {
 }
 
 class _ChartListPageState extends State<ChartListPage> with TickerProviderStateMixin {
-
   Future<GETROOMLIST>? roomlist;
   int roomid=0;
   late TabController _tabController;
@@ -92,6 +92,7 @@ class _ChartListPageState extends State<ChartListPage> with TickerProviderStateM
       }
       );
   }
+
 }
 
 
@@ -144,4 +145,4 @@ class _StaticsPageState extends State<StaticsPage> {
 }
 
 
-//Dynamic update 구현
+
