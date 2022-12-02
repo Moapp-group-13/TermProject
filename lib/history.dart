@@ -10,6 +10,8 @@ import 'package:photo_view/photo_view.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:camera/camera.dart';
+import 'dart:io';
 
 class HistoryPage extends StatefulWidget {
   HistoryPage({Key? key}) : super(key: key);
@@ -20,20 +22,25 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin {
-
+  late File _image;
   Future<GETROOMLIST>? roomlist;
   List<AssetImage> IconList=[AssetImage("loginimage.PNG"),AssetImage("loginimage.PNG"),AssetImage("loginimage.PNG")];
   int roomid=0;
   late TabController _tabController;
   XFile? selectImage;
   List<Widget>? _pagelist;
+
   @override
   void initState(){
     roomlist = ServerApi.getRoom();
     super.initState();
-
   }
-
+  Future getCameraImage() async {
+    var image = await ImagePicker().pickImage(source: ImageSource.camera);
+    setState(() {
+      _image = image as File;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return
@@ -129,15 +136,9 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(left: 8, right: 8),
-                                  child: InkWell(
-                                    child: Icon(
-                                      Icons.camera_alt,
-                                      color: Colors.green,
-                                      size: 24,
-                                    ),
-                                    onTap: () {
-                                      print('index${_tabController.index}');
-                                    },
+                                  child: FloatingActionButton(
+                                    onPressed: getCameraImage,
+                                    child: Icon(Icons.camera_alt),
                                   ),
                                 ),
                               ],
