@@ -8,7 +8,10 @@ class Cleaning with ChangeNotifier{
 }
 class Iconing with ChangeNotifier{
   int icon=0;
+  int getCount() => icon;
   void changeIcon(int key){
-    this.icon=key;
+    icon=key;
+    print(this.icon);
+    notifyListeners();
   }
 }

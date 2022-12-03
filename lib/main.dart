@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context){
 
     return ChangeNotifierProvider(
-      create: (BuildContext context) => Cleaning(),
+      create: (BuildContext context) => Iconing(),
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner : false,
         //앱상단 디버그 띠를 없애기
@@ -119,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: pages.elementAt(_selectedTabIndex),
 
 
-
+      drawer: const Drawer(),
       bottomNavigationBar:BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedTabIndex,
@@ -132,7 +132,9 @@ class _MyHomePageState extends State<MyHomePage> {
     ],
         selectedItemColor: Colors.blueAccent,
       )
+
     );
+
 
   }
 }

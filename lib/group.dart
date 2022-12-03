@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:termproject/selectgroup.dart';
 import 'package:termproject/server.dart';
 import 'main.dart';
 import 'model/model.dart';
@@ -50,6 +51,8 @@ class _GroupChoicePageState extends State<GroupChoicePage> {
                   setState(() async {
                     await ServerApi.joingroup(groupCode);
                     Navigator.pushNamed(context, '/gs');
+
+
 
 
                   });
@@ -135,10 +138,11 @@ class _GroupMakePageState extends State<GroupMakePage> {
                 },
               ),
               ElevatedButton(
-                onPressed: () {
-                  setState(() {
+                onPressed: () async {
+                  setState(() async{
                     ServerApi.createGroup(groupCode, groupName);
                     Navigator.pushNamed(context, '/gc');
+
                   });
 
                 },
