@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:termproject/server.dart';
 import 'model/model.dart';
-//https://g-y-e-o-m.tistory.com/164 popuntil하면서 내용전달하기
+import 'package:termproject/providerclass.dart';
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
@@ -34,105 +35,104 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    int? args = ModalRoute.of(context)?.settings.arguments as int?;
-    print('${args}');
-    if(args!=null) icon=args;
+    //int? args = ModalRoute.of(context)?.settings.arguments as int?;
+    //print(context.read<Iconing>().icon);
+    //if(args!=null) icon=args;
+    icon = Provider.of<Iconing>(context).getCount();
     return Scaffold(
-      appBar: AppBar(
-        //toolbarHeight: 80,
-        backgroundColor: Colors.white,
-        title: Text('회원가입'),
+        appBar: AppBar(
+          //toolbarHeight: 80,
+          backgroundColor: Colors.white,
+          title: Text('회원가입'),
 
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key:_formKey,
-          child: ListView(
-            children: <Widget>[
-              Center(
-                child: Stack(
-                    children: [
-                      CircleAvatar(
-                        radius: 70,
-                        backgroundImage: AssetImage(
-                            '${icon}.PNG'),
-                      ),
-                      Positioned(
-                          bottom: 5,
-                          right: 5,
-                          child: InkWell(
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key:_formKey,
+            child: ListView(
+              children: <Widget>[
+                Center(
+                  child: Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 70,
+                          backgroundImage: AssetImage(
+                              '${context.read<Iconing>().icon.toString()}.PNG'),
+                        ),
+                        Positioned(
+                            bottom: 5,
+                            right: 5,
+                            child: InkWell(
 
-                            onTap: () {
-                              Navigator.pushNamed(context, '/icr',arguments: icon);
+                              onTap: () {
+                                Navigator.pushNamed(context, '/icr');
 
-                            },
-                            child: Icon(
-                              Icons.camera_alt,
-                              size: 40,
-                              color: Colors.black12,
-                            ),
+                              },
+                              child: Icon(
+                                Icons.camera_alt,
+                                size: 40,
+                                color: Colors.black12,
+                              ),
 
-                          ))
-                    ]
+                            ))
+                      ]
+                  ),
                 ),
-              ),
 
 
-              TextFormField(
-                decoration:InputDecoration(
-                    labelText: '아이디'
+                TextFormField(
+                  decoration:InputDecoration(
+                      labelText: '아이디'
+                  ),
+                  onChanged: (value){
+                    id=value;
+                  },
                 ),
-                onChanged: (value){
-                  id=value;
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: '비밀번호'
+                TextFormField(
+                  decoration: InputDecoration(
+                      labelText: '비밀번호'
+                  ),
+                  onChanged: (value){
+                    password=value;
+                  },
                 ),
-                onChanged: (value){
-                  password=value;
-                },
-              ),
-              TextFormField(
-                //obscureText: true,
-                decoration: InputDecoration(
-                    labelText: '닉네임'
+                TextFormField(
+                  //obscureText: true,
+                  decoration: InputDecoration(
+                      labelText: '닉네임'
+                  ),
+                  onChanged: (value){
+                    alias=value;
+                  },
                 ),
-                onChanged: (value){
-                  alias=value;
-                },
-              ),
-              TextFormField(
-                //obscureText: true,
-                decoration: InputDecoration(
-                    labelText: '상태 메시지'
+                TextFormField(
+                  //obscureText: true,
+                  decoration: InputDecoration(
+                      labelText: '상태 메시지'
+                  ),
+                  onChanged: (value){
+                    message=value;
+                  },
                 ),
-                onChanged: (value){
-                  message=value;
-                },
-              ),
 
 
-              ElevatedButton (
-                onPressed: () async{
-                  await ServerApi.register(id, password);
-                  await ServerApi.login(id, password);
+                ElevatedButton (
+                  onPressed: () async{
+                    await ServerApi.register(id, password);
+                    await ServerApi.login(id, password);
 
-                  if(icon!=0){
-                    await ServerApi.changeprofile(alias, icon, message);
-                  }
-                  ServerApi.logout();
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                  Navigator.pushNamed(context, '/login');
-                },
-                child: const Text('Enter'),
-              ),
-            ],
+                    await ServerApi.changeprofile(alias,icon, message);
+                    ServerApi.logout();
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    Navigator.pushNamed(context, '/login');
+                  },
+                  child: const Text('Enter'),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
     );
   }
 }
@@ -148,11 +148,6 @@ class _ModifyPageState extends State<ModifyPage> {
 
   final _formKey=GlobalKey<FormState>();
   Future<Profile>? profile;
-  String? alias;
-  String? id;
-  String? password;
-  String? message;
-  int? icon;
 
   @override
   void initState(){
@@ -162,7 +157,7 @@ class _ModifyPageState extends State<ModifyPage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+     return Scaffold(
         appBar: AppBar(
           //toolbarHeight: 80,
           backgroundColor: Colors.white,
@@ -175,15 +170,12 @@ class _ModifyPageState extends State<ModifyPage> {
             if(snapshot.hasData) {
               var args = ModalRoute.of(context)?.settings.arguments;
 
-              id = snapshot?.data?.user?.username;
-              password = '********';
-              message = snapshot?.data?.stateMessage;
-              alias = snapshot?.data?.nickname;
-              icon = snapshot?.data?.icon;
+              String? id = snapshot?.data?.user?.username;
+              String? password = '********';
+              String? message = snapshot?.data?.stateMessage;
+              String? alias = snapshot?.data?.nickname;
+              int? icon = snapshot?.data?.icon;
               if(args!=null) icon=args as int?;
-              Future<InviteCheck> mg=ServerApi.getmember();
-
-              print(id);
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Form(
@@ -204,7 +196,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                   child: InkWell(
 
                                     onTap: () {
-                                      Navigator.pushNamed(context, '/icm',arguments: icon);
+                                      Navigator.pushNamed(context, '/icm');
 
                                     },
                                     child: Icon(
@@ -284,13 +276,14 @@ class _ModifyPageState extends State<ModifyPage> {
                           });
 
                           },
-                        child: const Text('Enter'),
+                        child: const Text('수정'),
+
 
                       ),
                       ElevatedButton(
                         onPressed: () async{
                           setState(() async {
-                            Navigator.popAndPushNamed(context, '/gc');
+                            Navigator.popAndPushNamed(context, '/gs');
 
                           });
 
@@ -303,7 +296,7 @@ class _ModifyPageState extends State<ModifyPage> {
                           ServerApi.logout();
                           //Navigator.pushNamed(context, '/h');
                           Navigator.pop(context);
-                          Navigator.pushNamed(context, '/gs');
+                          Navigator.pushNamed(context, '/login');
 
                         },
                         child: const Text('로그아웃'),
@@ -336,6 +329,48 @@ class _IconChoiceRegisterState extends State<IconChoiceRegister> {
 
   @override
   Widget build(BuildContext context) {
+    //int args = ModalRoute.of(context)?.settings.arguments as int;
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('아이콘 선택'),
+          backgroundColor: Colors.white,
+        ),
+        body: GridView.count(
+            crossAxisCount: 3,
+            children: List.generate(6, (i) =>
+                IconButton(
+                  padding: EdgeInsets.all(10),
+                  iconSize: 50,
+                  onPressed: () {
+                    setState(() {
+                      context.read<Iconing>().changeIcon(i+1);
+                      Navigator.pop(context);
+                    });
+
+
+                  },
+                  icon: CircleAvatar(
+                    backgroundImage: AssetImage('${i+1}.PNG'),
+                    radius: 50,
+                  ),
+                )
+            ).toList(),
+          ),
+    );
+  }
+}
+
+class IconChoiceModify extends StatefulWidget {
+  const IconChoiceModify({Key? key}) : super(key: key);
+
+  @override
+  State<IconChoiceModify> createState() => _IconChoiceModifyState();
+}
+
+class _IconChoiceModifyState extends State<IconChoiceModify> {
+
+  @override
+  Widget build(BuildContext context) {
     var args = ModalRoute.of(context)?.settings.arguments;
     return Scaffold(
         appBar: AppBar(
@@ -355,7 +390,7 @@ class _IconChoiceRegisterState extends State<IconChoiceRegister> {
                 onPressed: () {
                   setState(() {
                     args=i+1;
-                    Navigator.pushNamed(context, '/r', arguments: args);
+                    Navigator.pushNamed(context, '/m', arguments: args);
                   });
 
 
@@ -368,53 +403,6 @@ class _IconChoiceRegisterState extends State<IconChoiceRegister> {
               )
           ).toList(),
         )
-    );
-  }
-}
-
-class IconChoiceModify extends StatefulWidget {
-  const IconChoiceModify({Key? key}) : super(key: key);
-
-  @override
-  State<IconChoiceModify> createState() => _IconChoiceModifyState();
-}
-
-class _IconChoiceModifyState extends State<IconChoiceModify> {
-
-  @override
-  Widget build(BuildContext context) {
-    var args = ModalRoute.of(context)?.settings.arguments;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('아이콘 선택'),
-        backgroundColor: Colors.white,
-      ),
-      body:GridView.count(
-          crossAxisCount: 3,
-        children: List.generate(6, (i) =>
-            IconButton(
-              //selectedIcon: Icon(Icons.favorite),
-
-
-              //splashRadius: 30,
-              padding: EdgeInsets.all(10),
-              iconSize: 50,
-              onPressed: () {
-                setState(() {
-                  args=i+1;
-                  Navigator.pushNamed(context, '/m', arguments: args);
-                });
-
-
-              },
-              icon: CircleAvatar(
-                backgroundImage: AssetImage('${i+1}.PNG'),
-                radius: 50,
-              ),
-
-            )
-        ).toList(),
-      )
     );
   }
 }

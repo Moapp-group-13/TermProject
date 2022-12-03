@@ -92,7 +92,7 @@ class _LoginPage extends State<LoginPage> {
                 height: 50,
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: ElevatedButton(
-                  child: const Text('LOGIN', style: TextStyle(fontSize:18)),
+                  child: const Text('로그인', style: TextStyle(fontSize:18)),
                   onPressed: () {
                     setState(() async{
                       UserToken usertoken = await ServerApi.login(idController.text,passwordController.text);
