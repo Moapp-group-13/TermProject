@@ -43,8 +43,12 @@ class _GroupSelectPageState extends State<GroupSelectPage> {
           FutureBuilder<MyGroup>(
               future: _mygroup,
               builder: (context, snapshot) {
-                int length = snapshot?.data!.groupList!.length as int;
+                for(int i=0;i<5000;i++){
+                  CircularProgressIndicator();
+                }
+
                 if(snapshot.hasData){
+                  int? length = snapshot?.data!.groupList!.length as int;
                   return Flexible(
                     child: ListView.builder(
                       itemCount: length +1 ,
@@ -102,11 +106,11 @@ class _GroupSelectPageState extends State<GroupSelectPage> {
                               onTap: ()async{
                                 await ServerApi.setGroup(snapshot!.data!.groupList![index].id!);
                                 //  Navigator.pop(context);
-                                Navigator.pushNamed(context, '/home');
-                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: const Duration(milliseconds: 500),
-                                   content: Text("현재그룹 ${snapshot.data!.groupList![index].title!}"),
-                                )
-                                );
+                                // Navigator.pushNamed(context, '/home');
+                                //  ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: const Duration(milliseconds: 500),
+                                //    content: Text("현재그룹 ${snapshot.data!.groupList![index].title!}"),
+                                // )
+                                // );
                                 // Navigator.pop(context);
                               },
 
