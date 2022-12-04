@@ -111,7 +111,7 @@ class _GroupSelectPageState extends State<GroupSelectPage> {
                                 //    content: Text("현재그룹 ${snapshot.data!.groupList![index].title!}"),
                                 // )
                                 // );
-                                // Navigator.pop(context);
+                                Navigator.pushNamed(context, '/home');
                               },
 
 

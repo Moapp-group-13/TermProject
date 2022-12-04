@@ -13,6 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:camera/camera.dart';
 import 'dart:io';
 
+
 class HistoryPage extends StatefulWidget {
   HistoryPage({Key? key}) : super(key: key);
 
@@ -37,9 +38,8 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
     super.initState();
   }
   Future getCameraImage() async {
-    var image = await ImagePicker().pickImage(source: ImageSource.camera);
+    selectImage = await ImagePicker().pickImage(source: ImageSource.camera);
     setState(() {
-      _image = image as File;
     });
   }
   @override
@@ -104,7 +104,7 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
                         .viewInsets
                         .bottom),
                     child: Container(
-                      height: 70,
+                      height: 80,
                       child: Column(
                         children: <Widget>[
                           Expanded(
