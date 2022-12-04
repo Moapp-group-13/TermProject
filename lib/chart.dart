@@ -132,7 +132,12 @@ class _StaticsPageState extends State<StaticsPage> {
                       (index) => CleaningChart(snapshot.data!.liststatics![index].user!.nickname!, snapshot.data!.liststatics![index].score!)),
               xValueMapper: (CleaningChart data,_)=> data.name,
               yValueMapper: (CleaningChart data,_)=> data.cleaning,
-              //dataLabelSettings: const DataLabelSettings(isVisible: true)   //숫자 말고 이름으로
+                dataLabelMapper: (CleaningChart data, _) => data.name,
+              dataLabelSettings: const DataLabelSettings(
+                  isVisible: true,
+                  labelPosition: ChartDataLabelPosition.outside,
+                  textStyle: TextStyle(fontSize: 20),
+              )
             )
           ],);
       }else if(snapshot.hasError){
