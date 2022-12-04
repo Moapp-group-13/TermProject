@@ -12,6 +12,7 @@ import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:camera/camera.dart';
 import 'dart:io';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 
 class HistoryPage extends StatefulWidget {
@@ -23,7 +24,6 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin {
-  late File _image;
   Future<GETROOMLIST>? roomlist;
   List<AssetImage> IconList=[AssetImage("loginimage.PNG"),AssetImage("loginimage.PNG"),AssetImage("loginimage.PNG")];
   int roomid=0;
@@ -36,11 +36,6 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
   void initState(){
     roomlist = ServerApi.getRoom();
     super.initState();
-  }
-  Future getCameraImage() async {
-    selectImage = await ImagePicker().pickImage(source: ImageSource.camera);
-    setState(() {
-    });
   }
   @override
   Widget build(BuildContext context) {
@@ -94,19 +89,32 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
 
             floatingActionButton: FloatingActionButton(
             onPressed: () {
-              showModalBottomSheet<void>(
+              selectImage = null;
+              showMaterialModalBottomSheet(
+                backgroundColor: Colors.transparent,
                 context: context,
                 builder: (BuildContext context) {
+                  return StatefulBuilder(builder: (BuildContext context, StateSetter bottomState) {
+                  // selectImage=null;
                   final ImagePicker _picker = ImagePicker();
                   return Padding(
                     padding: EdgeInsets.only(bottom: MediaQuery
                         .of(context)
                         .viewInsets
                         .bottom),
-                    child: Container(
-                      height: 80,
-                      child: Column(
+                    child: Wrap(
                         children: <Widget>[
+                          selectImage!=null?
+                            Center(
+                                child: Opacity(
+                                  opacity: 0.8,
+                                  child: Container(
+                                    color: Colors.orange.withOpacity(0.0),
+                                    height: 200,
+                                  child: Image.file(File(selectImage!.path)),
+                                  ),
+                                ),
+                            ):SizedBox.shrink(),
                           Expanded(
                             child: MessageBar(
                               replying: false,
@@ -114,10 +122,10 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
                                 if (selectImage != null) {
                                   dynamic sendData = selectImage!.path;
                                   await ServerApi.posthistory(snapshot.data!.roomlist![_tabController.index].id,0,sendData,text);
-                                  selectImage=null;
                                 }
                                 else await ServerApi.posthistory(snapshot.data!.roomlist![_tabController.index].id, 0, null, text);
                                 _init_index=_tabController.index;
+                                Navigator.pop(context);
                               },
                               actions: [
                                 InkWell(
@@ -134,12 +142,19 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
                                       maxWidth: 640,
                                       imageQuality: 100, // 이미지 크기 압축을 위해 퀄리티를 30으로 낮춤.
                                     );
+                                      bottomState(() {
+
+                                      });
                                   },
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(left: 8, right: 8),
                                   child: FloatingActionButton(
-                                    onPressed: getCameraImage,
+                                    onPressed: ()async {
+                                      selectImage = await ImagePicker().pickImage(source: ImageSource.camera);
+                                      bottomState((){
+                                      });
+                                      },
                                     child: Icon(Icons.camera_alt),
                                   ),
                                 ),
@@ -147,13 +162,16 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
                             ),
                           ),
                         ],
-                      ),
+
                     ),
                   );
-                },
+                  }
+                  );
+                }
               ).then((value) {
                 setState(() {});
               });
+
             },
             backgroundColor: Colors.green,
             child: const Icon(Icons.mail),

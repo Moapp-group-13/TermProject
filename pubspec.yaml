@@ -64,6 +64,7 @@ dev_dependencies:
   photo_view: ^0.14.0
   cached_network_image: ^3.2.3
   fluttertoast: ^8.1.1
+  modal_bottom_sheet: ^2.1.2
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
