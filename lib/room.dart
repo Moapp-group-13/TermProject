@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:termproject/main.dart';
+import 'package:termproject/model/model.dart';
+import 'package:termproject/server.dart';
 
 class RoomPage extends StatefulWidget {
   const RoomPage({Key? key}) : super(key: key);
@@ -18,7 +21,6 @@ class _RoomPageState extends State<RoomPage> {
           style: TextStyle(
             fontSize:20.0,
             fontWeight: FontWeight.bold,
-
           ),
 
         ),
@@ -38,159 +40,127 @@ class RoomListPage extends StatefulWidget {
 }
 
 class _RoomListPageState extends State<RoomListPage> {
+  Future<InviteCheck>? getmember;
+
+
+  @override
+  void initState() {
+    super.initState();
+    getmember = ServerApi.getmember();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return
-      Scaffold(
-        appBar: AppBar(
-          title: Text('Room',
-            style: TextStyle(
-              //fontFamily: "title2",
-              //fontSize: 20,
-              //fontWeight: FontWeight.bold,
-            ),),
-          backgroundColor: Colors.white,
-            actions: [
-            IconButton(
+    return Scaffold(
+      appBar: AppBar(
+
+        backgroundColor: Colors.white,
+        title: Text('가족 구성원',
+          style: const TextStyle(
+            //fontFamily: "content7",
+            //fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),),
+        actions: [
+          IconButton(
             onPressed: (){
               setState(() {
-              Navigator.pushNamed(context, '/modify');
+                Navigator.pushNamed(context, '/modify');
               });
-              },
-        icon: const Icon(Icons.account_circle),
-      )
+            },
+            icon: const Icon(Icons.account_circle),
+          )
         ],
-        ),
-        body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+
+      ),
+      body: Column(
         children: [
           const SizedBox(
             height:15,
           ),
-          const Text(
-              '     청소해야할 구역을 지정해주세요',
-            style: TextStyle(
-              fontSize: 16.0,
-              color: Colors.grey,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(
-            height:15,
-          ),
-          Expanded(child: ListView(
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Card(
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius:30,
-                      backgroundImage: AssetImage('1.PNG',),
-                    ),
-                    title: Text('거실',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    subtitle: Text(
-                        '마지막으로 치운 사람: Daddy',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        )
+              const Text(
+                '  우리들의 순위',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
 
-                    ),
-                    trailing: Icon(Icons.more_vert),
-                    isThreeLine: true,
-                  ),
-                ),
-              ),
-              const Card(
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius:30,
-                    backgroundImage: AssetImage('2.PNG'),
-                  ),
-                  title: Text('안방',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  subtitle: Text(
-                      '마지막으로 치운 사람: Mom',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      )
-                  ),
-                  trailing: Icon(Icons.more_vert),
-                  isThreeLine: true,
-                ),
-              ),
-              const Card(
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius:30,
-                    backgroundImage: AssetImage('3.PNG'),
-                  ),
-                  title: Text('부엌',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  subtitle: Text(
-                      '마지막으로 치운 사람: Hyejun',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      )
-                  ),
-                  trailing: Icon(Icons.more_vert),
-                  isThreeLine: true,
-                ),
-              ),
-              const Card(
-                child: ListTile(
-                  leading:  CircleAvatar(
-                    radius:30,
-                    backgroundImage: AssetImage('4.PNG'),
-                  ),
-                  title: Text('베란다',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  subtitle: Text(
-                      '마지막으로 치운 사람: Joohyun',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      )
-                  ),
-                  trailing: Icon(Icons.more_vert),
-                  isThreeLine: true,
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  subtitle: IconButton(
-                      splashRadius: 30,
-                      iconSize: 50,
-                      onPressed: (){},
-                      icon: const Icon(
-                        Icons.add,
-                      )),
-                  isThreeLine: true,
+
                 ),
               ),
             ],
-
-          )
           ),
+          SizedBox(
+            height: 5,
+          ),
+          FutureBuilder<InviteCheck>(
+              future: getmember,
+              builder: (context, snapshot) {
+                if(snapshot.hasData){
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: snapshot?.data!.memberList!.length,
+                      itemBuilder: (context,index){
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            //side: BorderSide(width: 1.0)
+                          ),
+                          elevation: 4.0,
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                radius: 30,
+                                backgroundImage: AssetImage('${snapshot.data!.memberList![index].icon!}.PNG',),
+                              ),
+                              title: Text(snapshot.data!.memberList![index].nickname!,
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontFamily: 'content7',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Text(snapshot.data!.memberList![index].stateMessage!,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontFamily: 'content7',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              trailing: CircleAvatar(
+                                radius: 20,
+                                //backgroundColor: Colors.grey,
+                                child: Text('2위',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontFamily: 'content7',
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.pink,
+                                  ),
+                                ),
+                              ),
 
+                            ),
+                          ),
+                        );
+                      },
+
+                    ),
+                  );
+                }
+                else if(snapshot.hasError){
+                  return Text("error");
+                }
+                return CircularProgressIndicator();
+
+              }
+          ),
         ],
-    ),
-      );
+      ),
+    );
   }
 }
