@@ -249,7 +249,7 @@ class RoomListPage extends StatefulWidget {
 
 class _RoomListPageState extends State<RoomListPage> {
   Future<GETROOMLIST>? roomlist; //룸리스트 퓨쳐 변수로 정의
-  List<AssetImage> IconList=[AssetImage('1.PNG'),AssetImage('2.PNG'),AssetImage("3.PNG"),AssetImage("4.PNG"),AssetImage("loginimage.PNG")];
+  List<AssetImage> IconList=[AssetImage('1.PNG'),AssetImage('2.PNG'),AssetImage("3.PNG"),AssetImage("4.PNG"),AssetImage("5.PNG"),AssetImage("6.PNG")];
   List<AssetImage> dirtyIconList=[AssetImage('d1.PNG'),AssetImage('d2.PNG'),AssetImage("d3.PNG")];
 
   @override

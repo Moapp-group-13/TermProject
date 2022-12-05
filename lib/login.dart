@@ -34,6 +34,21 @@ class LoginPage extends StatefulWidget {
 class _LoginPage extends State<LoginPage> {
   TextEditingController idController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  Future<String?> token=ServerApi.getToken();
+
+
+  @override
+  void initState() {
+    super.initState();
+    token.then((result){
+      if(result!=null){
+        Navigator.pushNamed(context, '/gs');
+
+      }
+    }
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
