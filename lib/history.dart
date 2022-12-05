@@ -54,22 +54,22 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
         return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.white,
-              title: Text('History',style: TextStyle(
+              title: Text('히스토리',style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold
               ),),
               bottom: ButtonsTabBar(
                 controller: _tabController,
-                  backgroundColor: Colors.green[600],
+                  backgroundColor: Colors.grey,
                   unselectedBackgroundColor: Colors.white,
                   labelStyle:
                   TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                   unselectedLabelStyle: TextStyle(
-                      color: Colors.green[600],
+                      color: Colors.grey,
                       fontWeight: FontWeight.bold),
                   borderWidth: 3,
-                  unselectedBorderColor: Colors.green[600]!,
+                  unselectedBorderColor: Colors.grey!,
                   radius: 100,
                   tabs: List<Tab>.generate(
                       snapshot.data!.roomlist!.length, (i) =>
@@ -155,7 +155,7 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
                 setState(() {});
               });
             },
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.grey,
             child: const Icon(Icons.mail),
           ),
           );

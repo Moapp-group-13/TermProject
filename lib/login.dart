@@ -126,18 +126,19 @@ class _LoginPage extends State<LoginPage> {
                       }
                       else{ //아이디, 비밀번호 맞게 쳤을 때
 
-                        String? InGroup = await ServerApi.storage.read(key: "groupid");
+                        //String? InGroup = await ServerApi.storage.read(key: "groupid");
                         //사용자가 그룹등록을 아직 안한 상태라면
+                        //print('Ingroup: ${InGroup}');
                         //Navigator.pushNamed(context, '/home');
-                        if(InGroup==null){
+                        //if(InGroup==null){
                           //Navigator.pushNamed(context, '/gc');
-                          Navigator.push(context,MaterialPageRoute(
-                          builder: (context)=>GroupChoicePage()));
+                          // Navigator.push(context,MaterialPageRoute(
+                          // builder: (context)=>GroupChoicePage()));
 
-                        }
-                        else{
+                        //}
+                        // else{
                            Navigator.pushNamed(context, '/gs');
-                         }
+                        //  }
 
                       }
                       //Navigator.pushNamed(context, '/gs');
