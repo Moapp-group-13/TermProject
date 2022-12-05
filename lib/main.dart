@@ -20,7 +20,7 @@ import 'server.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
-  AddRoomPage(),
+  RoomListPage(),
   HistoryPage(),
   APItestPage()
 ];
