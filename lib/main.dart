@@ -22,7 +22,7 @@ final List<Widget> pages = <Widget>[
   const MemberPage(),
   AddRoomPage(),
   HistoryPage(),
-  ChartListPage()
+  APItestPage()
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
 void main() {

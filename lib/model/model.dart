@@ -226,7 +226,7 @@ class GETROOMLIST {
 class Roomlist {
   int? id;
   int? group;
-  int? manager;
+  Member? manager;
   String? title;
   int? size;
   int? period;
@@ -244,7 +244,8 @@ class Roomlist {
   Roomlist.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     group = json['group'];
-    manager = json['manager'];
+    manager =
+    json['manager'] != null ? new Member.fromJson(json['manager']) : null;
     title = json['title'];
     size = json['size'];
     period = json['period'];
@@ -257,7 +258,7 @@ class Roomlist {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['group'] = this.group;
-    data['manager'] = this.manager;
+    data['manager'] = this.manager!.toJson();
     data['title'] = this.title;
     data['size'] = this.size;
     data['period'] = this.period;
