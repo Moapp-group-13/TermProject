@@ -21,7 +21,7 @@ import 'server.dart';
 final List<Widget> pages = <Widget>[
   const MemberPage(),
   RoomListPage(),
-  HistoryPage(),
+  HistoryPage(0),
   ChartListPage()
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
           '/gc':(context)=>const GroupChoicePage(),
           '/gm':(context)=>const GroupMakePage(),
           '/member':(context)=>const MemberPage(),
-          '/history':(context)=> HistoryPage(),
+          '/history':(context)=> HistoryPage(0),
           '/icm':(context)=>const IconChoiceModify(),
           '/icr':(context)=>const IconChoiceRegister(),
           '/m':(context)=>const ModifyPage(),

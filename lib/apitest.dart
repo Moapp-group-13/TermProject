@@ -146,7 +146,7 @@ class _APItestPageState extends State<APItestPage> {
             
             ElevatedButton(onPressed: (){
               setState((){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryPage(0)));
               });
             }, child: Text("gotoHistory")),
             ElevatedButton(onPressed: (){

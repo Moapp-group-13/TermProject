@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'server.dart';
 import 'model/model.dart';
+import 'history.dart';
 
 class RoomTestPage extends StatefulWidget {
   const RoomTestPage({Key? key}) : super(key: key);
@@ -331,8 +332,12 @@ class _RoomListPageState extends State<RoomListPage> {
                                 ),
 
                                 isThreeLine: true,
+                                onTap: (){
+                                  Navigator.push(context,MaterialPageRoute(
+                                      builder: (context)=>HistoryPage(index)));                                },
                               ),
-                            ),);
+                            ),
+                          );
                         }
                     )
                     );

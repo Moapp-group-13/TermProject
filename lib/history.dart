@@ -15,7 +15,8 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 
 class HistoryPage extends StatefulWidget {
-  HistoryPage({Key? key}) : super(key: key);
+  int idx=0;
+  HistoryPage(this.idx,{Key? key}) : super(key: key);
 
   @override
   State<HistoryPage> createState() => _HistoryPageState();
@@ -30,11 +31,12 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
   XFile? selectImage;
   List<Widget>? _pagelist;
   int selectedIcon=0;
-
   int _init_index=0;
+
   @override
   void initState(){
     roomlist = ServerApi.getRoom();
+    _init_index=widget.idx;
     super.initState();
   }
   @override
