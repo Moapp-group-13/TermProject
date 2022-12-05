@@ -287,7 +287,7 @@ class _RoomListPageState extends State<RoomListPage> {
                               child: ListTile(
                                 leading: CircleAvatar(
                                   radius: 30,
-                                  backgroundImage: IconList[snapshot!.data!.roomlist![index].lastHistory?.author!.icon??4], // 가장 최근 정보 사진 가져오기
+                                  backgroundImage: IconList[snapshot!.data!.roomlist![index].manager!.icon!], // 가장 최근 정보 사진 가져오기
                                 ),
                                 title: Text(
                                     snapshot.data!.roomlist![index].title!,
@@ -300,7 +300,7 @@ class _RoomListPageState extends State<RoomListPage> {
                                     '마지막으로 치운 사람: ${snapshot.data!
                                         .roomlist![index].lastHistory?.author!
                                         .nickname??"없음"} 담당: ${snapshot.data!
-                                    .roomlist![index].manager}', //마지막으로 치운 사람
+                                    .roomlist![index].manager!.nickname!}', //마지막으로 치운 사람
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
