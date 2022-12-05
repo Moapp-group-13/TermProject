@@ -17,12 +17,13 @@ class MemberPage extends StatefulWidget {
 }
 class _MemberPageState extends State<MemberPage> {
   Future<InviteCheck>? getmember;
-
+  Future<Map>? getscore;
 
   @override
   void initState() {
     super.initState();
     getmember = ServerApi.getmember();
+    getscore =ServerApi.groupScore();
   }
 
   @override
@@ -72,13 +73,13 @@ class _MemberPageState extends State<MemberPage> {
           SizedBox(
             height: 5,
           ),
-          FutureBuilder<InviteCheck>(
-            future: getmember,
+          FutureBuilder<List<dynamic>>(
+            future: Future.wait([getmember!,getscore!]),
             builder: (context, snapshot) {
               if(snapshot.hasData){
                 return Expanded(
                   child: ListView.builder(
-                    itemCount: snapshot?.data!.memberList!.length,
+                    itemCount: snapshot?.data![0].memberList!.length,
                     itemBuilder: (context,index){
                       return Card(
                         shape: RoundedRectangleBorder(
@@ -91,34 +92,34 @@ class _MemberPageState extends State<MemberPage> {
                           child: ListTile(
                             leading: CircleAvatar(
                               radius: 30,
-                              backgroundImage: AssetImage('${snapshot.data!.memberList![index].icon!}.PNG',),
+                              backgroundImage: AssetImage('${snapshot.data![0].memberList![index].icon!}.PNG',),
                             ),
-                            title: Text(snapshot.data!.memberList![index].nickname!,
+                            title: Text(snapshot.data![0].memberList![index].nickname!,
                               style: TextStyle(
                                 fontSize: 25,
                                 fontFamily: 'content7',
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            subtitle: Text(snapshot.data!.memberList![index].stateMessage!,
+                            subtitle: Text(snapshot.data![0].memberList![index].stateMessage!,
                               style: TextStyle(
                                 fontSize: 17,
                                 fontFamily: 'content7',
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            // trailing: CircleAvatar(
-                            //   radius: 20,
-                            //   //backgroundColor: Colors.grey,
-                            //   child: Text('2위',
-                            //     style: TextStyle(
-                            //       fontSize: 22,
-                            //       fontFamily: 'content7',
-                            //       fontWeight: FontWeight.bold,
-                            //       color: Colors.pink,
-                            //     ),
-                            //   ),
-                            // ),
+                            trailing: CircleAvatar(
+                              radius: 20,
+                              //backgroundColor: Colors.grey,
+                              child: Text('${snapshot.data![1][snapshot.data![0].memberList![index].user.id]??"0"}',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontFamily: 'content7',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.pink,
+                                ),
+                              ),
+                            ),
 
                           ),
                         ),

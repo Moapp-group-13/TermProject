@@ -159,6 +159,11 @@ class _APItestPageState extends State<APItestPage> {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>ChartListPage()));
               });
             }, child: Text("chartlistpage")),
+            ElevatedButton(onPressed: (){
+              setState((){
+                ServerApi.groupScore();
+              });
+            }, child: Text("groupScore")),
 
           ],
         ),

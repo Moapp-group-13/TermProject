@@ -423,6 +423,30 @@ class ServerApi {
     }
   }
 
+  static Future<Map> groupScore() async {
+    try {
+      Map<int,int> score_map=new Map<int,int>();
+      Response response;
+      var dio = Dio();
+      String? token = await getToken();
+      String? group = await nowGroup();
+      dio.options.headers["authorization"] = "Token " + token!;
+      response = await dio.get(
+          'http://13.124.31.77/getgroupstatic/', queryParameters: {"group": group});
+
+      // Map<String,dynamic> userMap = jsonDecode(response.data);
+      print(response.data);
+      var data=response.data;
+      data["scorelist"].forEach((value){
+        score_map[value["user"]]=value["total_score"];
+      });
+      print(score_map);
+      return score_map;
+    } on DioError catch (e) {
+      print(e.response?.data.toString());
+      return new Map();
+    }
+  }
 }
 
 
