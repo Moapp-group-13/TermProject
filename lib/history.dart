@@ -32,7 +32,6 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
   List<Widget>? _pagelist;
   int selectedIcon=0;
   int _init_index=0;
-
   @override
   void initState(){
     roomlist = ServerApi.getRoom();
@@ -222,7 +221,6 @@ class RoomHistory extends StatefulWidget {
 
 class _RoomHistoryState extends State<RoomHistory> {
   Future<Historylist>? history;
-  List<AssetImage> IconList=[AssetImage('1.PNG'),AssetImage('2.PNG'),AssetImage("3.PNG"),AssetImage("4.PNG"),AssetImage("5.PNG"),AssetImage("6.PNG")];
   List<AssetImage> TypeIconList=[AssetImage('c0.PNG'),AssetImage('c1.PNG'),AssetImage("c2.PNG")];
   @override
   void initState() {
@@ -251,7 +249,7 @@ class _RoomHistoryState extends State<RoomHistory> {
                               children: [
                                 CircleAvatar(
                                   radius:30,
-                                  backgroundImage: IconList[snapshot.data!.listhistory![index].author!.icon!],
+                                  backgroundImage:AssetImage('${snapshot.data!.listhistory![index].author!.icon!}.PNG',),
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -250,7 +250,6 @@ class RoomListPage extends StatefulWidget {
 
 class _RoomListPageState extends State<RoomListPage> {
   Future<GETROOMLIST>? roomlist; //룸리스트 퓨쳐 변수로 정의
-  List<AssetImage> IconList=[AssetImage('1.PNG'),AssetImage('2.PNG'),AssetImage("3.PNG"),AssetImage("4.PNG"),AssetImage("5.PNG"),AssetImage("6.PNG")];
   List<AssetImage> dirtyIconList=[AssetImage('d1.PNG'),AssetImage('d2.PNG'),AssetImage("d3.PNG")];
 
   @override
@@ -306,7 +305,7 @@ class _RoomListPageState extends State<RoomListPage> {
                               child: ListTile(
                                 leading: CircleAvatar(
                                   radius: 30,
-                                  backgroundImage: IconList[snapshot!.data!.roomlist![index].manager!.icon!], // 가장 최근 정보 사진 가져오기
+                                  backgroundImage: AssetImage('${snapshot!.data!.roomlist![index].manager!.icon!}.PNG',), // 가장 최근 정보 사진 가져오기
                                 ),
                                 title: Text(
                                     snapshot.data!.roomlist![index].title!,
