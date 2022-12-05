@@ -36,22 +36,22 @@ class _ChartListPageState extends State<ChartListPage> with TickerProviderStateM
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.white,
-              title: Text('Statics',style: TextStyle(
+              title: Text('통계',style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold
               ),),
               bottom: ButtonsTabBar(
                   controller: _tabController,
-                  backgroundColor: Colors.green[600],
+                  backgroundColor: Colors.grey,
                   unselectedBackgroundColor: Colors.white,
                   labelStyle:
                   TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                   unselectedLabelStyle: TextStyle(
-                      color: Colors.green[600],
+                      color: Colors.grey,
                       fontWeight: FontWeight.bold),
                   borderWidth: 3,
-                  unselectedBorderColor: Colors.green[600]!,
+                  unselectedBorderColor: Colors.grey,
                   radius: 100,
                   tabs: List<Tab>.generate(
                       snapshot.data!.roomlist!.length, (i) =>
@@ -79,7 +79,7 @@ class _ChartListPageState extends State<ChartListPage> with TickerProviderStateM
                 await ServerApi.updatestatics();
                 _init_index=_tabController.index;
               },
-              backgroundColor: Colors.green,
+              backgroundColor: Colors.grey,
               child: const Icon(Icons.replay),
             ),
           );
@@ -124,7 +124,7 @@ class _StaticsPageState extends State<StaticsPage> {
     return FutureBuilder(future: _statics,builder: (context,snapshot){
       if(snapshot.hasData){
         return SfCircularChart(
-          title: ChartTitle(text: 'Statistics'),
+          //title: ChartTitle(text: 'Statistics'),
           legend: (Legend(isVisible: true, overflowMode: LegendItemOverflowMode.wrap)),
           series: <CircularSeries>[
             PieSeries<CleaningChart , String>(

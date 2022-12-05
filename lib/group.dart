@@ -36,6 +36,14 @@ class _GroupChoicePageState extends State<GroupChoicePage> {
                   labelText: '그룹코드',
 
                 ),
+                validator: (value){
+                  if(value == null || value.isEmpty){
+                    return '그룹코드를 입력해주세요.';
+                  }
+
+                  return null;
+
+                },
                 onChanged: (value){
                   setState(() {
                     groupCode=value;
@@ -49,8 +57,13 @@ class _GroupChoicePageState extends State<GroupChoicePage> {
 
                 onPressed: () async{
                   setState(() async {
-                    await ServerApi.joingroup(groupCode);
-                    Navigator.pushNamed(context, '/gs');
+
+                    if(_formKey.currentState!.validate()){
+                      await ServerApi.joingroup(groupCode);
+                      Navigator.pushNamed(context, '/gs');
+                    }
+
+
 
 
 
@@ -116,15 +129,34 @@ class _GroupMakePageState extends State<GroupMakePage> {
                     groupCode=value;
                   });
                 },
+                validator: (value){
+                  if(value == null || value.isEmpty){
+                    return '그룹코드를 입력해주세요.';
+                  }
+                  
+                  return null;
+
+                },
               ),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: '그룹이름',
                 ),
+
                 onChanged: (value){
                   setState(() {
                     groupName=value;
                   });
+                },
+                validator: (value){
+                  if(value == null || value.isEmpty){
+                    return '그룹이름을 입력해주세요.';
+                  }
+                  else if(value.length>=10){
+                    return '10글자 미만으로 입력해주세요.';
+                  }
+                  return null;
+
                 },
               ),
               TextFormField(
@@ -140,8 +172,11 @@ class _GroupMakePageState extends State<GroupMakePage> {
               ElevatedButton(
                 onPressed: () async {
                   setState(() async{
-                    ServerApi.createGroup(groupCode, groupName);
-                    Navigator.pushNamed(context, '/gc');
+
+                    if(_formKey.currentState!.validate()){
+                      await ServerApi.createGroup(groupCode, groupName);
+                      Navigator.pushNamed(context, '/gc');
+                    }
 
                   });
 

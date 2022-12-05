@@ -106,7 +106,7 @@ class _GroupSelectPageState extends State<GroupSelectPage> {
                               onTap: ()async{
                                 await ServerApi.setGroup(snapshot!.data!.groupList![index].id!);
                                 //  Navigator.pop(context);
-                                // Navigator.pushNamed(context, '/home');
+                                 Navigator.pushNamed(context, '/home');
                                 //  ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: const Duration(milliseconds: 500),
                                 //    content: Text("현재그룹 ${snapshot.data!.groupList![index].title!}"),
                                 // )
