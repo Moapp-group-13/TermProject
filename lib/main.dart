@@ -9,21 +9,20 @@ import 'package:termproject/chart.dart';
 import 'apitest.dart';
 import 'group.dart';
 import 'testpage.dart';
-import 'roomadd1.dart';
+
 import 'package:provider/provider.dart';
 import 'providerclass.dart';
 import 'login.dart';
 import 'apitest.dart';
-import 'roomadd1.dart';
+import 'room.dart';
 import 'history.dart';
-import 'room_example.dart';
 import 'server.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
-  ListPage(),
+  AddRoomPage(),
   HistoryPage(),
-  ChartListPage()
+  RoomListPage()
 ];
 /* 페이지 실행시 2~4번째 지우고 본인 페이지 넣어주세요 */
 void main() {
@@ -76,7 +75,7 @@ class MyApp extends StatelessWidget {
           '/m':(context)=>const ModifyPage(),
           '/r':(context)=>const RegisterPage(),
           '/roomadd':(context)=>const AddRoomPage(),
-          '/rlist': (context)=>const MyListPage(),
+          '/rlist': (context)=>const RoomListPage(),
           '/gs':(context)=>const GroupSelectPage(),
 
 
