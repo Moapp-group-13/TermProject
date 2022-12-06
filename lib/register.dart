@@ -213,6 +213,8 @@ class _ModifyPageState extends State<ModifyPage> {
 
 
                       TextFormField(
+
+                        style: TextStyle(fontWeight: FontWeight.bold),
                         initialValue: id,
                         decoration: InputDecoration(
                             labelText: '아이디'
@@ -222,6 +224,8 @@ class _ModifyPageState extends State<ModifyPage> {
                         },
                       ),
                       TextFormField(
+
+                        style: TextStyle(fontWeight: FontWeight.bold),
                         initialValue: password,
                         //obscureText: true,
                         decoration: InputDecoration(
@@ -232,6 +236,8 @@ class _ModifyPageState extends State<ModifyPage> {
                         },
                       ),
                       TextFormField(
+
+                        style: TextStyle(fontWeight: FontWeight.bold),
                         initialValue: alias,
                         decoration: InputDecoration(
                             labelText: '닉네임'
@@ -241,6 +247,8 @@ class _ModifyPageState extends State<ModifyPage> {
                         },
                       ),
                       TextFormField(
+
+                        style: TextStyle(fontWeight: FontWeight.bold),
                         initialValue: message,
                         //obscureText: true,
                         decoration: InputDecoration(

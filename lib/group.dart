@@ -116,6 +116,8 @@ class _GroupMakePageState extends State<GroupMakePage> {
           child: ListView(
             children: [
               TextFormField(
+
+                style: TextStyle(fontWeight: FontWeight.bold),
                 decoration: InputDecoration(
                   labelText: '그룹코드',
                 ),
@@ -134,6 +136,8 @@ class _GroupMakePageState extends State<GroupMakePage> {
                 },
               ),
               TextFormField(
+
+                style: TextStyle(fontWeight: FontWeight.bold),
                 decoration: InputDecoration(
                   labelText: '그룹이름',
                 ),
@@ -155,6 +159,8 @@ class _GroupMakePageState extends State<GroupMakePage> {
                 },
               ),
               TextFormField(
+
+                style: TextStyle(fontWeight: FontWeight.bold),
                 decoration: InputDecoration(
                   labelText: '그룹 정원',//없어도되나?
                 ),
