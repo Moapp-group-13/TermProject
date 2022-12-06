@@ -130,12 +130,12 @@ class _StaticsPageState extends State<StaticsPage> {
             PieSeries<CleaningChart , String>(
               dataSource: List<CleaningChart>.generate(snapshot.data!.liststatics!.length!,
                       (index) => CleaningChart(snapshot.data!.liststatics![index].user!.nickname!, snapshot.data!.liststatics![index].score!)),
-              xValueMapper: (CleaningChart data,_)=> data.name,
+              xValueMapper: (CleaningChart data,_)=> data.name!,
               yValueMapper: (CleaningChart data,_)=> data.cleaning,
-                dataLabelMapper: (CleaningChart data, _) => data.name,
+                dataLabelMapper: (CleaningChart data, _) => data.name!,
               dataLabelSettings: const DataLabelSettings(
                   isVisible: true,
-                  labelPosition: ChartDataLabelPosition.outside,
+                  showZeroValue : false,
                   textStyle: TextStyle(fontSize: 20),
               )
             )
