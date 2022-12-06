@@ -15,7 +15,6 @@ class RegisterPage extends StatelessWidget {
   }
 }
 
-
 class RegisterForm extends StatefulWidget {//사진아이콘넣기
   const RegisterForm({Key? key}) : super(key: key);
 
@@ -35,16 +34,12 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    //int? args = ModalRoute.of(context)?.settings.arguments as int?;
-    //print(context.read<Iconing>().icon);
-    //if(args!=null) icon=args;
     icon = Provider.of<Iconing>(context).getCount();
     return Scaffold(
         appBar: AppBar(
           //toolbarHeight: 80,
           backgroundColor: Colors.white,
           title: Text('회원가입'),
-
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -74,15 +69,13 @@ class _RegisterFormState extends State<RegisterForm> {
                                 size: 40,
                                 color: Colors.black12,
                               ),
-
-                            ))
+                            )
+                        )
                       ]
                   ),
                 ),
 
-
                 TextFormField(
-
                   style: TextStyle(fontWeight: FontWeight.bold),
                   decoration:InputDecoration(
                       labelText: '아이디'
@@ -92,9 +85,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                 ),
                 TextFormField(
-
                   style: TextStyle(fontWeight: FontWeight.bold),
-
                   obscureText: true,
                   decoration: InputDecoration(
                       labelText: '비밀번호'
@@ -104,7 +95,6 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                 ),
                 TextFormField(
-
                   style: TextStyle(fontWeight: FontWeight.bold),
                   //obscureText: true,
                   decoration: InputDecoration(
@@ -115,7 +105,6 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                 ),
                 TextFormField(
-
                   style: TextStyle(fontWeight: FontWeight.bold),
                   //obscureText: true,
                   decoration: InputDecoration(
@@ -126,12 +115,10 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                 ),
 
-
                 ElevatedButton (
                   onPressed: () async{
                     await ServerApi.register(id, password);
                     await ServerApi.login(id, password);
-
                     await ServerApi.changeprofile(alias,icon, message);
                     ServerApi.logout();
                     Navigator.of(context).popUntil((route) => route.isFirst);
@@ -246,7 +233,6 @@ class _ModifyPageState extends State<ModifyPage> {
                       //   },
                       // ),
                       TextFormField(
-
                         style: TextStyle(fontWeight: FontWeight.bold),
                         initialValue: alias,
                         decoration: InputDecoration(
@@ -257,7 +243,6 @@ class _ModifyPageState extends State<ModifyPage> {
                         },
                       ),
                       TextFormField(
-
                         style: TextStyle(fontWeight: FontWeight.bold),
                         initialValue: message,
                         //obscureText: true,

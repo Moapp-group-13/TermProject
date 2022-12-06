@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:termproject/main.dart';
 import 'package:termproject/model/model.dart';
 import 'package:termproject/server.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'register.dart';
 
 class GroupSelectPage extends StatefulWidget {
   const GroupSelectPage({Key? key}) : super(key: key);
@@ -14,27 +11,25 @@ class GroupSelectPage extends StatefulWidget {
 class _GroupSelectPageState extends State<GroupSelectPage> {
   Future<MyGroup>? _mygroup;
 
-
   @override
   void initState() {
     super.initState();
     _mygroup = ServerApi.getGroup();
   }
-
   @override
   Widget build(BuildContext context) {
 
     _mygroup = ServerApi.getGroup();
     return Scaffold(
       appBar: AppBar(
-
         backgroundColor: Colors.white,
         title: Text('그룹 선택창',
           style: const TextStyle(
             //fontFamily: "content7",
             //fontSize: 25,
             fontWeight: FontWeight.bold,
-          ),),
+          ),
+        ),
       ),
       body: Column(
         children: [

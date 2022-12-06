@@ -6,17 +6,9 @@ import 'package:termproject/room.dart';
 import 'package:termproject/selectgroup.dart';
 import 'register.dart';
 import 'package:termproject/chart.dart';
-import 'apitest.dart';
 import 'group.dart';
-import 'testpage.dart';
-
 import 'package:provider/provider.dart';
 import 'providerclass.dart';
-import 'login.dart';
-import 'apitest.dart';
-import 'room.dart';
-import 'history.dart';
-import 'server.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
@@ -47,7 +39,6 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.lightBlue[100],
           fontFamily: 'content7',
           //primaryColor: Color(0xe8eaf6),
-
         ),
         builder: (context, child) {
           return MediaQuery(
@@ -58,9 +49,7 @@ class MyApp extends StatelessWidget {
             child: child!,
           );
         },
-
         initialRoute: '/login',
-
         routes:{
           '/login':(context)=>const LoginPage(),
           '/modify':(context)=>const ModifyPage(),
@@ -76,10 +65,7 @@ class MyApp extends StatelessWidget {
           '/roomadd':(context)=>const AddRoomPage(),
           '/rlist': (context)=>const RoomListPage(),
           '/gs':(context)=>GroupSelectPage(),
-
-
         },
-
         home: const MyHomePage(),
       ),
     );
@@ -88,11 +74,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
-
-
   final String title='';
-
-
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -107,7 +89,6 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _selectedTabIndex = index;
     });
-
   }
   @override
   Widget build(BuildContext context) {
@@ -130,10 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ],
         selectedItemColor: Colors.blueAccent,
       )
-
     );
-
-
   }
 }
 

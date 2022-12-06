@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:termproject/group.dart';
-import 'main.dart';
 import 'register.dart';
 import 'server.dart';
 import 'package:termproject/model/model.dart';
-import 'selectgroup.dart';
 
 void main() => runApp(const MyApp());
 

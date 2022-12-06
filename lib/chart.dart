@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'main.dart';
 import 'server.dart';
-import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'model/model.dart';
 class ChartListPage extends StatefulWidget {
   ChartListPage({Key? key}) : super(key: key);
@@ -39,7 +37,8 @@ class _ChartListPageState extends State<ChartListPage> with TickerProviderStateM
               title: Text('통계',style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold
-              ),),
+              ),
+              ),
               bottom: ButtonsTabBar(
                   controller: _tabController,
                   backgroundColor: Colors.grey,
@@ -73,13 +72,12 @@ class _ChartListPageState extends State<ChartListPage> with TickerProviderStateM
               controller: _tabController,
               children: _pagelist!,
             ),
-
             floatingActionButton: FloatingActionButton(
               onPressed: () async{
                 await ServerApi.updatestatics();
                 _init_index=_tabController.index;
               },
-              backgroundColor: Colors.grey,
+              backgroundColor: Colors.white,
               child: const Icon(Icons.replay),
             ),
           );

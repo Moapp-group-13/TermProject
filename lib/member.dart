@@ -3,10 +3,6 @@ import 'package:termproject/main.dart';
 import 'package:termproject/model/model.dart';
 import 'package:termproject/server.dart';
 import 'register.dart';
-//https://muhly.tistory.com/112
-//폰트 상수 관련 https://darrengwon.tistory.com/388
-//라우트 관련 애니메이션
-// https://velog.io/@enoch1118/%ED%94%8C%EB%9F%AC%ED%84%B0%EB%A5%BC-%ED%94%8C%EB%9F%AC%ED%84%B0%EC%8A%A4%EB%9F%BD%EC%A7%80%EC%95%8A%EA%B2%8C%EB%9D%BC%EC%9A%B0%ED%8A%B8
 
 
 class MemberPage extends StatefulWidget {
@@ -59,7 +55,7 @@ class _MemberPageState extends State<MemberPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                '  우리들의 순위',
+                '  우리들의 점수',
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.grey,
@@ -111,7 +107,7 @@ class _MemberPageState extends State<MemberPage> {
                             trailing: CircleAvatar(
                               radius: 20,
                               //backgroundColor: Colors.grey,
-                              child: Text('${snapshot.data![1][snapshot.data![0].memberList![index].user.id]??"0"}',
+                              child: Text('${snapshot.data![1][snapshot.data![0].memberList![index].user.id]??"0"}점',
                                 style: TextStyle(
                                   fontSize: 22,
                                   fontFamily: 'content7',
