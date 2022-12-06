@@ -20,7 +20,7 @@ import 'server.dart';
 
 final List<Widget> pages = <Widget>[
   const MemberPage(),
-  RoomListPage(),
+  RoomTestPage(),
   HistoryPage(0),
   ChartListPage()
 ];
@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
           '/r':(context)=>const RegisterPage(),
           '/roomadd':(context)=>const AddRoomPage(),
           '/rlist': (context)=>const RoomListPage(),
-          '/gs':(context)=>const GroupSelectPage(),
+          '/gs':(context)=>GroupSelectPage(),
 
 
         },

@@ -23,6 +23,8 @@ class _GroupSelectPageState extends State<GroupSelectPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    _mygroup = ServerApi.getGroup();
     return Scaffold(
       appBar: AppBar(
 
@@ -68,7 +70,10 @@ class _GroupSelectPageState extends State<GroupSelectPage> {
                                     splashRadius: 30,
                                     iconSize: 50,
                                     onPressed: () async{
-                                      Navigator.pushNamed(context, '/gc');
+                                      await Navigator.pushNamed(context, '/gc');
+                                      setState(() {
+
+                                      });
                                     },
                                     icon: const Icon(
                                       Icons.add,
@@ -107,11 +112,6 @@ class _GroupSelectPageState extends State<GroupSelectPage> {
                                 await ServerApi.setGroup(snapshot!.data!.groupList![index].id!);
                                 //  Navigator.pop(context);
                                  Navigator.pushNamed(context, '/home');
-                                //  ScaffoldMessenger.of(context).showSnackBar(SnackBar(duration: const Duration(milliseconds: 500),
-                                //    content: Text("현재그룹 ${snapshot.data!.groupList![index].title!}"),
-                                // )
-                                // );
-                                Navigator.pushNamed(context, '/home');
                               },
 
 
