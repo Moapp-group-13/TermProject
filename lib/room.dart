@@ -11,19 +11,28 @@ class RoomTestPage extends StatefulWidget {
 }
 
 class _RoomTestPageState extends State<RoomTestPage> {
-  // bodypage=
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          'room',
+          '청소 구역',
           style: TextStyle(
             fontSize:24.0,
             fontWeight: FontWeight.bold,
           ),
         ),
+          actions: [
+          IconButton(
+          onPressed: () {
+            setState(() {
+            Navigator.pushNamed(context, '/modify');
+            });
+            },
+              icon: const Icon(Icons.account_circle),
+            )
+    ]
       ),
       body: RoomListPage(),
       floatingActionButton: FloatingActionButton(
@@ -79,10 +88,8 @@ class _AddRoomPageState extends State<AddRoomPage> {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
-
               children: [
                 const SizedBox(height: 30),
-
                 // AddId(),
                 Row(
                   children: [

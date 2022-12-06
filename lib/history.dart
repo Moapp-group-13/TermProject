@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:termproject/main.dart';
-import 'register.dart';
 import 'server.dart';
 import 'model/model.dart';
 import 'package:bubble/bubble.dart';
@@ -194,7 +192,7 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
               });
 
             },
-            backgroundColor: Colors.grey,
+            backgroundColor: Colors.white,
             child: const Icon(Icons.mail),
           ),
           );

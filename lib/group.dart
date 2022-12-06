@@ -2,7 +2,6 @@ import'package:flutter/material.dart';
 import 'package:termproject/selectgroup.dart';
 import 'package:termproject/server.dart';
 import 'main.dart';
-import 'model/model.dart';
 
 
 class GroupChoicePage extends StatefulWidget {
@@ -15,7 +14,6 @@ class GroupChoicePage extends StatefulWidget {
 class _GroupChoicePageState extends State<GroupChoicePage> {
   final _formKey=GlobalKey<FormState>();
   String groupCode = '';
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +32,12 @@ class _GroupChoicePageState extends State<GroupChoicePage> {
                 initialValue: groupCode,
                 decoration: InputDecoration(
                   labelText: '그룹코드',
-
                 ),
                 validator: (value){
                   if(value == null || value.isEmpty){
                     return '그룹코드를 입력해주세요.';
                   }
-
                   return null;
-
                 },
                 onChanged: (value){
                   setState(() {
@@ -84,7 +79,6 @@ class _GroupChoicePageState extends State<GroupChoicePage> {
                 ],
               )
             ],
-
           ),
         ),
       ),
@@ -116,7 +110,6 @@ class _GroupMakePageState extends State<GroupMakePage> {
           child: ListView(
             children: [
               TextFormField(
-
                 style: TextStyle(fontWeight: FontWeight.bold),
                 decoration: InputDecoration(
                   labelText: '그룹코드',
@@ -130,18 +123,14 @@ class _GroupMakePageState extends State<GroupMakePage> {
                   if(value == null || value.isEmpty){
                     return '그룹코드를 입력해주세요.';
                   }
-                  
                   return null;
-
                 },
               ),
               TextFormField(
-
                 style: TextStyle(fontWeight: FontWeight.bold),
                 decoration: InputDecoration(
                   labelText: '그룹이름',
                 ),
-
                 onChanged: (value){
                   setState(() {
                     groupName=value;
@@ -155,11 +144,9 @@ class _GroupMakePageState extends State<GroupMakePage> {
                     return '10글자 미만으로 입력해주세요.';
                   }
                   return null;
-
                 },
               ),
               TextFormField(
-
                 style: TextStyle(fontWeight: FontWeight.bold),
                 decoration: InputDecoration(
                   labelText: '그룹 정원',//없어도되나?
@@ -173,9 +160,7 @@ class _GroupMakePageState extends State<GroupMakePage> {
               ElevatedButton(
                 onPressed: () async {
                   setState(() async{
-
                     if(_formKey.currentState!.validate()){
-
                       final snackBar = SnackBar(
                         content: const Text('이미 존재하는 그룹 코드입니다.\n다른 값을 지정해주세요.'),
                         action: SnackBarAction(
@@ -190,14 +175,10 @@ class _GroupMakePageState extends State<GroupMakePage> {
                         Navigator.pop(context);
                       }
                       else ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
                     }
-
                   });
-
                 },
                 child: const Text('Enter'),
-
               ),
             ],
 
