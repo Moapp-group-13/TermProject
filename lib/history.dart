@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:camera/camera.dart';
 import 'dart:io';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
+// import 'package:chat_bubbles/chat_bubbles.dart';
 
 class HistoryPage extends StatefulWidget {
   int idx=0;
@@ -133,9 +133,7 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
                                     ),
                                 ):SizedBox.shrink(),
                               ],
-                            ),
-                          Expanded(
-                            child: MessageBar(
+                            ), MessageBar(
                               replying: false,
                               onSend: (text) async{
                                 if (selectImage != null) {
@@ -170,7 +168,11 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
                                   padding: EdgeInsets.only(left: 8, right: 8),
                                   child: FloatingActionButton(
                                     onPressed: ()async {
-                                      selectImage = await ImagePicker().pickImage(source: ImageSource.camera);
+                                      selectImage = await ImagePicker().pickImage(
+                                        source: ImageSource.camera,
+                                        maxHeight: 480,
+                                        maxWidth: 640,
+                                        imageQuality: 70,);
                                       bottomState((){
                                       });
                                       },
@@ -179,7 +181,6 @@ class _HistoryPageState extends State<HistoryPage> with TickerProviderStateMixin
                                 ),
                               ],
                             ),
-                          ),
                         ],
 
                     ),
