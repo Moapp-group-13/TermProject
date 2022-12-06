@@ -1,6 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'server.dart';
 import 'model/model.dart';
+import 'history.dart';
+
 class RoomTestPage extends StatefulWidget {
   const RoomTestPage({Key? key}) : super(key: key);
 
@@ -132,11 +136,11 @@ class _AddRoomPageState extends State<AddRoomPage> {
   @override
   void initState() {
     super.initState();
-    getmember = ServerApi.getmember();
   }
 
   @override
   Widget build(BuildContext context) {
+    getmember = ServerApi.getmember();
     return Scaffold(
       resizeToAvoidBottomInset : false,
       appBar: AppBar(
@@ -246,7 +250,8 @@ class RoomListPage extends StatefulWidget {
 
 class _RoomListPageState extends State<RoomListPage> {
   Future<GETROOMLIST>? roomlist; //룸리스트 퓨쳐 변수로 정의
-  List<AssetImage> IconList=[AssetImage('1.PNG'),AssetImage('2.PNG'),AssetImage("3.PNG"),AssetImage("4.PNG"),AssetImage("loginimage.PNG")];
+  List<AssetImage> dirtyIconList=[AssetImage('d1.PNG'),AssetImage('d2.PNG'),AssetImage("d3.PNG")];
+
   @override
   void initState() {
     roomlist = ServerApi.getRoom(); //퓨쳐값 서버에서 받아오기
@@ -276,18 +281,31 @@ class _RoomListPageState extends State<RoomListPage> {
               ),
               FutureBuilder(future: roomlist,
                 builder: (context, snapshot) { //퓨처빌더로 퓨처값 가져오기
+                  int dirty=0;
                   if (snapshot.hasData) {
                     return Expanded(child: ListView.builder( //리스트뷰 빌더로 리스트 생성
                         itemCount: snapshot.data!.roomlist!.length!,
                         //데이터 길이 가져오기
                         itemBuilder: (context, index) {
+                          if(snapshot!.data!.roomlist![index].lastHistory != null){
+                            DateTime date = DateTime.parse(snapshot!.data!.roomlist![index].lastHistory!.createDate!);
+                            DateTime now = DateTime.now();
+                            int diff = now.difference(date).inDays;
+
+                            double flg = diff.toDouble()/snapshot!.data!.roomlist![index].period!;
+
+                            if(flg<1) dirty=0;
+                            else if(flg<1.7) dirty=1;
+                            else dirty =2;
+                            print("$date,$now,$flg");
+                          }
                           return Card(
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
                               child: ListTile(
                                 leading: CircleAvatar(
                                   radius: 30,
-                                  backgroundImage: IconList[snapshot!.data!.roomlist![index].manager!.icon!], // 가장 최근 정보 사진 가져오기
+                                  backgroundImage: AssetImage('${snapshot!.data!.roomlist![index].manager!.icon!}.PNG',), // 가장 최근 정보 사진 가져오기
                                 ),
                                 title: Text(
                                     snapshot.data!.roomlist![index].title!,
@@ -307,10 +325,18 @@ class _RoomListPageState extends State<RoomListPage> {
                                     )
 
                                 ),
-                                trailing: Icon(Icons.more_vert),
+                                trailing:  ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),//add border radius here
+                                  child: Image( image:dirtyIconList[dirty]),//add image location here
+                                ),
+
                                 isThreeLine: true,
+                                onTap: (){
+                                  Navigator.push(context,MaterialPageRoute(
+                                      builder: (context)=>HistoryPage(index)));                                },
                               ),
-                            ),);
+                            ),
+                          );
                         }
                     )
                     );
