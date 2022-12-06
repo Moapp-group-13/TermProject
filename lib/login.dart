@@ -80,6 +80,8 @@ class _LoginPage extends State<LoginPage> {
               Container(
                 padding: const EdgeInsets.all(6),
                 child: TextField(
+
+                  style: TextStyle(fontWeight: FontWeight.bold),
                   controller: idController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -90,6 +92,8 @@ class _LoginPage extends State<LoginPage> {
               Container(
                 padding: const EdgeInsets.all(6),
                 child: TextField(
+
+                  style: TextStyle(fontWeight: FontWeight.bold),
                   obscureText: true,
                   controller: passwordController,
                   decoration: const InputDecoration(

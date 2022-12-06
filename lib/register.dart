@@ -82,6 +82,8 @@ class _RegisterFormState extends State<RegisterForm> {
 
 
                 TextFormField(
+
+                  style: TextStyle(fontWeight: FontWeight.bold),
                   decoration:InputDecoration(
                       labelText: '아이디'
                   ),
@@ -90,6 +92,10 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                 ),
                 TextFormField(
+
+                  style: TextStyle(fontWeight: FontWeight.bold),
+
+                  obscureText: true,
                   decoration: InputDecoration(
                       labelText: '비밀번호'
                   ),
@@ -98,6 +104,8 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                 ),
                 TextFormField(
+
+                  style: TextStyle(fontWeight: FontWeight.bold),
                   //obscureText: true,
                   decoration: InputDecoration(
                       labelText: '닉네임'
@@ -107,6 +115,8 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                 ),
                 TextFormField(
+
+                  style: TextStyle(fontWeight: FontWeight.bold),
                   //obscureText: true,
                   decoration: InputDecoration(
                       labelText: '상태 메시지'
@@ -212,26 +222,32 @@ class _ModifyPageState extends State<ModifyPage> {
 
 
 
+                      // TextFormField(
+                      //
+                      //   style: TextStyle(fontWeight: FontWeight.bold),
+                      //   initialValue: id,
+                      //   decoration: InputDecoration(
+                      //       labelText: '아이디'
+                      //   ),
+                      //   onChanged: (value) {
+                      //     id = value;
+                      //   },
+                      // ),
+                      // TextFormField(
+                      //
+                      //   style: TextStyle(fontWeight: FontWeight.bold),
+                      //   initialValue: password,
+                      //   //obscureText: true,
+                      //   decoration: InputDecoration(
+                      //       labelText: '비밀번호'
+                      //   ),
+                      //   onChanged: (value) {
+                      //     password = value;
+                      //   },
+                      // ),
                       TextFormField(
-                        initialValue: id,
-                        decoration: InputDecoration(
-                            labelText: '아이디'
-                        ),
-                        onChanged: (value) {
-                          id = value;
-                        },
-                      ),
-                      TextFormField(
-                        initialValue: password,
-                        //obscureText: true,
-                        decoration: InputDecoration(
-                            labelText: '비밀번호'
-                        ),
-                        onChanged: (value) {
-                          password = value;
-                        },
-                      ),
-                      TextFormField(
+
+                        style: TextStyle(fontWeight: FontWeight.bold),
                         initialValue: alias,
                         decoration: InputDecoration(
                             labelText: '닉네임'
@@ -241,6 +257,8 @@ class _ModifyPageState extends State<ModifyPage> {
                         },
                       ),
                       TextFormField(
+
+                        style: TextStyle(fontWeight: FontWeight.bold),
                         initialValue: message,
                         //obscureText: true,
                         decoration: InputDecoration(
@@ -249,6 +267,9 @@ class _ModifyPageState extends State<ModifyPage> {
                         onChanged: (value) {
                           message = value;
                         },
+                      ),
+                      SizedBox(
+                        height: 50,
                       ),
                       /*
                       TextFormField(

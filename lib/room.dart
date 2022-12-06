@@ -130,6 +130,7 @@ class _AddRoomPageState extends State<AddRoomPage> {
                 Container(
                   width: 300.0,
                   child: TextField(
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     decoration: const InputDecoration(
                       labelText: '방 이름 ',
                     ),
@@ -141,6 +142,7 @@ class _AddRoomPageState extends State<AddRoomPage> {
                 Container(
                   width: 300.0,
                   child: TextField(
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     decoration: const InputDecoration(
                       labelText: '청소량 ',
                     ),
@@ -152,6 +154,7 @@ class _AddRoomPageState extends State<AddRoomPage> {
                 Container(
                   width: 300.0,
                   child: TextField(
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     decoration: const InputDecoration(
                       labelText: '청소주기 (일) ',
                     ),
