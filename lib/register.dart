@@ -222,29 +222,29 @@ class _ModifyPageState extends State<ModifyPage> {
 
 
 
-                      TextFormField(
-
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        initialValue: id,
-                        decoration: InputDecoration(
-                            labelText: '아이디'
-                        ),
-                        onChanged: (value) {
-                          id = value;
-                        },
-                      ),
-                      TextFormField(
-
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        initialValue: password,
-                        //obscureText: true,
-                        decoration: InputDecoration(
-                            labelText: '비밀번호'
-                        ),
-                        onChanged: (value) {
-                          password = value;
-                        },
-                      ),
+                      // TextFormField(
+                      //
+                      //   style: TextStyle(fontWeight: FontWeight.bold),
+                      //   initialValue: id,
+                      //   decoration: InputDecoration(
+                      //       labelText: '아이디'
+                      //   ),
+                      //   onChanged: (value) {
+                      //     id = value;
+                      //   },
+                      // ),
+                      // TextFormField(
+                      //
+                      //   style: TextStyle(fontWeight: FontWeight.bold),
+                      //   initialValue: password,
+                      //   //obscureText: true,
+                      //   decoration: InputDecoration(
+                      //       labelText: '비밀번호'
+                      //   ),
+                      //   onChanged: (value) {
+                      //     password = value;
+                      //   },
+                      // ),
                       TextFormField(
 
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -267,6 +267,9 @@ class _ModifyPageState extends State<ModifyPage> {
                         onChanged: (value) {
                           message = value;
                         },
+                      ),
+                      SizedBox(
+                        height: 50,
                       ),
                       /*
                       TextFormField(
