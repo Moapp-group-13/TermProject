@@ -82,6 +82,8 @@ class _RegisterFormState extends State<RegisterForm> {
 
 
                 TextFormField(
+
+                  style: TextStyle(fontWeight: FontWeight.bold),
                   decoration:InputDecoration(
                       labelText: '아이디'
                   ),
@@ -90,6 +92,10 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                 ),
                 TextFormField(
+
+                  style: TextStyle(fontWeight: FontWeight.bold),
+
+                  obscureText: true,
                   decoration: InputDecoration(
                       labelText: '비밀번호'
                   ),
@@ -98,6 +104,8 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                 ),
                 TextFormField(
+
+                  style: TextStyle(fontWeight: FontWeight.bold),
                   //obscureText: true,
                   decoration: InputDecoration(
                       labelText: '닉네임'
@@ -107,6 +115,8 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                 ),
                 TextFormField(
+
+                  style: TextStyle(fontWeight: FontWeight.bold),
                   //obscureText: true,
                   decoration: InputDecoration(
                       labelText: '상태 메시지'
