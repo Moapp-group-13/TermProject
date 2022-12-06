@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import'package:flutter/material.dart';
 import 'package:termproject/selectgroup.dart';
 import 'package:termproject/server.dart';
 import 'main.dart';
@@ -62,11 +62,6 @@ class _GroupChoicePageState extends State<GroupChoicePage> {
                       await ServerApi.joingroup(groupCode);
                       Navigator.pushNamed(context, '/gs');
                     }
-
-
-
-
-
 
                   });
                 },
@@ -174,8 +169,22 @@ class _GroupMakePageState extends State<GroupMakePage> {
                   setState(() async{
 
                     if(_formKey.currentState!.validate()){
-                      await ServerApi.createGroup(groupCode, groupName);
-                      Navigator.pushNamed(context, '/gc');
+
+                      final snackBar = SnackBar(
+                        content: const Text('이미 존재하는 그룹 코드입니다.\n다른 값을 지정해주세요.'),
+                        action: SnackBarAction(
+                          label: 'Undo',
+                          onPressed: () {
+                            // Some code to undo the change.
+                          },
+                        ),
+                      );
+                      if(await ServerApi.createGroup(groupCode, groupName)==1) {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      }
+                      else ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
                     }
 
                   });

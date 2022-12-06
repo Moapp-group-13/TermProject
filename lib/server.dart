@@ -193,7 +193,7 @@ class ServerApi {
       return Statics();
     }
   }
-  static Future<void> createGroup(groupcode, title) async{
+  static Future<int> createGroup(groupcode, title) async{
     Response response;
     try {
       var dio = Dio();
@@ -207,8 +207,10 @@ class ServerApi {
           await dio.post('http://13.124.31.77/group/', data: formData);
       print(response.data);
       print("그룹 등록 성공");
+      return 1;
     } on DioError catch (e) {
       print(e.response?.data.toString());
+      return 0;
     }
   }
   static Future<MyGroup> getGroup() async{

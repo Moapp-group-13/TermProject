@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
           '/r':(context)=>const RegisterPage(),
           '/roomadd':(context)=>const AddRoomPage(),
           '/rlist': (context)=>const RoomListPage(),
-          '/gs':(context)=>const GroupSelectPage(),
+          '/gs':(context)=>GroupSelectPage(),
 
 
         },
