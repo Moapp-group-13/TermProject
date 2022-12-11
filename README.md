@@ -1,9 +1,10 @@
-# 모바일 앱 개발 Term Project
+# 2022-2 모바일 앱 개발 Term Project
 
 
 ### :fork_and_knife: 기술스택
 * Flutter
 * Django
+* AWS
 
 ---
 ### :seedling: 앱이름 : 모두의 도비
