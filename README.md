@@ -22,8 +22,8 @@
 * [양혜준](https://github.com/YangHyeJun)
 * [정훈석](https://github.com/HunSeokJeong)
 
-
-
+### :computer: 서버 코드
+https://github.com/HunSeokJeong/moapp_server
 
 ---
 ## Getting Started
