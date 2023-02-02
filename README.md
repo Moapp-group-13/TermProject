@@ -26,8 +26,8 @@
 https://github.com/HunSeokJeong/moapp_server
 
 ### :running:구동화면
-https://user-images.githubusercontent.com/44901486/216235589-559ee7ac-bba1-4256-9d73-7b493938cd97.gif
----
+<img src=https://user-images.githubusercontent.com/44901486/216235589-559ee7ac-bba1-4256-9d73-7b493938cd97.gif>
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
