@@ -6,7 +6,7 @@
 * Django
 * AWS
 
----
+
 ## :seedling: AppName - 모두의 도비
 가족끼리 사용할 수 있는 집안일 분담 가이드 앱
 
@@ -15,7 +15,7 @@
 2022.11.10 ~ 2022.12.06</br>
 
 
----
+
 ## :blush: 개발 참여 인원
 * [김소람](https://github.com/piriram)
 * [김주현](https://github.com/JooHyeonKim)
